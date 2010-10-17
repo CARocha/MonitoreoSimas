@@ -1,4 +1,5 @@
-# Django settings for monitoreo project.
+# Django settings for Monitoreo project.
+
 from local_settings import *
 
 SITE_ID = 1
@@ -26,7 +27,7 @@ MEDIA_URL = '/archivos/'
 ADMIN_MEDIA_PREFIX = '/media/'
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '5l0-#61a#q&2qwqj9^^h2b@uj%uwghh(t=(7d-77%!!z-#=isi'
+SECRET_KEY = 'o7l3pco1d#9%uxwj_36kd@xq)m3_rli6$-l5-h!iev4p23mt*='
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -52,6 +53,14 @@ TEMPLATE_DIRS = (
     PROJECT_DIR + '/templates',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+        "django.core.context_processors.auth",
+        "django.core.context_processors.debug",
+        "django.core.context_processors.i18n",
+        "django.core.context_processors.media", 
+        "django.core.context_processors.request",
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,13 +71,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'monitoreo.lugar',
+    'monitoreo.simas',
 )
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-        "django.core.context_processors.auth",
-        "django.core.context_processors.debug",
-        "django.core.context_processors.i18n",
-        "django.core.context_processors.media", 
-        "django.core.context_processors.request",
-)
-NO_DATA_GRAPH_URL = '/archivos/imagen/error_grafo.jpg'
