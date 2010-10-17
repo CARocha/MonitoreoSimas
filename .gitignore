@@ -3,6 +3,7 @@
 *.py~
 local_settings.py
 *.sqlite3
+*.db
 *.swp
 /media/profile/*.*
 *.pdf
