@@ -1,0 +1,69 @@
+/*aca comieza el css de las tablas*/
+
+table.tablesorter {
+	font-family:arial;
+	background-color: red;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: red;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+
+table.tablesorter thead tr .header {
+	background-image: url(../imagen/bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(../imagen/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(../imagen/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+
+/*fin de las tablas*/
+
+/*comieza el form de busqueda de las tablas*/
+
+form { margin: 10px 0; }
+table { width: 100%; border-collapse: collapse; }
+thead th { background: #f34105; color: #fff; }
+tbody th { text-align: left; }
+table th, table td { border: 1px solid #ddd; padding: 2px 5px; font-size: 100%; }
+pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bold; }
+.odd, .r1 { background: #fff; }
+.even, .r2 { background: #f7f7f7; }
+.r3 { background: #ebebeb; }
+.search { font-weight:  bold; }
+
+dt { margin-top: 10px; font-weight: bold;  }
+dd { margin: 0;}
+
+form.quicksearch { padding: 10px; background: #f7f7f7; }
+form.quicksearch input { margin-left: 5px; width: 300px; }
+form.quicksearch img { vertical-align: middle; margin-left: 5px; }
+
+/*fin del form de las tablas*/
