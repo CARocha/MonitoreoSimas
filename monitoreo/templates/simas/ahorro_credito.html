@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{%load unslugify %}
+
+{%block extra_header%}
+<script type="text/javascript">
+    var activo = 0; 
+    function click_callback(id){
+        $.getJSON('/grafo/ahorro-credito/' + id, function(data) {
+            if (activo!= id){
+                $("#grafo").html('<img src="' + data.url + '" />');
+                activo = id;
+            }else{
+                $("#grafo").html('');
+                activo = 0;
+            }
+        });
+    }
+$(document).ready(function() {
+    $("#grafico1").click(function(){
+        $("#grafico1").addClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+        $("#grafico4").removeClass('enlace_seleccionado');
+    });
+    
+    $("#grafico2").click(function(){
+        $("#grafico2").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+        $("#grafico4").removeClass('enlace_seleccionado');
+    });
+
+    $("#grafico3").click(function(){
+        $("#grafico3").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico4").removeClass('enlace_seleccionado');
+    });
+    $("#grafico4").click(function(){
+        $("#grafico4").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+    });
+});
+</script>
+{%endblock%}
+{% block contenido %}
+<!--    <div class="graficos_widget">-->
+<!--        <h1>Graficos</h1>-->
+<!--        <a id="grafico1" href="#" onCLick="click_callback('ahorro')">Ahorro</a>-->
+<!--        <a id="grafico2" href="#" onCLick="click_callback('origen')">Origen del Crédito</a>-->
+<!--        <a id="grafico3" href="#" onCLick="click_callback('satisfaccion')">Satisfacción con el crédito</a>-->
+<!--        <a id="grafico4" href="#" onCLick="click_callback('uso')">Uso del crédito</a>-->
+<!--    </div>-->
+<div id="grafo"></div>
+<table id="table_example" class="tablesorter" style="font-size:90%">
+<caption>Los Ahorro</caption>
+ <thead>
+    <tr>
+        <th>Pregunta</th>
+        <th>Sí</th>
+        <th>Porcentaje</th>
+    </tr>
+ </thead>
+ <tbody>
+    {%for fila in tabla_ahorro%}
+    <tr>
+        {%for celda in fila %}
+        <td>{{celda}}</td>
+        {%endfor%}
+    </tr>
+    {%endfor%}
+ </tbody>
+</table>
+
+<table id="table_example" class="tablesorter" style="font-size:90%">
+<caption>Los créditos</caption>
+ <thead>
+    <tr>
+        <th></th>
+        <th>Número</th>
+        <th>Porcentaje</th>
+    </tr>
+ </thead>
+    <tr>
+        <td>Recibe Crédito</td>
+        {%for celda in tabla_credito.recibe%}
+        <td>{{celda|floatformat}}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Recibe Crédito hace menos de 5 años</td>
+        {%for celda in tabla_credito.menos%}
+        <td>{{celda|floatformat}}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Recibe Crédito hace más de 5 años</td>
+        {%for celda in tabla_credito.mas%}
+        <td>{{celda|floatformat}}</td>
+        {%endfor%}
+    </tr>
+    <tr>
+        <td>Está al día con su crédito</td>
+        {%for celda in tabla_credito.al_dia%}
+        <td>{{celda|floatformat}}</td>
+        {%endfor%}
+    </tr>
+</table>
+ <script>
+		// Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
+		// ademas que ordene por defecto las filas 0,0 y 2,1
+		$(document).ready(function() 
+    		{ 
+        		//$("#table_example").tablesorter(); 
+			//$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
+			$("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
+    		} 
+		); 
+	</script>
+
+
+{% endblock %}

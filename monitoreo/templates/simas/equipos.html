@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+{%load unslugify %}
+
+{% block extra_header %}
+ <script type="text/javascript">
+    var activo = 0; 
+    function click_callback(id){
+        $.getJSON('/grafo/bienes/' + id, function(data) {
+            if (activo!= id){
+                $("#grafo").html('<img src="' + data.url + '" />');
+                activo = id;
+            }else{
+                $("#grafo").html('');
+                activo = 0;
+            }
+        });
+    }
+$(document).ready(function() {
+    $("#grafico1").click(function(){
+        $("#grafico1").addClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+        $("#grafico4").removeClass('enlace_seleccionado');
+        $("#grafico5").removeClass('enlace_seleccionado');
+        $("#grafico6").removeClass('enlace_seleccionado');
+    });
+    
+    $("#grafico2").click(function(){
+        $("#grafico2").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+        $("#grafico4").removeClass('enlace_seleccionado');
+        $("#grafico5").removeClass('enlace_seleccionado');
+        $("#grafico6").removeClass('enlace_seleccionado');
+    });
+
+    $("#grafico3").click(function(){
+        $("#grafico3").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico4").removeClass('enlace_seleccionado');
+        $("#grafico5").removeClass('enlace_seleccionado');
+        $("#grafico6").removeClass('enlace_seleccionado');
+    });
+    $("#grafico4").click(function(){
+        $("#grafico4").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+        $("#grafico5").removeClass('enlace_seleccionado');
+        $("#grafico6").removeClass('enlace_seleccionado');
+    });
+
+    $("#grafico5").click(function(){
+        $("#grafico5").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+        $("#grafico4").removeClass('enlace_seleccionado');
+        $("#grafico6").removeClass('enlace_seleccionado');
+    });
+
+    $("#grafico6").click(function(){
+        $("#grafico6").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+        $("#grafico4").removeClass('enlace_seleccionado');
+        $("#grafico5").removeClass('enlace_seleccionado');
+    });
+});
+</script>
+{% endblock %}
+{%block titulo%}Los Bienes{%endblock%}
+
+{% block contenido %}
+<!--    <div class="graficos_widget">-->
+<!--        <h1>Graficos de bienes</h1>-->
+<!--        <a id="grafico1" href="#" onCLick="click_callback('tipocasa')">Tipo Casa</a></a>-->
+<!--        <a id="grafico2" href="#" onCLick="click_callback('tipopiso')">Tipo Piso</a>-->
+<!--        <a id="grafico3" href="#" onCLick="click_callback('tipotecho')">Tipo Techo</a>-->
+<!--        <a id="grafico4" href="#" onCLick="click_callback('ambiente')">Ambientes</a>-->
+<!--        <a id="grafico5" href="#" onCLick="click_callback('letrina')">Letrina</a>-->
+<!--        <a id="grafico6" href="#" onCLick="click_callback('lavadero')">Lavadero</a>-->
+<!--    </div>-->
+ <div id="grafo"></div>
+<table id="table_example" class="tablesorter" style="font-size:90%">
+<caption>Los Equipos</caption>
+ <thead>
+    <tr>
+        <th>EQUIPOS</th>
+        <th>Frecuencia</th>
+        <th>%</th>
+        <th>Cantidad</th>
+        <th>Promedio por familia</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for key, value in tabla.items%}
+    <tr>
+        <td>{{key|unslugify}}</td>
+        <td>{{value.frecuencia|floatformat}}</td>
+        <td>{{value.por_equipo|floatformat}}</td>
+        <td>{{value.equipo|floatformat}}</td>
+        <td>{{value.cantidad_pro|floatformat}}</td>
+    </tr>
+    {%endfor%}
+    </tbody>
+</table>
+
+<table id="table_example" class="tablesorter" style="font-size:90%">
+<caption>Las Infraestructuras</caption>
+ <thead>
+    <tr>
+        <th>INFRAESTRUCTURA</th>
+        <th>FRECUENCIA</th>
+        <th>%</th>
+        <th>CANTIDAD</th>
+        <th>Promedio por familia</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for key, value in tabla_infra.items%}
+    <tr>
+        <td>{{key|unslugify}}</td>
+        <td>{{value.frecuencia|floatformat}}</td>
+        <td>{{value.por_frecuencia|floatformat}}</td>
+         <td>{{value.infraestructura|floatformat}}</td>
+        <td>{{value.infraestructura_pro|floatformat}}</td>
+    </tr>
+    {%endfor%}
+    </tbody>
+</table>
+
+<table id="table_example" class="tablesorter" style="font-size:90%">
+<caption>Las Herramientas</caption>
+ <thead>
+    <tr>
+        <th>HERRAMIENTAS</th>
+        <th>FRECUENCIA</th>
+        <th>%</th>
+        <th>CANTIDAD</th>
+        <th>Promedio por familia</th>
+    </tr>
+ </thead>
+ <tbody>
+    {%for key, value in herramienta.items%}
+    <tr>
+        <td>{{key|unslugify}}</td>
+        <td>{{value.frecuencia|floatformat}}</td>
+        <td>{{value.por_frecuencia|floatformat}}</td>
+         <td>{{value.herra|floatformat}}</td>
+        <td>{{value.por_herra|floatformat}}</td>
+    </tr>
+    {%endfor%}
+    </tbody>
+</table>
+
+<table id="table_example" class="tablesorter" style="font-size:90%">
+<caption>Los Transportes</caption>
+ <thead>
+    <tr>
+        <th>TRANSPORTE</th>
+        <th>FRECUENCIA</th>
+        <th>%</th>
+        <th>CANTIDAD</th>
+        <th>Promedio por familia</th>
+    </tr>
+ </thead>
+ <tbody>
+    {%for key, value in transporte.items%}
+    <tr>
+        <td>{{key|unslugify}}</td>
+        <td>{{value.frecuencia|floatformat}}</td>
+        <td>{{value.por_frecuencia|floatformat}}</td>
+         <td>{{value.trans|floatformat}}</td>
+        <td>{{value.por_trans|floatformat}}</td>
+    </tr>
+    {%endfor%}
+    <tbody>
+</table>
+
+ <script>
+		// Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
+		// ademas que ordene por defecto las filas 0,0 y 2,1
+		$(document).ready(function() 
+    		{ 
+        		//$("#table_example").tablesorter(); 
+			//$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
+			$("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
+    		} 
+		); 
+	</script>
+{% endblock %}
