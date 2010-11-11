@@ -54,11 +54,17 @@ TEMPLATE_DIRS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-        "django.core.context_processors.auth",
-        "django.core.context_processors.debug",
-        "django.core.context_processors.i18n",
-        "django.core.context_processors.media", 
-        "django.core.context_processors.request",
+    # default template context processors
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+
+    # django 1.2 only
+    'django.contrib.messages.context_processors.messages',
+
+    # required by django-admin-tools
+    'django.core.context_processors.request',
 )
 
 INSTALLED_APPS = (
@@ -71,6 +77,26 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
+    'django.contrib.humanize',
     'monitoreo.lugar',
     'monitoreo.simas',
+    'monitoreo.indicador01',
+    'monitoreo.indicador02',
+    'monitoreo.indicador05',
+    'monitoreo.indicador06',
+    'monitoreo.indicador07',
+    'monitoreo.indicador08',
+    'monitoreo.indicador09',
+    'monitoreo.indicador10',
+    'monitoreo.indicador11',
+    'monitoreo.indicador12',
+    'monitoreo.indicador13',
+    'monitoreo.indicador14',
+    'monitoreo.indicador15',
+    'monitoreo.indicador16',
+    'monitoreo.indicador17',
+    'monitoreo.indicador18',
+    'monitoreo.indicador19',
+    'monitoreo.indicador20',
+    'south',
 )

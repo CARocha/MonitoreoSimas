@@ -2,6 +2,24 @@
 
 from django.contrib import admin
 from simas.models import *
+from indicador01.models import *
+from indicador02.models import *
+from indicador05.models import *
+from indicador06.models import *
+from indicador07.models import *
+from indicador08.models import *
+from indicador09.models import *
+from indicador10.models import *
+from indicador11.models import *
+from indicador12.models import *
+from indicador13.models import *
+from indicador14.models import *
+from indicador15.models import *
+from indicador16.models import *
+from indicador17.models import *
+from indicador18.models import *
+from indicador19.models import *
+from indicador20.models import *
 
 class EducacionInline(admin.TabularInline):
     model = Educacion
@@ -18,16 +36,26 @@ class EnergiaInline(admin.TabularInline):
     extra = 1
     max_num = 6
     
+class CocinaInline(admin.TabularInline):
+    model = Cocina
+    extra = 1
+    max_num = 1
+    
 class AguaInline(admin.TabularInline):
     model = Agua
     extra = 1
     
 class OrganizacionGremialInline(admin.TabularInline):
     model = OrganizacionGremial
+    fields = ['socio', 'desde_socio','beneficio', 'miembro_gremial', 
+              'desde_miembro', 'capacitacion','desde_capacitacion',
+              'miembro_junta', 'asumir_cargo']
     extra = 1
     
 class OrganizacionComunitariaInline(admin.TabularInline):
     model = OrganizacionComunitaria
+    fields = ['numero', 'pertence', 'cual_organizacion', 
+              'cual_beneficio', 'no_organizado']
     extra = 1
     
 class TenenciaInline(admin.TabularInline):
@@ -40,6 +68,8 @@ class UsoTierraInline(admin.TabularInline):
     
 class ExistenciaArbolesInline(admin.TabularInline):
     model = ExistenciaArboles
+    fields = ['maderable', 'cantidad_maderable', 'forrajero', 'cantidad_forrajero',
+              'energetico', 'cantidad_energetico', 'frutal', 'cantidad_frutal']
     extra = 1
     
 class ReforestacionInline(admin.TabularInline):
@@ -114,26 +144,27 @@ class VulnerableInline(admin.TabularInline):
     model = Vulnerable
     extra = 1
     
-class RiegosInline(admin.TabularInline):
-    model = Riegos
+class RiesgosInline(admin.TabularInline):
+    model = Riesgos
     extra = 1
     
 class EncuestaAdmin(admin.ModelAdmin):
     save_on_top = True
     actions_on_top = True
-    inlines = [EducacionInline, SaludInline, EnergiaInline, AguaInline,
-               OrganizacionGremialInline, OrganizacionComunitariaInline,
+    inlines = [EducacionInline, SaludInline, EnergiaInline, CocinaInline,
+               AguaInline, OrganizacionGremialInline, OrganizacionComunitariaInline,
                TenenciaInline, UsoTierraInline, ExistenciaArbolesInline,
                ReforestacionInline, AnimalesFincaInline, CultivosFincaInline,
                OpcionesManejoInline, SemillaInline, SueloInline, ManejoSueloInline,
                IngresoFamiliarInline, OtrosIngresosInline, TipoCasaInline,
                DetalleCasaInline, PropiedadesInline, HerramientasInline,
                TransporteInline, AhorroInline, CreditoInline, SeguridadInline,
-               VulnerableInline, RiegosInline,
+               VulnerableInline, RiesgosInline,
                ]
     list_display = ('nombre', 'finca', 'comunidad', 'organizacion')
     list_filter = ['comunidad', 'organizacion']
     search_fields = ['nombre', 'comunidad__nombre', 'organizacion__nombre']
+    date_hierarchy = 'fecha'
                
 admin.site.register(Encuesta, EncuestaAdmin)
 
@@ -188,3 +219,5 @@ admin.site.register(PreguntaRiesgo)
 admin.site.register(Causa)
 admin.site.register(Fenomeno)
 admin.site.register(Graves)
+admin.site.register(AhorroPregunta)
+admin.site.register(TipoCocina)
