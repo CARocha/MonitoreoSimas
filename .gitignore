@@ -4,6 +4,8 @@
 local_settings.py
 *.sqlite3
 *.db
+nbproject/
+*.db
 *.swp
 /media/profile/*.*
 *.pdf

@@ -1,47 +1,266 @@
+body{
+    padding:0;
+    margin: 0;
+    background: #f8f8f8;
+    font-family: 'Trebuchet MS', Trebuchet, sans-serif;
+    font-size: 12px;
+    height: 500px;
+}
+#header{
+    background: url(/archivos/imagen/fondo_encabezado.png) repeat-x top;    
+}
+#user1{
+    background: #384e66;
+    border-top: 1px #707070 solid;
+}
+#user2{    
+}
+#footer{
+    background: #d3d7cf;    
+}
+.wrapper {
+    width: 960px;
+    margin: 0 auto;        
+}
+.clean{
+    clear: both;
+}
+img{
+    border: none;
+}
+a{
+    text-decoration: none;
+    outline: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+.top{
+    height: 26px;
+}
+.tools{
+    margin-left: 15px;
+}
+
+.top .titulo{
+    font-size: 22px;
+    color: #98a34e;
+    margin-left: 15px;
+    line-height: 26px;
+    float: left;
+}
+.top .entrar_link{
+    float: right;
+    font-size: 12px;
+    line-height: 26px;
+    color: #888a85;
+    margin-right: 10px;
+}
+.top .entrar_link a{
+    color: #888a85;
+}
+.tools .subtitulo{
+    font-size: 16px;
+    color: #d0d0cb;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    float: left;
+}
+.tools .nav{
+    float: right;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+.tools .nav a{
+    display: block;
+    float: left;
+    text-indent:-9999px;
+}
+.tools .nav a.init{
+    background: url(/archivos/imagen/sprite_menu.png) no-repeat;
+    width: 82px;
+    height: 30px;    
+}
+.tools .nav a.init:hover{
+    background-position: 0 -30px;    
+}
+.tools .nav a.query{
+    background: url(/archivos/imagen/sprite_menu.png) no-repeat;
+    background-position: -82px 0;
+    width: 120px;
+    height: 30px;
+}
+.tools .nav a.query:hover{
+    background-position: -82px -30px;
+}
+.tools .nav a.about{
+    background: url(/archivos/imagen/sprite_menu.png) no-repeat;
+    background-position: -202px 0;
+    width: 90px;
+    height: 30px;
+}
+.tools .nav a.about:hover{
+    background-position: -202px -30px;
+}
+
+.actualmente{
+    float: left;
+    width: 220px;       
+}
+.actualmente .datos{
+    background: url(/archivos/imagen/fondo_actualmente.png) no-repeat;
+    height: 330px;
+    margin-top: 8px;    
+    margin-bottom: 10px;    
+}
+.actualmente .datos .title{    
+    line-height: 35px;
+    font-size: 20px;
+    color: #99a2ac;
+    text-shadow: 1px 2px #000;
+    padding-left: 12px;
+}
+.actualmente .datos .cuerpo{
+    padding-left: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px #384e66 solid;
+}
+.actualmente .datos img.familias{
+    float: right;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+.actualmente .datos img.organizaciones{
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.actualmente .datos img.personas{
+    margin-left: 5px;
+    margin-top: 10px;
+}
+.actualmente .datos span{
+    font-size: 12px;
+    color: #fff;
+}
+.actualmente .datos span.cant{
+    font-size: 35px;
+    color: #fff845;
+}
+.actualmente .datos span.personas{
+    font-size: 28px;
+    color: #fff845;
+}
+.explorar{
+    background: url(/archivos/imagen/explorar.png) no-repeat;
+    display: block;
+    height: 48px;
+    width: 248px;
+    margin-left: 5px;
+}
+.explorar:hover{
+    background-position: 0 -49px;
+}
+.acerca .title{
+    line-height: 35px;
+    font-size: 20px;
+    color: #99a2ac;
+    text-shadow: 1px 2px #000;
+    margin-left: 5px;
+    margin-top: 10px;
+}
+.acerca .cuerpo{
+    font-size: 11px;
+    color: #fff;
+    margin-left: 5px;
+}
+.acerca .cuerpo a{
+    font-size: 11px;
+    color: #adff2f;
+}
+.acerca .cuerpo a:hover{
+    text-decoration: none;
+    color: #fff;
+}
+.acerca .cuerpo .seguir{
+    margin-top: 8px;
+    margin-bottom: -5px;
+}
+.mapa{
+    float: left;
+    background: url(/archivos/imagen/fondo_mapa.png) repeat-y;
+    width: 508px;    
+}
+.mapa #map_canvas { 
+    height: 350px;
+    width: 449px;
+    margin: 0 auto;
+}
+.acerca{
+    float: left;
+    width: 220px;    
+    height: 330px;
+}
+
+#footer .organizaciones{
+    margin-left: 30px;
+    padding-top: 20px;
+}
+#footer .organizaciones .title{
+    font-size: 18px;
+    color: #000;    
+}
+#footer .organizaciones .zonas{
+    font-size: 16px;
+    color: #384e66;
+    line-height: 25px;
+}
+
+
 /*aca comieza el css de las tablas*/
 
 table.tablesorter {
-	font-family:arial;
-	background-color: red;
-	margin:10px 0pt 15px;
-	font-size: 8pt;
-	width: 100%;
-	text-align: left;
+    font-family:arial;
+    background-color: red;
+    margin:10px 0pt 15px;
+    font-size: 8pt;
+    width: 100%;
+    text-align: left;
 }
 
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: red;
-	border: 1px solid #FFF;
-	font-size: 8pt;
-	padding: 4px;
+    background-color: red;
+    border: 1px solid #FFF;
+    font-size: 8pt;
+    padding: 4px;
 }
 
 table.tablesorter thead tr .header {
-	background-image: url(../imagen/bg.gif);
-	background-repeat: no-repeat;
-	background-position: center right;
-	cursor: pointer;
+    background-image: url(../imagen/bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
 }
 
 table.tablesorter tbody td {
-	color: #3D3D3D;
-	padding: 4px;
-	background-color: #FFF;
-	vertical-align: top;
+    color: #3D3D3D;
+    padding: 4px;
+    background-color: #FFF;
+    vertical-align: top;
 }
 
 table.tablesorter tbody tr.odd td {
-	background-color:#F0F0F6;
+    background-color:#F0F0F6;
 }
 
 table.tablesorter thead tr .headerSortUp {
-	background-image: url(../imagen/asc.gif);
+    background-image: url(../imagen/asc.gif);
 }
 table.tablesorter thead tr .headerSortDown {
-	background-image: url(../imagen/desc.gif);
+    background-image: url(../imagen/desc.gif);
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-background-color: #8dbdd8;
+    background-color: #8dbdd8;
 }
 
 /*fin de las tablas*/
