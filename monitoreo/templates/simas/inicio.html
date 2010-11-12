@@ -2,7 +2,7 @@
 
 {%block extra_header%}
 <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
         var departamento = document.getElementById("id_departamento");
         var municipio = document.getElementById("id_municipio");
         var comunidad= document.getElementById("id_comunidad");
@@ -41,54 +41,52 @@
 {% endblock %}
 
 {% block contenido %}
-                    <form action"." method="POST">
-                        {% csrf_token %}
+<div class="contenido">
+    <form action"." method="POST">
+          {% csrf_token %}
 
-                    <div id="formulario_tabla" >
-                        <div class="form_label"><b>{{form.fecha.label}}</b></div>
-                        <div class="form_widget">{{form.fecha}}</div>
-                        <div class="form_label"><b>{{form.departamento.label}}</b></div>
-                        <div class="form_widget">{{form.departamento}}</div>
-                        <div class="form_label"><b>{{form.municipio.label}}</b></div>
-                        <div class="form_widget">{{form.municipio}}</div>
-                        <div class="form_label"><b>{{form.comunidad.label}}</b></div>
-                        <div class="form_widget">{{form.comunidad}}</div>
-                        <div class="form_label"><b>{{form.cooperativa.label}}</b></div>
-                        <div class="form_widget"><b>{{form.cooperativa}}</b></div>
-                        <div class="form_label"><b>{{form.socio.label}}</b></div>
-                        <div class="form_widget">{{form.socio}}</div> 
-                        <div class="form_label"><b>{{form.desde.label}}</b></div>
-                        <div class="form_widget">{{form.desde}}</div>   
-                        <div class="form_label"><b>{{form.dueno.label}}</b></div>
-                        <div class="form_widget">{{form.dueno}}</div>
-                        <div class="form_label"><b>{{form.tecnologia.label}}</b></div>
-                        <div class="form_widget">{{form.tecnologia}}</div>  
-                        <div class="form_label"><b>{{form.certificacion.label}}</b></div>
-                        <div class="form_widget">{{form.certificacion}}</div>    
-                    </div>
+          <div id="formulario_tabla" >
+            <div class="form_label"><b>{{form.fecha.label}}</b></div>
+            <div class="form_widget">{{form.fecha}}</div>
+            <div class="form_label"><b>{{form.departamento.label}}</b></div>
+            <div class="form_widget">{{form.departamento}}</div>
+            <div class="form_label"><b>{{form.municipio.label}}</b></div>
+            <div class="form_widget">{{form.municipio}}</div>
+            <div class="form_label"><b>{{form.comunidad.label}}</b></div>
+            <div class="form_widget">{{form.comunidad}}</div>
+            <div class="form_label"><b>{{form.cooperativa.label}}</b></div>
+            <div class="form_widget"><b>{{form.cooperativa}}</b></div>
+            <div class="form_label"><b>{{form.socio.label}}</b></div>
+            <div class="form_widget">{{form.socio}}</div>
+            <div class="form_label"><b>{{form.desde.label}}</b></div>
+            <div class="form_widget">{{form.desde}}</div>
+            <div class="form_label"><b>{{form.dueno.label}}</b></div>
+            <div class="form_widget">{{form.dueno}}</div>
+            <div class="form_label"><b>{{form.tecnologia.label}}</b></div>
+            <div class="form_widget">{{form.tecnologia}}</div>
+            <div class="form_label"><b>{{form.certificacion.label}}</b></div>
+            <div class="form_widget">{{form.certificacion}}</div>
+        </div>
 
-                      <input type="submit" value="Consultar" id="boton" class="filtro"/>
-                    </form>
-                                        {%if centinela = 1 %}
-                    <div id="indicadores" class="der">
-                        <h2 class="titulo_indicadores">INDICADORES</h2>
-                        <div id="contenedor_indicadores">
-                            <a href="/datos_generales" class="familia">Datos Generales</a>
-                            <a href="/organizaciones" class="organizacion">Organización</a>
-                            <a href="/familias" class="migracion">Migracion</a>
-                            <a href="/alimento" class="seguridad">Alimento</a>
-                            <a href="/servicios"class="servicios">Servicios</a>
-                            <a href="/servicios"class="salud">Salud</a>
-                            <a href="/finca"class="cultivos">Finca</a>
-                            <a href="/ingresos"class="ingresos">Ingresos</a>
-                            <a href="/equipos"class="bienes">Bienes</a>
-                            <a href="/ahorro_credito" class="ahorro">Ahorro y Crédito</a>
-                        </div>
-                        
-                    </div>
-                   
-                    {%endif%}
-                         <div class="separador"></div>
-
-
+        <input type="submit" value="Consultar" id="boton" class="filtro"/>
+    </form>
+    {%if centinela = 1 %}
+    <div id="indicadores" class="der">
+        <h2 class="titulo_indicadores">INDICADORES</h2>
+        <div id="contenedor_indicadores">
+            <a href="/datos_generales" class="familia">Datos Generales</a>
+            <a href="/organizaciones" class="organizacion">Organización</a>
+            <a href="/familias" class="migracion">Migracion</a>
+            <a href="/alimento" class="seguridad">Alimento</a>
+            <a href="/servicios"class="servicios">Servicios</a>
+            <a href="/servicios"class="salud">Salud</a>
+            <a href="/finca"class="cultivos">Finca</a>
+            <a href="/ingresos"class="ingresos">Ingresos</a>
+            <a href="/equipos"class="bienes">Bienes</a>
+            <a href="/ahorro_credito" class="ahorro">Ahorro y Crédito</a>
+        </div>
+    </div>
+    {%endif%}
+    <div class="separador"></div>
+</div>
 {% endblock %}
