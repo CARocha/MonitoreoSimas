@@ -1,5 +1,5 @@
 from django.contrib import admin
-from lugar.models import *
+from monitoreo.lugar.models import *
 
 class DepartamentoAdmin(admin.ModelAdmin):
     list_display = ['nombre']
