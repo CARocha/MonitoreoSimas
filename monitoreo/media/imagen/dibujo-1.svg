@@ -931,6 +931,26 @@
        y1="324.97131"
        x2="-1052"
        y2="377.25305" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4234"
+       id="linearGradient5299"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.9139204,0,0,1.7925018,-5024.2097,-1148.352)"
+       x1="207.55457"
+       y1="702.9137"
+       x2="207.65028"
+       y2="649.26581" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4234"
+       id="linearGradient5301"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.908859,0,0,0.06585415,-5023.3062,38.462175)"
+       x1="207.55457"
+       y1="702.9137"
+       x2="207.65028"
+       y2="649.26581" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -939,9 +959,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="-3274.9324"
-     inkscape:cy="805.582"
+     inkscape:zoom="4"
+     inkscape:cx="-2357.6695"
+     inkscape:cy="990.74079"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2286,7 +2306,7 @@
        style="fill:#384e66;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     <image
        sodipodi:absref="/home/eos87/Imágenes/monitoreo/dibujo-1.svg-image4129-480.png"
-       xlink:href="dibujo-1.svg-image4129-480.png"
+       xlink:href="/home/eos87/Imágenes/monitoreo/dibujo-1.svg-image4129-480.png"
        width="450"
        height="349.59299"
        id="image4133"
@@ -2492,13 +2512,13 @@
          x="-3521.0544"
          y="404.52655">UNAG</tspan></text>
     <image
-       sodipodi:absref="/home/eos87/Imágenes/monitoreo/dibujo-1.svg-image4113-410.png"
+       sodipodi:absref="/home/eos87/code/MonitoreoSimas/monitoreo/media/imagen/dibujo-1.svg-image4113-410.png"
        xlink:href="dibujo-1.svg-image4113-410.png"
-       width="641.77319"
-       height="352.57361"
-       id="image4117"
+       y="-679.86737"
        x="559.95599"
-       y="-679.86737" />
+       id="image4117"
+       height="352.57361"
+       width="641.77319" />
     <g
        id="g4033"
        transform="translate(1348.0494,-628.65956)">
@@ -3611,7 +3631,10 @@
        height="63.832001"
        x="-2899.5276"
        y="369.57269"
-       ry="9.0544138" />
+       ry="9.0544138"
+       inkscape:export-filename="/home/eos87/code/MonitoreoSimas/monitoreo/media/imagen/fondo_desarrollado.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <text
        xml:space="preserve"
        style="font-size:13.10882378px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0;word-spacing:0;fill:#2d2d2d;fill-opacity:1;stroke:none;font-family:Trebuchet MS;-inkscape-font-specification:Trebuchet MS"
@@ -3632,7 +3655,7 @@
    style="font-weight:bold;-inkscape-font-specification:'10.15 Saturday Night BRK Bold'"
    id="tspan4608">Django</tspan></tspan></text>
     <g
-       inkscape:export-filename="/home/bcorrales/SIMAS/trabajo cecocafen/arte/logo_simas.png"
+       inkscape:export-filename="/home/eos87/Escritorio/simastrac.png"
        inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
        style="fill:#35322e;fill-opacity:1"
@@ -5546,7 +5569,7 @@
     </g>
     <rect
        transform="scale(1,-1)"
-       style="fill:#f8f8f8;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       style="fill:#e8e8e8;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect5287"
        width="1022.1569"
        height="482.80304"
@@ -12016,5 +12039,67 @@
          d="m -4000.9792,313.27421 c -0.4602,-5.0659 1.1817,-7.36178 4.5654,-7.36221 l 185.985,0 c 4.1185,0.77385 4.9065,3.91598 4.5656,7.8372"
          style="fill:none;stroke:url(#linearGradient6761);stroke-width:0.95539695;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     </g>
+    <g
+       id="g6075"
+       inkscape:export-filename="/home/eos87/code/MonitoreoSimas/monitoreo/media/imagen/fondo_encabezado.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         ry="0.9712534"
+         y="15.458179"
+         x="-4949.9346"
+         height="96.163925"
+         width="1023.6662"
+         id="rect5295"
+         style="fill:url(#linearGradient5299);fill-opacity:1;fill-rule:nonzero;stroke:none"
+         transform="scale(1,-1)"
+         inkscape:export-filename="/home/eos87/code/MonitoreoSimas/monitoreo/media/imagen/fondo_encabezado.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <rect
+         style="fill:url(#linearGradient5301);fill-opacity:1;fill-rule:nonzero;stroke:none"
+         id="rect5297"
+         width="1020.9591"
+         height="3.5329354"
+         x="-4949.2275"
+         y="81.21904"
+         ry="0.035682563"
+         transform="scale(1,-1)"
+         inkscape:export-filename="/home/eos87/code/MonitoreoSimas/monitoreo/media/imagen/fondo_encabezado.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <rect
+         ry="0.9712534"
+         y="-122.97061"
+         x="-4950.5757"
+         height="12.727922"
+         width="750.2403"
+         id="rect6071"
+         style="fill:#2c3333;fill-opacity:1;stroke:none" />
+    </g>
+    <rect
+       style="opacity:0;fill:#2c3333;fill-opacity:1;stroke:none"
+       id="rect6086"
+       width="27"
+       height="118"
+       x="-3666"
+       y="338.36218"
+       ry="0.30614272" />
+    <rect
+       style="opacity:0;fill:#2c3333;fill-opacity:1;stroke:none"
+       id="rect6088"
+       width="77"
+       height="41"
+       x="-2120"
+       y="-35.637817"
+       ry="0.30614272" />
+    <rect
+       style="opacity:0;fill:#2c3333;fill-opacity:1;stroke:none"
+       id="rect6090"
+       width="45"
+       height="93"
+       x="-1800"
+       y="492.36218"
+       ry="0.40673247" />
   </g>
 </svg>

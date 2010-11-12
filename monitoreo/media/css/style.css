@@ -1,26 +1,38 @@
 body{
     padding:0;
     margin: 0;
-    background: #f8f8f8;
+    background: #e8e8e8;
     font-family: 'Trebuchet MS', Trebuchet, sans-serif;
-    font-size: 12px;
-    height: 500px;
+    font-size: 12px;    
 }
 #header{
-    background: url(/archivos/imagen/fondo_encabezado.png) repeat-x top;    
+    background: url(/archivos/imagen/fondo_encabezado.png) repeat-x top;
+    height: 108px;
 }
 #user1{
     background: #384e66;
     border-top: 1px #707070 solid;
+    min-height: 41px;
 }
 #user2{    
 }
+
 #footer{
-    background: #d3d7cf;    
+    background: #d3d7cf;
+    height: 120px;
+    border-top: 1px #707070 solid;
 }
 .wrapper {
     width: 960px;
     margin: 0 auto;        
+}
+.wrapper1{
+    width: 940px;
+    margin: 0 auto;
+    background: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 0px;
 }
 .clean{
     clear: both;
@@ -36,7 +48,7 @@ a:hover{
     text-decoration: underline;
 }
 .top{
-    height: 26px;
+    height: 38px;
 }
 .tools{
     margin-left: 15px;
@@ -46,7 +58,7 @@ a:hover{
     font-size: 22px;
     color: #98a34e;
     margin-left: 15px;
-    line-height: 26px;
+    line-height: 38px;
     float: left;
 }
 .top .entrar_link{
@@ -161,6 +173,9 @@ a:hover{
 .explorar:hover{
     background-position: 0 -49px;
 }
+.acerca{
+    margin-bottom: 10px;
+}
 .acerca .title{
     line-height: 35px;
     font-size: 20px;
@@ -192,7 +207,7 @@ a:hover{
     width: 508px;    
 }
 .mapa #map_canvas { 
-    height: 350px;
+    height: 360px;
     width: 449px;
     margin: 0 auto;
 }
@@ -205,17 +220,35 @@ a:hover{
 #footer .organizaciones{
     margin-left: 30px;
     padding-top: 20px;
+    float: left;
 }
 #footer .organizaciones .title{
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 25px;
     color: #000;    
 }
 #footer .organizaciones .zonas{
-    font-size: 16px;
+    font-size: 15px;
     color: #384e66;
     line-height: 25px;
 }
-
+#footer .made{
+    background: url(/archivos/imagen/fondo_desarrollado.png) no-repeat;
+    width: 224px;
+    height: 64px;
+    float: right;
+    margin-top: 20px;
+    margin-right: 30px;
+}
+#footer .made .developed{
+    margin-top: 15px;
+    margin-left: 80px;
+    color: #2d2d2d;
+}
+#footer .made .developed a{
+    color: #2d2d2d;
+    font-weight: bold;
+}
 
 /*aca comieza el css de las tablas*/
 
@@ -267,7 +300,11 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 
 /*comieza el form de busqueda de las tablas*/
 
-form { margin: 10px 0; }
+form {
+    margin: 0 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 table { width: 100%; border-collapse: collapse; }
 thead th { background: #f34105; color: #fff; }
 tbody th { text-align: left; }

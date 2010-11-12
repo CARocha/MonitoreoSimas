@@ -4,41 +4,41 @@
 {% block contenido %}
 
 <table id="table_example" class="tablesorter" style="font-size:90%">
-<caption>Educación</caption>
- <thead>
-    <tr>
-        <th></th>
-        <th>Número total</th>
-        <th>No sabe leer</th>
-        <th>Primaria incompleta</th>
-        <th>Primaria completa</th>
-        <th>Secundaria incompleta</th>
-        <th>Bachiller</th>
-        <th>Universitario</th>
-        <th>Vive fuera de la comunidad</th>
-    </tr>
- </thead>
- <tbody>
-    {%for fila in tabla_educacion%}
-    <tr>
-        {%for celda in fila %}
+    <caption>Educación</caption>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Número total</th>
+            <th>No sabe leer</th>
+            <th>Primaria incompleta</th>
+            <th>Primaria completa</th>
+            <th>Secundaria incompleta</th>
+            <th>Bachiller</th>
+            <th>Universitario</th>
+            <th>Vive fuera de la comunidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for fila in tabla_educacion%}
+        <tr>
+            {%for celda in fila %}
             <td>{{celda}}</td>
+            {%endfor%}
+        </tr>
         {%endfor%}
-    </tr>
-    {%endfor%}
-</tbody>
+    </tbody>
 </table>
 
-    <script>
-		// Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-		// ademas que ordene por defecto las filas 0,0 y 2,1
-		$(document).ready(function() 
-    		{ 
-        		//$("#table_example").tablesorter(); 
-			//$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-			$("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    		} 
-		); 
-	</script>
+<script>
+    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
+    // ademas que ordene por defecto las filas 0,0 y 2,1
+    $(document).ready(function()
+    {
+        //$("#table_example").tablesorter();
+        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
+        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
+    }
+); 
+</script>
 {% endblock %}
 
