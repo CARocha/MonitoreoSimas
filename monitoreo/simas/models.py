@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from monitoreo.lugar.models import Comunidad
+from thumbs import ImageWithThumbsField
+from monitoreo.lugar.models import Comunidad, Departamento, Municipio
 from django.conf import settings
+from monitoreo.utils import get_file_path 
 
 # Create your models here.
 class Recolector(models.Model):
@@ -18,6 +20,17 @@ class Recolector(models.Model):
 
 class Organizaciones(models.Model):
     nombre = models.CharField(max_length=200)
+    telefono = models.IntegerField(null=True, blank=True)
+    fax = models.IntegerField(null=True, blank=True)
+    celular = models.IntegerField(null=True, blank=True)
+    direccion = models.TextField(null=True, blank=True)
+    correo_electronico = models.EmailField(null=True, blank=True)
+    departamento = models.ForeignKey(Departamento, null=True, blank=True)
+    logo = ImageWithThumbsField(upload_to=get_file_path, 
+                                sizes=((150,150),(250,250)), null=True, blank=True)
+    sitio_web = models.URLField(null=True, blank=True)
+    
+    fileDir = 'attachments/logos'
 
     def __unicode__(self):
         return self.nombre
