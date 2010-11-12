@@ -1,7 +1,7 @@
 body{
     padding:0;
     margin: 0;
-    background: #e8e8e8;
+    background: #d3d7cf;
     font-family: 'Trebuchet MS', Trebuchet, sans-serif;
     font-size: 12px;    
 }
@@ -14,7 +14,8 @@ body{
     border-top: 1px #707070 solid;
     min-height: 41px;
 }
-#user2{    
+#user2{
+    background: #e8e8e8;
 }
 
 #footer{
@@ -174,7 +175,10 @@ a:hover{
     background-position: 0 -49px;
 }
 .acerca{
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    float: left;
+    width: 220px;
+    height: 330px;
 }
 .acerca .title{
     line-height: 35px;
@@ -211,11 +215,6 @@ a:hover{
     width: 449px;
     margin: 0 auto;
 }
-.acerca{
-    float: left;
-    width: 220px;    
-    height: 330px;
-}
 
 #footer .organizaciones{
     margin-left: 30px;
@@ -248,6 +247,10 @@ a:hover{
 #footer .made .developed a{
     color: #2d2d2d;
     font-weight: bold;
+}
+.contenido{
+    padding-bottom: 1px;
+    padding-top: 1px;
 }
 
 /*aca comieza el css de las tablas*/

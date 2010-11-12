@@ -3,8 +3,8 @@
 {%load unslugify %}
 
 {% block extra_header %}
- <script type="text/javascript">
-    var activo = 0; 
+<script type="text/javascript">
+    var activo = 0;
     function click_callback(id){
         $.getJSON('/grafo/ingreso/' + id, function(data) {
             if (activo!= id){
@@ -16,133 +16,134 @@
             }
         });
     }
-$(document).ready(function() {
-    $("#grafico1").click(function(){
-        $("#grafico1").addClass('enlace_seleccionado');
-        $("#grafico2").removeClass('enlace_seleccionado');
-        $("#grafico3").removeClass('enlace_seleccionado');
-    });
+    $(document).ready(function() {
+        $("#grafico1").click(function(){
+            $("#grafico1").addClass('enlace_seleccionado');
+            $("#grafico2").removeClass('enlace_seleccionado');
+            $("#grafico3").removeClass('enlace_seleccionado');
+        });
     
-    $("#grafico2").click(function(){
-        $("#grafico2").addClass('enlace_seleccionado'); 
-        $("#grafico1").removeClass('enlace_seleccionado');
-        $("#grafico3").removeClass('enlace_seleccionado');
-    });
+        $("#grafico2").click(function(){
+            $("#grafico2").addClass('enlace_seleccionado');
+            $("#grafico1").removeClass('enlace_seleccionado');
+            $("#grafico3").removeClass('enlace_seleccionado');
+        });
 
-    $("#grafico3").click(function(){
-        $("#grafico3").addClass('enlace_seleccionado'); 
-        $("#grafico1").removeClass('enlace_seleccionado');
-        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").click(function(){
+            $("#grafico3").addClass('enlace_seleccionado');
+            $("#grafico1").removeClass('enlace_seleccionado');
+            $("#grafico2").removeClass('enlace_seleccionado');
+        });
     });
-});
 </script>
 {% endblock %}
 {%block contenido%}
-<!--<div id="sidebar">-->
-<!--    <div class="graficos_widget">-->
-<!--        <h1>Gráficos ingresos</h1>-->
-<!--        <a href="#" id="grafico1" onCLick="click_callback('vendio')">A quién venden?</a>-->
-<!--        <a href="#" id="grafico2" onCLick="click_callback('maneja')">Quién maneja el negocio?</a>-->
-<!--        <a href="#" id="grafico3" onCLick="click_callback('ingreso')">Quién tiene los ingresos?</a>-->
-<!--        <h1>Gráficos Otros ingresos</h1>-->
-<!--         <a href="#" id="grafico4" onCLick="click_callback('salario')">Tipos de Salarios</a>-->
-<!--        <a href="#" id="grafico5" onCLick="click_callback('negocio')">Tipos de Negocio</a>-->
-<!--        <a href="#" id="grafico6" onCLick="click_callback('remesa')">Tipos Remesas</a>-->
-<!--        <a href="#" id="grafico7" onCLick="click_callback('alquiler')">Tipo alquiler</a>-->
-<!--        <a href="#" id="grafico8" onCLick="click_callback('aportar')">Persona aportar en la finca</a>-->
-<!--    </div>-->
-<!--</div>-->
-<div id="grafo"></div>
-<table id="table_example" class="tablesorter" style="font-size:90%">
-<caption>Los Ingresos familiares</caption>
- <thead>
-    <tr>
-        <th>RUBROS</th>
-        <th>Frecuencia</th>
-        <th>Unidad</th>
-        <th>Cantidad</th>
-        <th>Precio promedio</th>
-        <th>Ingreso por venta</th>
-    </tr>
- </thead>
- <tbody>
-    {%for key, value in tabla.items%}
-    <tr>
-        <td>{{key|unslugify}}</td>
-        <td>{{value.numero|floatformat}}</td>
-        <td>{{value.key2|unslugify}}</td>
-        <td>{{value.cantidad|floatformat}}</td>
-        <td>{{value.precio|floatformat}}</td>
-        <td>{{value.ingreso|floatformat}}</td>
-        
-    {%endfor%}
-</tbody> 
-    <tr>
-        <th>TOTAL VENTA RUBROS</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>{{respuesta.ingreso_total|floatformat:2}}</th>
-    </tr>
+<div class="contenido">
+    <!--<div id="sidebar">-->
+    <!--    <div class="graficos_widget">-->
+    <!--        <h1>Gráficos ingresos</h1>-->
+    <!--        <a href="#" id="grafico1" onCLick="click_callback('vendio')">A quién venden?</a>-->
+    <!--        <a href="#" id="grafico2" onCLick="click_callback('maneja')">Quién maneja el negocio?</a>-->
+    <!--        <a href="#" id="grafico3" onCLick="click_callback('ingreso')">Quién tiene los ingresos?</a>-->
+    <!--        <h1>Gráficos Otros ingresos</h1>-->
+    <!--         <a href="#" id="grafico4" onCLick="click_callback('salario')">Tipos de Salarios</a>-->
+    <!--        <a href="#" id="grafico5" onCLick="click_callback('negocio')">Tipos de Negocio</a>-->
+    <!--        <a href="#" id="grafico6" onCLick="click_callback('remesa')">Tipos Remesas</a>-->
+    <!--        <a href="#" id="grafico7" onCLick="click_callback('alquiler')">Tipo alquiler</a>-->
+    <!--        <a href="#" id="grafico8" onCLick="click_callback('aportar')">Persona aportar en la finca</a>-->
+    <!--    </div>-->
+    <!--</div>-->
+    <div id="grafo"></div>
+    <table id="table_example" class="tablesorter" style="font-size:90%">
+        <caption>Los Ingresos familiares</caption>
+        <thead>
+            <tr>
+                <th>RUBROS</th>
+                <th>Frecuencia</th>
+                <th>Unidad</th>
+                <th>Cantidad</th>
+                <th>Precio promedio</th>
+                <th>Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
 
-</table>
-<br><br>
-<table id="table_example" class="tablesorter" style="font-size:90%">
-<caption>Los Otros Ingresos familiares</caption>
- <thead>
-    <tr>
-        <th>FUENTES</th>
-        <th>FRECUENCIA</th>
-        <th>PROMEDIO MESES</th>
-        <th>INGRESO MENSUAL PROMEDIO</th>
-        <th>INGRESO TOTAL PROMEDIO</th>     
-    </tr>
- </thead>
- <tbody>
-    {%for key, value in matriz.items%}
-    <tr>
-        <td>{{key|unslugify}}</td>
-        <td>{{value.frecuencia|floatformat}}</td>
-        <td>{{value.meses|floatformat}}</td>
-        <td>{{value.ingreso|floatformat}}</td>
-        <td>{{value.ingresototal|floatformat}}</td>
-    </tr>
-    {%endfor%}
- </tbody>   
-    <tr>
-        <th>TOTAL OTROS INGRESO</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>{{respuesta.ingreso_otro|floatformat:2}}</th>
-    </tr>
-</table>
-<br><br>
-<table>
-    <tr colspan="2">
-        <th>INGRESO BRUTO</th>
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{respuesta.ingreso_total|floatformat:2}}</th>
+        </tr>
 
-        <th>{{respuesta.brutoo|intcomma}}</th>
-    </tr>
-</table>
-<table>
-    <tr colspan="2">
-        <th>INGRESO NETO</th>
-        
-        <th>{{respuesta.total_neto|intcomma}}</th>
-    </tr>
-</table>
+    </table>
+    <br><br>
+    <table id="table_example" class="tablesorter" style="font-size:90%">
+        <caption>Los Otros Ingresos familiares</caption>
+        <thead>
+            <tr>
+                <th>FUENTES</th>
+                <th>FRECUENCIA</th>
+                <th>PROMEDIO MESES</th>
+                <th>INGRESO MENSUAL PROMEDIO</th>
+                <th>INGRESO TOTAL PROMEDIO</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in matriz.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.frecuencia|floatformat}}</td>
+                <td>{{value.meses|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+                <td>{{value.ingresototal|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL OTROS INGRESO</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{respuesta.ingreso_otro|floatformat:2}}</th>
+        </tr>
+    </table>
+    <br><br>
+    <table>
+        <tr colspan="2">
+            <th>INGRESO BRUTO</th>
 
- <script>
-		// Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-		// ademas que ordene por defecto las filas 0,0 y 2,1
-		$(document).ready(function() 
-    		{ 
-        		//$("#table_example").tablesorter(); 
-			//$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-			$("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    		} 
-		); 
-	</script>
+            <th>{{respuesta.brutoo|intcomma}}</th>
+        </tr>
+    </table>
+    <table>
+        <tr colspan="2">
+            <th>INGRESO NETO</th>
+
+            <th>{{respuesta.total_neto|intcomma}}</th>
+        </tr>
+    </table>
+</div>
+<script>
+    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
+    // ademas que ordene por defecto las filas 0,0 y 2,1
+    $(document).ready(function()
+    {
+        //$("#table_example").tablesorter();
+        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
+        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
+    }
+); 
+</script>
 {%endblock%}

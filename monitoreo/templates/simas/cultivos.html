@@ -2,41 +2,42 @@
 {%load unslugify %}
 
 {%block contenido%}
-<table id="table_example" class="tablesorter" style="font-size:90%">
-<caption>Los cultivos y la producción</caption>
- <thead>
-    <tr>
-        <th>CULTIVOS</th>
-        <th>Unidad</th>
-        <th>Total produccion por año</th>
-        <th>Consumo por año</th>
-        <th>Venta libre por año</th>
-        <th>Vente organizada por año</th>
-    </tr>
- </thead>
- <tbody>
-    {%for key, value in tabla.items%}
-    <tr>
-        <td>{{key|unslugify}}</td>
-        <td>{{value.key2|unslugify}}</td>
-        <td>{{value.totales|floatformat}}</td>
-        <td>{{value.consumo|floatformat}}</td>
-        <td>{{value.libre|floatformat}}</td>
-        <td>{{value.organizada|floatformat}}</td>
-    </tr>
-    {%endfor%}
-<tbody>
-</table>
-
- <script>
-		// Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-		// ademas que ordene por defecto las filas 0,0 y 2,1
-		$(document).ready(function() 
-    		{ 
-        		//$("#table_example").tablesorter(); 
-			//$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-			$("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    		} 
-		); 
-	</script>
+<div class="contenido">
+    <table id="table_example" class="tablesorter" style="font-size:90%">
+        <caption>Los cultivos y la producción</caption>
+        <thead>
+            <tr>
+                <th>CULTIVOS</th>
+                <th>Unidad</th>
+                <th>Total produccion por año</th>
+                <th>Consumo por año</th>
+                <th>Venta libre por año</th>
+                <th>Vente organizada por año</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.totales|floatformat}}</td>
+                <td>{{value.consumo|floatformat}}</td>
+                <td>{{value.libre|floatformat}}</td>
+                <td>{{value.organizada|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        <tbody>
+    </table>
+</div>
+<script>
+    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
+    // ademas que ordene por defecto las filas 0,0 y 2,1
+    $(document).ready(function()
+    {
+        //$("#table_example").tablesorter();
+        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
+        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
+    }
+); 
+</script>
 {%endblock%}
