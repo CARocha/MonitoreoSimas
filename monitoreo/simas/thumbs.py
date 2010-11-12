@@ -162,4 +162,4 @@ class ImageWithThumbsField(ImageField):
         super(ImageField, self).__init__(**kwargs)
         
 from south.modelsinspector import add_introspection_rules
-add_introspection_rules([], ["^simas\.libros\.thumbs\.ImageWithThumbsField"])
+add_introspection_rules([], ["^monitoreo\.simas\.thumbs\.ImageWithThumbsField"])
