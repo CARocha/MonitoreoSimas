@@ -8,25 +8,25 @@ from django.utils import simplejson
 from django.db.models import Sum, Count, Avg
 from django.core.exceptions import ViewDoesNotExist
 
-from simas.models import *
-from indicador01.models import *
-from indicador02.models import *
-from indicador05.models import *
-from indicador06.models import *
-from indicador07.models import *
-from indicador08.models import *
-from indicador09.models import *
-from indicador10.models import *
-from indicador11.models import *
-from indicador12.models import *
-from indicador13.models import *
-from indicador14.models import *
-from indicador15.models import *
-from indicador16.models import *
-from indicador17.models import *
-from indicador18.models import *
-from indicador19.models import *
-from indicador20.models import *
+from monitoreo.simas.models import *
+from monitoreo.indicador01.models import *
+from monitoreo.indicador02.models import *
+from monitoreo.indicador05.models import *
+from monitoreo.indicador06.models import *
+from monitoreo.indicador07.models import *
+from monitoreo.indicador08.models import *
+from monitoreo.indicador09.models import *
+from monitoreo.indicador10.models import *
+from monitoreo.indicador11.models import *
+from monitoreo.indicador12.models import *
+from monitoreo.indicador13.models import *
+from monitoreo.indicador14.models import *
+from monitoreo.indicador15.models import *
+from monitoreo.indicador16.models import *
+from monitoreo.indicador17.models import *
+from monitoreo.indicador18.models import *
+from monitoreo.indicador19.models import *
+from monitoreo.indicador20.models import *
 
 from decorators import session_required
 from datetime import date
