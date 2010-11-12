@@ -265,7 +265,7 @@ table.tablesorter {
 }
 
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-    background-color: red;
+    background-color: #3A4343;
     border: 1px solid #FFF;
     font-size: 8pt;
     padding: 4px;

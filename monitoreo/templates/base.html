@@ -16,6 +16,14 @@
                     labelText: 'Buscar en la tabla',
                     delay: 100
                 });
+                
+                $('table#table_example1 tbody tr').quicksearch({
+                    position: 'before',
+                    attached: 'table#table_example1',
+                    stripeRowClass: ['odd', 'even'],
+                    labelText: 'Buscar en la tabla',
+                    delay: 100
+                });
             });
         </script>
 	{%block extra_header%}{%endblock%}

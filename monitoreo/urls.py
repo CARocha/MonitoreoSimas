@@ -7,6 +7,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^admin_tools/', include('admin_tools.urls')),
     # Example:
     # (r'^Monitoreo/', include('Monitoreo.foo.urls')),
 
