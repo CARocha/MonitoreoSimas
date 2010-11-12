@@ -15,8 +15,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    (r'^$', 'simas.views.index'),
-    (r'^', include('simas.urls')),
+    (r'^$', 'monitoreo.simas.views.index'),
+    (r'^', include('monitoreo.simas.urls')),
 )
 
 if settings.DEBUG:
