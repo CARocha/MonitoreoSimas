@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.forms import ModelForm
-from simas.models import *
-from lugar.models import *
+from monitoreo.simas.models import *
+from monitoreo.lugar.models import *
 
 ANOS_CHOICES = ((2010,'2010'),(2011,'2011'),(2012,'2012'),(2013,'2013'),(2014,'2014'))
 CHOICE_OPCION_F = (('','----'),(1,'Si'),(2,'No'))

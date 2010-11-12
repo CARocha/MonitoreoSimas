@@ -31,7 +31,7 @@ from monitoreo.indicador20.models import *
 from decorators import session_required
 from datetime import date
 from forms import *
-from lugar.models import *
+from monitoreo.lugar.models import *
 from decimal import Decimal
 #from utils import grafos
 #from utils import *
