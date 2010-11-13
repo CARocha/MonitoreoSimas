@@ -7,7 +7,7 @@ from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.importlib import import_module
 from django.utils.text import capfirst
-from admin_tools.dashboard import Registry
+from monitoreo.admin_tools.dashboard import Registry
 
 
 def get_dashboard(context, location):

@@ -10,7 +10,7 @@ from django.template.defaultfilters import slugify
 from django.utils.importlib import import_module
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy as _
-from admin_tools.utils import AppListElementMixin
+from monitoreo.admin_tools.utils import AppListElementMixin
 
 
 class DashboardPreferences(models.Model):

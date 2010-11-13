@@ -9,8 +9,8 @@ To load the dashboard tags: ``{% load admin_tools_dashboard_tags %}``.
 
 import math
 from django import template
-from admin_tools.utils import get_media_url
-from admin_tools.dashboard.utils import get_dashboard
+from monitoreo.admin_tools.utils import get_media_url
+from monitoreo.admin_tools.dashboard.utils import get_dashboard
 
 register = template.Library()
 tag_func = register.inclusion_tag('admin_tools/dashboard/dummy.html', takes_context=True)
