@@ -15,3 +15,6 @@ nbproject/
 *.svn/*.*
 .DS_Store
 settings_local.py
+*.tar.bz
+*.tar
+*.tar.bz2
