@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "indicador14.fuentes", "fields": {"nombre": "Salarios"}}, {"pk": 2, "model": "indicador14.fuentes", "fields": {"nombre": "Negocios"}}, {"pk": 3, "model": "indicador14.fuentes", "fields": {"nombre": "Remesas"}}, {"pk": 4, "model": "indicador14.fuentes", "fields": {"nombre": "Alquiler"}}]
