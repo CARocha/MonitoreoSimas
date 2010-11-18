@@ -18,3 +18,4 @@ settings_local.py
 *.tar.bz
 *.tar
 *.tar.bz2
+*.tar.gz
