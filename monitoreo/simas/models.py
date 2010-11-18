@@ -5,6 +5,7 @@ from thumbs import ImageWithThumbsField
 from monitoreo.lugar.models import Comunidad, Departamento, Municipio
 from django.conf import settings
 from monitoreo.utils import get_file_path 
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Recolector(models.Model):
@@ -52,6 +53,7 @@ class Encuesta(models.Model):
     comunidad = models.ForeignKey(Comunidad)
     sexo = models.IntegerField(choices=CHOICE_SEXO)
     organizacion = models.ForeignKey(Organizaciones)
+    user = models.ForeignKey(User)
     
     def __unicode__(self):
         return self.nombre
