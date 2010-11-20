@@ -40,7 +40,7 @@ class SerMiembro(models.Model):
         #app_label = "Indicador 02 Organizacion Gremial"
         #db_table = "simas_sermiembro"
 
-CHOICE_DESDE = ((1,'Menos de 5 años'),(2,'Más de 5 años'))
+CHOICE_DESDE = ((1,'Menos de 5 años'),(2,'Más de 5 años'),(3, 'No utilizar'))
 CHOICE_MIEMBRO_GREMIAL = ((1,'Junta directiva'),(2,'Comisiones de trabajo'),(3,'No'))
 
 

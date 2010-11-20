@@ -22,7 +22,7 @@ class Riesgos(models.Model):
     ''' 20 mitigacion de los riesgos
     '''
     pregunta = models.ForeignKey(PreguntaRiesgo)
-    respuesta = models.IntegerField('Respuesta', choices=CHOICE_DESDE)
+    respuesta = models.IntegerField('Respuesta', choices=CHOICE_OPCION)
     encuesta = models.ForeignKey(Encuesta)
     
     class Meta:
