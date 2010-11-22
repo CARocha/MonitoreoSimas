@@ -1,9 +1,101 @@
 {% extends "base.html" %}
 {%load unslugify %}
+{% block extra_header %}
+<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
+<script type="text/javascript">
+    var chart;
+    jQuery(document).ready(function() {
+        Highcharts.setOptions({
+            lang: {
+                downloadPNG: 'Guardar como imagen',
+                downloadJPEG: '',
+                downloadPDF: 'Guardar como PDF',
+                downloadSVG: '',
+                exportButtonTitle: 'Guardar grafico',
+                printButtonTitle: 'Imprimir'
+            }
+        });
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Tenencias'
+            },
+            subtitle: {
+                text: 'Parcelas'
+            },
+            xAxis: {
+                categories: [
+                    'Tipos de tenencias'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                backgroundColor : '#fff',
+                verticalAlign: 'top',
+                x: 0,
+                y: 70
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'';
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,                    
+                    borderWidth: 1
+                }
+            },
+            series: [{
+                    name: 'Propia con escritura',
+                    data: [60]
+
+                }, {
+                    name: 'Propia por herencia',
+                    data: [80]
+
+                }, {
+                    name: 'Propias por promesa de venta',
+                    data: [59]
+
+                }, {
+                    name: 'Con titulo de reforma agraria',
+                    data: [35]
+
+                },{
+                    name: 'Arrendada',
+                    data: [20]
+                },{
+                    name: 'Sin Nada',
+                    data: [25]
+                }]
+
+            
+        });
+
+
+    });
+</script>
+{% endblock %}
 
 {% block contenido %}
 <div class="contenido">
     <div id="grafo"></div>
+    <form action="#">       
+        <label>Buscar en tabla: </label><input type="text" name="search" value="" id="id_search" placeholder="Search" autofocus />
+    </form>
     <table id="table_example" class="tablesorter" style="font-size:90%">
         <caption>Uso de Tierra</caption>
         <thead>
@@ -35,6 +127,7 @@
         </tbody>
     </table>
 </div>
+<div id="container" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
 <script>
     // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
     // ademas que ordene por defecto las filas 0,0 y 2,1
