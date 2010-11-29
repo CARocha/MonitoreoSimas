@@ -71,19 +71,24 @@
         <input type="submit" value="Consultar" id="boton" class="filtro"/>
     </form>
     {%if centinela = 1 %}
-    <div id="indicadores" class="der">
-        <h2 class="titulo_indicadores">INDICADORES</h2>
+    <div id="indicadores">
+    <img src="/archivos/imagen/seleccionBarra.png" alt="adorno">
+        <h2 class="titulo_indicadores">SELECCIONE EL INDICADOR</h2>
         <div id="contenedor_indicadores">
-            <a href="/datos_generales" class="familia">Datos Generales</a>
-            <a href="/organizaciones" class="organizacion">Organización</a>
-            <a href="/familias" class="migracion">Migracion</a>
-            <a href="/alimento" class="seguridad">Alimento</a>
-            <a href="/servicios"class="servicios">Servicios</a>
-            <a href="/servicios"class="salud">Salud</a>
-            <a href="/finca"class="cultivos">Finca</a>
-            <a href="/ingresos"class="ingresos">Ingresos</a>
-            <a href="/equipos"class="bienes">Bienes</a>
-            <a href="/ahorro_credito" class="ahorro">Ahorro y Crédito</a>
+            <a href="/datos_generales" class="button">Familias</a>
+            <a href="/organizaciones" class="button">Organización</a>
+            <a href="/familias" class="button">Tenencia</a>
+            <a href="/alimento" class="button">Tierra</a>
+            <a href="/servicios"class="button">Ánimales</a>
+            <a href="/servicios"class="button">Cultivos</a>
+            <a href="/finca"class="button">Opciones de manejo</a>
+            <a href="/ingresos"class="button">Uso de semilla</a>
+            <a href="/equipos"class="button">Suelo</a>
+            <a href="/ahorro_credito" class="button">Ingresos</a>
+            <a href="/ahorro_credito" class="button">Bienes</a>
+            <a href="/ahorro_credito" class="button">Ahorro y crédito</a>
+            <a href="/ahorro_credito" class="button">Seguridad alimentaria</a>
+            <a href="/ahorro_credito" class="button">Riesgos</a>
         </div>
     </div>
     {%endif%}

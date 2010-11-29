@@ -255,49 +255,214 @@ a:hover{
 
 /*aca comieza el css de las tablas*/
 
-table.tablesorter {
-    font-family:arial;
-    background-color: red;
-    margin:10px 0pt 15px;
-    font-size: 8pt;
-    width: 100%;
-    text-align: left;
+/*table.tablesorter {*/
+/*    font-family:arial;*/
+/*    background-color: red;*/
+/*    margin:10px 0pt 15px;*/
+/*    font-size: 8pt;*/
+/*    width: 100%;*/
+/*    text-align: left;*/
+/*}*/
+
+/*table.tablesorter thead tr th, table.tablesorter tfoot tr th {*/
+/*    background-color: #3A4343;*/
+/*    border: 1px solid #FFF;*/
+/*    font-size: 8pt;*/
+/*    padding: 4px;*/
+/*}*/
+
+/*table.tablesorter thead tr .header {*/
+/*    background-image: url(../imagen/bg.gif);*/
+/*    background-repeat: no-repeat;*/
+/*    background-position: center right;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*table.tablesorter tbody td {*/
+/*    color: #3D3D3D;*/
+/*    padding: 4px;*/
+/*    background-color: #FFF;*/
+/*    vertical-align: top;*/
+/*}*/
+
+/*table.tablesorter tbody tr.odd td {*/
+/*    background-color:#F0F0F6;*/
+/*}*/
+
+/*table.tablesorter thead tr .headerSortUp {*/
+/*    background-image: url(../imagen/asc.gif);*/
+/*}*/
+/*table.tablesorter thead tr .headerSortDown {*/
+/*    background-image: url(../imagen/desc.gif);*/
+/*}*/
+/*table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {*/
+/*    background-color: #8dbdd8;*/
+/*}*/
+
+
+caption {
+	padding: 5px;
+	margin:0 auto;
+	width:auto;
+    margin-top:15px;
+    margin-bottom:5px;
+	text-align: left;
+    font-size:18px;
+    color:#48311a;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    border-top:#3d3123 1px dotted;
+    border-bottom:#3d3123 1px dotted;
 }
 
-table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-    background-color: #3A4343;
-    border: 1px solid #FFF;
-    font-size: 8pt;
-    padding: 4px;
+table {
+	width:680px;
 }
 
-table.tablesorter thead tr .header {
-    background-image: url(../imagen/bg.gif);
-    background-repeat: no-repeat;
-    background-position: center right;
-    cursor: pointer;
+th{
+	font: bold 10px/22px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color: #000;
+	border-right: 1px solid #ded3ba;
+	border-bottom: 1px solid #ded3ba;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-align: left;
+    font-weight:bold;
+	padding: 8px 12px 4px 12px;
+	background:url(../imagen/bg_header.jpx) repeat-x;
+	vertical-align:middle;
 }
 
-table.tablesorter tbody td {
-    color: #3D3D3D;
-    padding: 4px;
-    background-color: #FFF;
-    vertical-align: top;
+td.total{
+	border-top: 0;
+	border-left: 0;
+	border-right: 1px solid #C1DAD7;
+	background: none;
+	text-align:right;
+	font-weight:bold;
+	text-transform:uppercase;
+	letter-spacing:1px;
 }
 
-table.tablesorter tbody tr.odd td {
-    background-color:#F0F0F6;
+th.sortable,
+th.sortable-text,
+th.sortable-date,
+th.sortable-keep,
+th.sortable-date-dmy,
+th.sortable-numeric,
+th.sortable-currency,
+th.sortable-sortByTwelveHourTimestamp,
+th.sortable-sortIPAddress,
+th.sortable-sortEnglishLonghandDateFormat,
+th.sortable-sortScientificNotation,
+th.sortable-sortImage,
+th.sortable-sortFileSize,
+th.sortable-sortAlphaNumeric,
+th.sortable-sortEnglishDateTime{
+	cursor:pointer;
+	background: #829697 url(../imagen/bg_header_sortable.jpx) no-repeat;
+	padding: 8px 12px 4px 16px;
 }
 
-table.tablesorter thead tr .headerSortUp {
-    background-image: url(../imagen/asc.gif);
+th.forwardSort{
+	background: #829697 url(../imagen/bg_header_down.jpx) no-repeat 0 0;
 }
-table.tablesorter thead tr .headerSortDown {
-    background-image: url(../imagen/desc.gif);
+
+th.reverseSort{
+	background: #829697 url(../imagen/bg_header_up.jpx) no-repeat 0 0;
 }
-table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-    background-color: #8dbdd8;
+
+table thead th.forwardSort a,
+table thead th.reverseSort a {
+	color:#000;
+	text-decoration:none;
 }
+
+/*
+These styles should be added when very long tables are expected
+th.sort-active {
+	background:#CAE8EA url(../media/bg_header_sorting.jpg) no-repeat 0 0;
+	cursor:wait;
+}
+
+th.sort-active a {
+	color:#a80000 !important;
+	cursor:wait;
+}
+*/
+
+th a {
+	text-decoration:none;
+	color: #4f6b72;
+	background:transparent;
+}
+
+td a {
+	text-decoration:none;
+	color:#239;
+	background:transparent;
+}
+
+td img {
+	margin:0 auto;
+	border:3px solid #ddd;
+}
+
+td a:hover {
+	color:#a84444;
+	border-bottom:1px dotted #a80000;
+	background:transparent;
+}
+
+td {
+	font: normal 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	border-right: 1px solid #E0DDD2;
+	border-bottom: 1px solid #E0DDD2;
+	padding: 6px 12px 6px 12px;
+	color: #696969;
+	background: #FFFFFF;
+}
+
+td.lft {
+	text-align:left;
+}
+
+tr.alt {
+	background: #F5FAFA;
+	color: #797268;
+}
+
+/* Poor old Internet Explorer 6 has a bug that means we can't use background images for the table rows
+   as it trys to download the image each and every time that it is used (which means a 1000 row table
+   will produce 1000 http requests for the image in question) */
+tr[class="alt"] td {
+	background: #F5FAFA url(../media/td_alt.jpg) no-repeat;
+}
+
+td[class~="alt"]{
+	background: #edf3f3 url(../media/col_alt.jpg) no-repeat !important;
+}
+
+/* Poor old Internet Explorer won't see the next two rules either as it doesn't get :first-child */
+tbody tr.alt td:first-child{
+	background: #F5FAFA url(../imagen/bullet2.gif) no-repeat;
+	font-weight:bold;
+}
+
+tbody tr td:first-child {
+	background: #fff url(../imagen/bullet1.gif) no-repeat;
+	font-weight:bold;
+}
+
+/* Image free rules for Internet Explorer < 7 */
+* html tr.alt td {
+	background-color:#F5FAFA;
+}
+
+* html tr td.alt,
+* html tr.alt td.alt {
+    background-color:#edf3f3;
+}
+
 
 /*fin de las tablas*/
 
@@ -308,10 +473,10 @@ form {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-table { width: 100%; border-collapse: collapse; }
-thead th { background: #f34105; color: #fff; }
-tbody th { text-align: left; }
-table th, table td { border: 1px solid #ddd; padding: 2px 5px; font-size: 100%; }
+/*table { width: 100%; border-collapse: collapse; }*/
+/*thead th { background: #3A4343; color: #fff; }*/
+/*tbody th { text-align: left; }*/
+/*table th, table td { border: 1px solid #ddd; padding: 2px 5px; font-size: 100%; }*/
 pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bold; }
 .odd, .r1 { background: #fff; }
 .even, .r2 { background: #f7f7f7; }
@@ -326,3 +491,74 @@ form.quicksearch input { margin-left: 5px; width: 300px; }
 form.quicksearch img { vertical-align: middle; margin-left: 5px; }
 
 /*fin del form de las tablas*/
+
+/* COMIEZA CSS FILTROS DEL FORMULARIO */
+#id_cooperativa, #id_fecha, #id_departamento, #id_municipio,
+#id_comunidad, #id_socio, #id_sexo, #id_dueno,#id_desde {
+    width:200px;
+    height:30px;
+    background: #fff url(../imagen/combobox.png) repeat-x;
+    border:#DDDCD1 1px solid;
+    margin-bottom:8px;
+    font-size:12px;
+    color:#838377;
+}
+
+/* FIN EL CSS FILTROS DE FORMULARIO */
+
+/* CSS DE LOS INDICADORES */
+
+#indicadores h2{
+    background-color: rgba(238, 232, 170, 0.7);
+    color: #665845;
+    padding: 10px 11px 12px 13px;
+    margin: 10px 11px 12px 13px;
+
+}
+
+#indicadores img {
+    padding: 10px 11px 13px 13px;
+    margin: -160px 11px 11px -16px;
+
+}
+
+/* BOTONES DE LOS INDICADORES */
+
+.button, .button:visited { /* botones genéricos */
+  background: #222 url(../imagen/button.png) repeat-x;
+  display: inline-block;
+  padding: 13px 28px 11px;
+  color: #000;
+  text-decoration: none;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  position: relative;
+  cursor:pointer
+}
+
+ /* botones medianos */
+.button, .button:visited,.medium.button, .medium.button:visited {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+}
+
+.green.button, .green.button:visited { background-color: #91BD09; }
+.green.button:hover{ background-color: #749A02; }
+
+#contenedor_indicadores {
+    width: 930px;
+    margin: 0 auto;
+    background: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+
+}

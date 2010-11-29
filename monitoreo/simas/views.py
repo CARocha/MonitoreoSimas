@@ -68,17 +68,17 @@ def _queryset_filtrado(request):
             else:
                 params['encuesta__comunidad__municipio__departamento'] = request.session['departamento']
 
-        if 'cooperativa' in request.session:
-            params['encuesta__organizacion'] = request.session['organizacion']
+#        if 'cooperativa' in request.session:
+#            params['encuesta__organizacion'] = request.session['organizacion']
 
         if 'socio' in request.session:
-            params['organizaciongremial__socio'] = request.session['socio']
+            params['encuesta__organizaciongremial__socio'] = request.session['socio']
             
         if 'desde' in request.session:
-            params['organizaciongremial__desde_socio'] = request.session['desde']
+            params['encuesta__organizaciongremial__desde_socio'] = request.session['desde']
 
         if 'duenio' in  request.session:
-            params['tenencia__dueno'] = request.session['duenio']
+            params['encuesta__tenencia__dueno'] = request.session['duenio']
         
         unvalid_keys = []
         for key in params:
@@ -99,8 +99,8 @@ def inicio(request):
         mensaje = None
         form = MonitoreoForm(request.POST)
         if form.is_valid():
-            organizacion = form.cleaned_data['organizacion']
-            request.session['organizacion'] = organizacion
+            #organizacion = form.cleaned_data['organizacion']
+            #request.session['organizacion'] = organizacion
             request.session['fecha'] = form.cleaned_data['fecha']
             request.session['departamento'] = form.cleaned_data['departamento']
             try:
@@ -134,7 +134,13 @@ def inicio(request):
 
 def index(request):
 
-    return direct_to_template(request, 'index.html')        
+    familias = Encuesta.objects.all().count()
+    organizacion = Organizaciones.objects.all().count()
+    mujeres = Encuesta.objects.filter(sexo=2).count()
+    hombres = Encuesta.objects.filter(sexo=1).count()
+    
+
+    return direct_to_template(request, 'index.html', locals())        
         
 #-------------------------------------------------------------------------------
 
@@ -678,7 +684,7 @@ VALID_VIEWS = {
         'ingresos': ingresos,
         'equipos': equipos,
         'ahorro_credito': ahorro_credito,
-        'seguridad_alimentaria': seguridad_alimentaria,
+        'seguridad': seguridad_alimentaria,
             }
         
 # Vistas para obtener los municipios, comunidades, etc..

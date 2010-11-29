@@ -15,8 +15,8 @@ class MonitoreoForm(forms.Form):
             required=False, empty_label="Todos los Departamentos")
     municipio = forms.CharField(widget = forms.Select, required=False)
     comunidad = forms.CharField(widget = forms.Select, required=False)
-    organizacion = forms.ModelChoiceField(required = False, 
-                                         queryset=Organizaciones.objects.all())
+    #organizacion = forms.ModelChoiceField(required = False, 
+    #                                     queryset=Organizaciones.objects.all())
     socio = forms.ChoiceField(choices = CHOICE_OPCION_F , required=False)
     desde = forms.ChoiceField(choices = CHOICE_DESDE_F , required=False)
     dueno = forms.ChoiceField(label = 'Dueño', choices = CHOICE_DUENO_F , required=False)
