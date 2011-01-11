@@ -1,4 +1,4 @@
-    # -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 from django.http import Http404, HttpResponse
 from django.template.defaultfilters import slugify
 from django.template import RequestContext
@@ -62,23 +62,23 @@ def _queryset_filtrado(request):
             #incluye municipio y comunidad
             if request.session['municipio']:
                 if 'comunidad' in request.session:
-                    params['encuesta__comunidad'] = request.session['comunidad']
+                    params['comunidad'] = request.session['comunidad']
                 else:
-                    params['encuesta__comunidad__municipio'] = request.session['municipio']
+                    params['comunidad__municipio'] = request.session['municipio']
             else:
-                params['encuesta__comunidad__municipio__departamento'] = request.session['departamento']
+                params['comunidad__municipio__departamento'] = request.session['departamento']
 
 #        if 'cooperativa' in request.session:
 #            params['encuesta__organizacion'] = request.session['organizacion']
 
         if 'socio' in request.session:
-            params['encuesta__organizaciongremial__socio'] = request.session['socio']
+            params['organizaciongremial__socio'] = request.session['socio']
             
         if 'desde' in request.session:
-            params['encuesta__organizaciongremial__desde_socio'] = request.session['desde']
+            params['organizaciongremial__desde_socio'] = request.session['desde']
 
         if 'duenio' in  request.session:
-            params['encuesta__tenencia__dueno'] = request.session['duenio']
+            params['tenencia__dueno'] = request.session['duenio']
         
         unvalid_keys = []
         for key in params:
