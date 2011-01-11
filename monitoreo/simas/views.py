@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 from django.http import Http404, HttpResponse
 from django.template.defaultfilters import slugify
 from django.template import RequestContext
@@ -670,7 +670,69 @@ def seguridad_alimentaria(request):
                       
     return render_to_response('simas/seguridad.html',{'tabla':tabla,
                               'num_familias':num_familia},
-                               context_instance=RequestContext(request))                         
+                               context_instance=RequestContext(request))
+                               
+# Aca empieza el menu para los subindicadores :)
+                               
+@session_required
+def familia(request):
+    '''Familias: aca van las familias con sus respectivos indicadores, educacion,
+       salud, energia, agua.
+    '''
+    familias = _queryset_filtrado(request).count()
+    return render_to_response('simas/familia.html',
+                              {'num_familias':familias},
+                              context_instance=RequestContext(request))
+                              
+@session_required
+def organizacion(request):
+    '''Organizacion: aca van las organizaciones con sus respectivos indicadores,
+       como son gremial y comunitaria.
+    '''
+    familias = _queryset_filtrado(request).count()
+    return render_to_response('simas/organizacion.html',
+                              {'num_familias':familias},
+                              context_instance=RequestContext(request))
+                              
+@session_required
+def riesgo(request):
+    '''Riesgos: aca van los riesgos con sus indicadores como son: vulnerabilidad 
+       en la finca asi como la mitigación de estos.
+    '''
+    familias = _queryset_filtrado(request).count()
+    return render_to_response('simas/riesgos.html',
+                              {'num_familias':familias},
+                              context_instance=RequestContext(request))
+                              
+@session_required
+def suelo(request):
+    '''Suelo: aca va el indicador de suelo con sus subindicadores: caracteristicas
+       del terrreno y manejo del suelo
+    '''
+    familias = _queryset_filtrado(request).count()
+    return render_to_response('simas/suelo.html',
+                              {'num_familias':familias},
+                              context_instance=RequestContext(request))
+                              
+@session_required
+def tenencias(request):
+    '''Tenencia: aca van las tenencias con sus respectivos subindicadores: 
+       tenencia de la propiedad, documento legal, tierra etc.
+    '''
+    familias = _queryset_filtrado(request).count()
+    return render_to_response('simas/tenencia.html',
+                              {'num_familias':familias},
+                              context_instance=RequestContext(request))
+                              
+@session_required
+def tierra(request):
+    '''Tierra: aca va el indicador uso de tierra con su respectivos subindicadores:
+       uso de la tierra, existencia de arboles y reforestacion.
+    '''
+    familias = _queryset_filtrado(request).count()
+    return render_to_response('simas/familia.html',
+                              {'num_familias':familias},
+                              context_instance=RequestContext(request))                                   
 #TODO: completar esto
 VALID_VIEWS = {
         'educacion': educacion,
@@ -683,8 +745,15 @@ VALID_VIEWS = {
         'cultivos': cultivos,
         'ingresos': ingresos,
         'equipos': equipos,
+        'riego': riesgo,
+        'tierra': tierra,
+        'suelo': suelo,
+        'familia': familia,
+        'tenencias': tenencias,
+        'organizacion': organizacion,
         'ahorro_credito': ahorro_credito,
         'seguridad': seguridad_alimentaria,
+        #me quedo tuani el caminito :)
             }
         
 # Vistas para obtener los municipios, comunidades, etc..

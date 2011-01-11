@@ -524,7 +524,7 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
 
 /* BOTONES DE LOS INDICADORES */
 
-.button, .button:visited { /* botones genéricos */
+.button, .button:visited {
   background: #222 url(../imagen/button.png) repeat-x;
   display: inline-block;
   padding: 13px 28px 11px;
@@ -540,7 +540,6 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
   cursor:pointer
 }
 
- /* botones medianos */
 .button, .button:visited,.medium.button, .medium.button:visited {
   font-size: 13px;
   font-weight: bold;
@@ -548,8 +547,9 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
   text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
 }
 
-.green.button, .green.button:visited { background-color: #91BD09; }
-.green.button:hover{ background-color: #749A02; }
+/* FIN BOTONES DE LOS INDICADORES */
+
+/* CONTENEDOR DE LOS FILTROS COMO DEL MENU PRINCIPAL DE LOS INDICADORES */
 
 #contenedor_indicadores {
     width: 930px;
@@ -561,4 +561,140 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
     padding-bottom: 20px;
 
 
+}
+
+#contenedor_indicadores a {
+    align: center;
+    margin-bottom: 14px;
+    margin-right: 2px;
+}
+#titulo{
+    background-color: rgba(238, 232, 170, 0.7);
+/*    background:#c7c7c7 url(../imagen/nada.jpg) repeat-x;*/
+    font-size:22px;
+    font-weight:bold;
+    padding:7px;
+    width:928px;
+    height:20px;
+    color:#665845;
+    text-shadow: 0px -1px 1px #fff;
+}
+
+/*#filtros{*/
+/*    background: url(../imagen/nada.png) repeat-x;*/
+/*    height:36px;*/
+
+/*    border-bottom:#d6d1d1 1px solid;*/
+/*    width:962px;*/
+/*}*/
+#formulario_tabla {
+    background-color: rgba(211,211,211, .6);
+
+}
+
+#contenedor_igual {
+    background-color: rgba(216, 211, 158, 0.9);
+    font-size:22px;
+    font-weight:bold;
+    padding:7px;
+    width:928px;
+    height:20px;
+    color:#000000;
+    text-shadow: 0px -1px 1px #fff;
+
+}
+
+#contenedor_igual a {
+     text-decoration: none;
+    font-size:22px;
+    font-weight:bold;
+    color:#000000;
+    text-shadow: 0px -1px 1px #fff;
+
+
+}
+
+#contenedor_igual a:hover {
+    text-decoration: none;
+    font-size:22px;
+    font-weight:bold;
+    color:#fff;
+    text-shadow: 0px -1px 1px #000;
+
+
+}
+
+/* EL MENU DE LOS GRAFICOS */
+
+.graficos_widget{
+    width:240px;
+    background: #dadada;
+    border-top-right-radius:7px;
+    border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-topleft:7px;
+    -webkit-border-top-left-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    border:#ebebe4 1px solid;
+    margin-bottom:10px;
+    float:right;
+}
+
+.graficos_widget h1{
+    border-top-right-radius:7px;
+    border-top-left-radius:7px;
+    -moz-border-radius-topright:7px;
+    -moz-border-radius-topleft:7px;
+    -webkit-border-top-left-radius:7px;
+    -webkit-border-top-right-radius:7px;
+    background:#c9c7b6 url(../imagen/fondo_widget_titulo.png);
+    color:#6c6c6c;
+    font-size:16px;
+    margin:0px;
+    padding:5px 10px 5px 10px;
+}
+
+.graficos_widget a{
+    float:left;
+    display:block;
+    width:215px;
+    height:20px;
+    background:#fff url(../imagen/fondo_widget_grafico.png);
+    border-bottom:#e1dccb 1px solid;
+    text-decoration:none;
+    color:#8B8989;
+    font-size:13px;
+    padding-top:7px;
+    padding-left:25px;
+}
+
+/*Esta es la parte de las variables filtradas y mostradas al usuario que consulta*/
+
+#filtros{
+    background: url(../imagen/fondofiltro.png) repeat-x;
+    height:36px;
+
+    border-bottom:#d6d1d1 1px solid;
+    width:962px;
+}
+
+.variables{
+    float:left;
+    background:#fce795;
+    width:85px;
+    font-weight:bold;
+    height:26px;
+    padding-top:10px;
+    padding-left:15px;
+    margin-right:15px;
+}
+
+.variables_filtro{
+    float:left;
+    font-size:12px;
+    margin-top:4px;
+    margin-right:10px;
+    padding-right:10px;
+    border-right:#d5d5d5 1px solid;
+    color: #fff;
 }

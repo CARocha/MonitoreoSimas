@@ -1,7 +1,21 @@
 {% extends "base.html" %}
 {%load unslugify %}
-
+{% block titulo %}Subindicador Salud{%endblock%}
 {% block contenido %}
+
+<div id="sidebar">
+    <div class="graficos_widget">
+        <h1>Gráficos de Disponibilidad </h1>
+        <a id="grafico1" href="#" onCLick="disp(1)">Disponibilidad en Quebrada</a>
+        <a id="grafico2" href="#" onCLick="disp(2)">Disponibilidad en Ojo de Agua</a>
+        <a id="grafico3" href="#" onCLick="disp(3)">Disponibilidad en Pozo Comunitario</a>
+        <a id="grafico4" href="#" onCLick="disp(4)">Disponibilidad en Pozo Propio</a>
+        <a id="grafico5" href="#" onCLick="disp(5)">Disponibilidad en Agua comunitaria</a>
+        <a id="grafico6" href="#" onCLick="disp(6)">Disponibilidad en Agua de la casa</a>
+</div>
+
+<br></br>
+   
 <div class="contenido">
     <table id="table_example" class="tablesorter" style="font-size:90%">
         <thead>
@@ -23,7 +37,7 @@
             {%endfor%}
         <tbody>
     </table>
-
+<br></br>
     <table id="table_example1" class="tablesorter" style="font-size:90%">
         <thead>
             <tr>
@@ -46,16 +60,6 @@
         </tbody>
     </table>
 </div>
-<script>
-    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-    // ademas que ordene por defecto las filas 0,0 y 2,1
-    $(document).ready(function()
-    {
-        //$("#table_example").tablesorter();
-        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-        $("#table_example1").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    }
-); 
-</script>
+
+<br></br>
 {% endblock %}
