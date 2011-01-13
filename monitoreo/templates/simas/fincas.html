@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {%load unslugify %}
+{%block titulo%}Subindicador Tierra{%endblock%}
 {% block extra_header %}
 <script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
 <script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
@@ -91,11 +92,23 @@
 {% endblock %}
 
 {% block contenido %}
+
+
+ <div id="contenedor_igual">
+                            <a href="/fincas" class="educacion">Uso de tierra</a>
+                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+                           
+                            <a href="/arboles" class="educacion">Existencia de árboles y Reforestación</a>
+                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+                        </div>
+                        <div class="separador"></div>
+
+
 <div class="contenido">
     <div id="grafo"></div>
-    <form action="#">       
-        <label>Buscar en tabla: </label><input type="text" name="search" value="" id="id_search" placeholder="Search" autofocus />
-    </form>
+<!--    <form action="#">       -->
+<!--        <label>Buscar en tabla: </label><input type="text" name="search" value="" id="id_search" placeholder="Search" autofocus />-->
+<!--    </form>-->
     <table id="table_example" class="tablesorter" style="font-size:90%">
         <caption>Uso de Tierra</caption>
         <thead>

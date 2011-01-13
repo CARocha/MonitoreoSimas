@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {%load unslugify %}
-
+{%block titulo%}Existencia de árboles y Reforestación{%endblock%}
 {% block extra_header %}
 <script type="text/javascript">
     var activo = 0;
@@ -58,6 +58,17 @@
 </script>
 {% endblock %}
 {% block contenido %}
+
+ <div id="contenedor_igual">
+                            <a href="/fincas" class="educacion">Uso de tierra</a>
+                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+                           
+                            <a href="/arboles" class="educacion">Existencia de árboles y Reforestación</a>
+                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+                        </div>
+                        <div class="separador"></div>
+
+
 <div class="contenido">
     <div id="grafo"></div>
     <table id="table_example" class="tablesorter" style="font-size:90%">

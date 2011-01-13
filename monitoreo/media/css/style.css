@@ -594,7 +594,7 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
 
 #contenedor_igual {
     background-color: rgba(216, 211, 158, 0.9);
-    font-size:22px;
+    font-size:16px;
     font-weight:bold;
     padding:7px;
     width:928px;
@@ -606,7 +606,7 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
 
 #contenedor_igual a {
      text-decoration: none;
-    font-size:22px;
+    font-size:16px;
     font-weight:bold;
     color:#000000;
     text-shadow: 0px -1px 1px #fff;
@@ -671,7 +671,7 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
 /*Esta es la parte de las variables filtradas y mostradas al usuario que consulta*/
 
 #filtros{
-    background: url(../imagen/fondofiltro.png) repeat-x;
+/*    background: url(../imagen/fondofiltro.png) repeat-x;*/
     height:36px;
 
     border-bottom:#d6d1d1 1px solid;
