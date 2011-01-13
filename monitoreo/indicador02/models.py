@@ -41,7 +41,7 @@ class SerMiembro(models.Model):
         #db_table = "simas_sermiembro"
 
 CHOICE_DESDE = ((1,'Menos de 5 años'),(2,'Más de 5 años'),(3, 'No utilizar'))
-CHOICE_MIEMBRO_GREMIAL = ((1,'Junta directiva'),(2,'Comisiones de trabajo'),(3,'No'))
+CHOICE_MIEMBRO_GREMIAL = ((1,'Si'),(2,'No'))
 
 
 class OrganizacionGremial(models.Model):

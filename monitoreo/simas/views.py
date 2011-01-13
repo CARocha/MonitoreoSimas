@@ -497,11 +497,17 @@ def gremial(request):
 
     for llave in ('miembro', 'comision', 'capacitacion'):
         for sexo in ('hombres', 'mujeres'):
-            tabla_beneficio[sexo].append(calcular_positivos(hombres[llave], hombres['num'], False))
-            tabla_beneficio[sexo].append(calcular_positivos(hombres[llave], hombres['num']))
-            tabla_beneficio[sexo].append(calcular_negativos(hombres[llave], hombres['num'], False))
-            tabla_beneficio[sexo].append(calcular_negativos(hombres[llave], hombres['num']))
-    
+            if sexo == 'hombres':
+                tabla_beneficio[sexo].append(calcular_positivos(hombres[llave], hombres['num'], False))
+                tabla_beneficio[sexo].append(calcular_positivos(hombres[llave], hombres['num']))
+                tabla_beneficio[sexo].append(calcular_negativos(hombres[llave], hombres['num'], False))
+                tabla_beneficio[sexo].append(calcular_negativos(hombres[llave], hombres['num']))
+            else:
+                tabla_beneficio[sexo].append(calcular_positivos(mujeres[llave], mujeres['num'], False))
+                tabla_beneficio[sexo].append(calcular_positivos(mujeres[llave], mujeres['num']))
+                tabla_beneficio[sexo].append(calcular_negativos(mujeres[llave], mujeres['num'], False))
+                tabla_beneficio[sexo].append(calcular_negativos(mujeres[llave], mujeres['num']))
+    print tabla_beneficio 
     return render_to_response('simas/gremial.html', 
                               {'tabla_socio': tabla_socio, 'num_familias': consulta.count(),
                                'tabla_beneficio': tabla_beneficio},
