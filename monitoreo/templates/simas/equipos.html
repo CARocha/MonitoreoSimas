@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {%load unslugify %}
-
+{%block titulo%}Subindicador Bienes{%endblock%}
 {% block extra_header %}
 <script type="text/javascript">
     var activo = 0;
@@ -71,8 +71,6 @@
     });
 </script>
 {% endblock %}
-{%block titulo%}Los Bienes{%endblock%}
-
 {% block contenido %}
 <div class="contenido">
     <!--    <div class="graficos_widget">-->

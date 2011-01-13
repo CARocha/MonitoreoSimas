@@ -62,23 +62,23 @@ def _queryset_filtrado(request):
             #incluye municipio y comunidad
             if request.session['municipio']:
                 if 'comunidad' in request.session:
-                    params['encuesta__comunidad'] = request.session['comunidad']
+                    params['comunidad'] = request.session['comunidad']
                 else:
-                    params['encuesta__comunidad__municipio'] = request.session['municipio']
+                    params['comunidad__municipio'] = request.session['municipio']
             else:
-                params['encuesta__comunidad__municipio__departamento'] = request.session['departamento']
+                params['comunidad__municipio__departamento'] = request.session['departamento']
 
 #        if 'cooperativa' in request.session:
 #            params['encuesta__organizacion'] = request.session['organizacion']
 
         if 'socio' in request.session:
-            params['encuesta__organizaciongremial__socio'] = request.session['socio']
+            params['organizaciongremial__socio'] = request.session['socio']
             
         if 'desde' in request.session:
-            params['encuesta__organizaciongremial__desde_socio'] = request.session['desde']
+            params['organizaciongremial__desde_socio'] = request.session['desde']
 
         if 'duenio' in  request.session:
-            params['encuesta__tenencia__dueno'] = request.session['duenio']
+            params['tenencia__dueno'] = request.session['duenio']
         
         unvalid_keys = []
         for key in params:
@@ -407,15 +407,19 @@ def animales(request):
     for animal in Animales.objects.all():
         query = consulta.filter(animalesfinca__animales = animal)
         numero = query.distinct().count()
-        producto = AnimalesFinca.objects.filter(animales = animal)[0].produccion
+        try:
+            producto = FincaAnimales.objects.filter(animales = animal)[0].produccion
+        except:
+            #el animal no tiene producto aún
+            continue
+
         porcentaje_num = saca_porcentajes(numero, totales['numero'], False)
         animales = query.aggregate(cantidad = Sum('animalesfinca__cantidad'),
                                    venta_libre = Sum('animalesfinca__venta_libre'),
                                    venta_organizada = Sum('animalesfinca__venta_organizada'),
-                                   consumo = Sum('animalesfinca__consumo'),
-                                   produccion = Sum('animalesfinca__total_produccion'))
+                                   consumo = Sum('animalesfinca__consumo'))
         try:
-            animal_familia = animales['cantidad']/float(numero) 
+            animal_familia = float(animales['cantidad'])/float(numero) 
         except:
             animal_familia = 0
         animal_familia = "%.2f" % animal_familia
@@ -423,13 +427,84 @@ def animales(request):
                       animales['cantidad'], animal_familia])
         tabla_produccion.append([animal.nombre, animales['cantidad'], 
                                  producto.nombre, producto.unidad, 
-                                 animales['produccion'], animales['consumo'], 
-                                 animales['venta_libre'], animales['venta_organizada']])
+                                 animales['consumo'], 
+                                 animales['venta_libre'], 
+                                 animales['venta_organizada']])
 
     return render_to_response('simas/animales.html', 
                               {'tabla':tabla, 'totales': totales, 
                                'num_familias': consulta.count(),
                                'tabla_produccion': tabla_produccion},
+                              context_instance=RequestContext(request))
+
+
+#Tabla Organizacion Gremial
+@session_required
+def gremial(request):
+    '''tabla de organizacion gremial'''
+    tabla_socio = {}
+    tabla_beneficio = {'hombres': [], 'mujeres': []}
+    consulta = _queryset_filtrado(request)
+
+    #fila si % no % <5 % >5 %
+    hombres = consulta.filter(sexo = 1).aggregate(socio = Sum('organizaciongremial__socio'),
+                                                         num = Count('organizaciongremial__socio'),
+                                                         miembro = Sum('organizaciongremial__miembro_gremial'),
+                                                         comision = Sum('organizaciongremial__asumir_cargo'),
+                                                         capacitacion = Sum('organizaciongremial__capacitacion'))
+
+    hombres_tiempo = consulta.filter(sexo=1, 
+                                      organizaciongremial__desde_socio__isnull = False,
+                                      organizaciongremial__desde_miembro__isnull = False).aggregate(
+                                                         num = Count('organizaciongremial__socio'),
+                                                         tiempo_socio = Sum('organizaciongremial__desde_socio'))
+
+
+    mujeres = consulta.filter(sexo = 2).aggregate(socio = Sum('organizaciongremial__socio'),
+                                                         num = Count('organizaciongremial__socio'),
+                                                         miembro = Sum('organizaciongremial__miembro_gremial'),
+                                                         comision = Sum('organizaciongremial__asumir_cargo'),
+                                                         capacitacion = Sum('organizaciongremial__capacitacion'))
+
+    mujeres_tiempo = consulta.filter(sexo=2, 
+                                      organizaciongremial__desde_socio__isnull = False,
+                                      organizaciongremial__desde_miembro__isnull = False).aggregate(
+                                                         num = Count('organizaciongremial__socio'),
+                                                         tiempo_socio = Sum('organizaciongremial__desde_socio'))
+
+    
+    lista_llaves = [('socio', 'tiempo_socio'), 
+                   ]
+
+    for valor, tiempo in lista_llaves: 
+        tabla_socio['hombres_' + valor] = [calcular_positivos(hombres[valor], hombres['num'], False),
+                                          calcular_positivos(hombres[valor], hombres['num'], True),
+                                          calcular_negativos(hombres[valor], hombres['num'], False),
+                                          calcular_negativos(hombres[valor], hombres['num'], True),
+                                          calcular_positivos(hombres_tiempo[tiempo], hombres_tiempo['num'], False),
+                                          calcular_positivos(hombres_tiempo[tiempo], hombres_tiempo['num'], True),
+                                          calcular_negativos(hombres_tiempo[tiempo], hombres_tiempo['num'], False),
+                                          calcular_negativos(hombres_tiempo[tiempo], hombres_tiempo['num'], True)]
+
+        tabla_socio['mujeres_' + valor] = [calcular_positivos(mujeres[valor], mujeres['num'], False),
+                                          calcular_positivos(mujeres[valor], mujeres['num'], True),
+                                          calcular_negativos(mujeres[valor], mujeres['num'], False),
+                                          calcular_negativos(mujeres[valor], mujeres['num'], True),
+                                          calcular_positivos(mujeres_tiempo[tiempo], mujeres_tiempo['num'], False),
+                                          calcular_positivos(mujeres_tiempo[tiempo], mujeres_tiempo['num'], True),
+                                          calcular_negativos(mujeres_tiempo[tiempo], mujeres_tiempo['num'], False),
+                                          calcular_negativos(mujeres_tiempo[tiempo], mujeres_tiempo['num'], True)]
+
+    for llave in ('miembro', 'comision', 'capacitacion'):
+        for sexo in ('hombres', 'mujeres'):
+            tabla_beneficio[sexo].append(calcular_positivos(hombres[llave], hombres['num'], False))
+            tabla_beneficio[sexo].append(calcular_positivos(hombres[llave], hombres['num']))
+            tabla_beneficio[sexo].append(calcular_negativos(hombres[llave], hombres['num'], False))
+            tabla_beneficio[sexo].append(calcular_negativos(hombres[llave], hombres['num']))
+    
+    return render_to_response('simas/gremial.html', 
+                              {'tabla_socio': tabla_socio, 'num_familias': consulta.count(),
+                               'tabla_beneficio': tabla_beneficio},
                               context_instance=RequestContext(request))
                               
 #Tabla Cultivos
@@ -730,7 +805,7 @@ def tierra(request):
        uso de la tierra, existencia de arboles y reforestacion.
     '''
     familias = _queryset_filtrado(request).count()
-    return render_to_response('simas/familia.html',
+    return render_to_response('simas/tierra.html',
                               {'num_familias':familias},
                               context_instance=RequestContext(request))                                   
 #TODO: completar esto
@@ -745,10 +820,11 @@ VALID_VIEWS = {
         'cultivos': cultivos,
         'ingresos': ingresos,
         'equipos': equipos,
-        'riego': riesgo,
+        'riesgo': riesgo,
         'tierra': tierra,
         'suelo': suelo,
         'familia': familia,
+        'gremial': gremial,
         'tenencias': tenencias,
         'organizacion': organizacion,
         'ahorro_credito': ahorro_credito,

@@ -103,4 +103,5 @@ INSTALLED_APPS = (
     'monitoreo.indicador19',
     'monitoreo.indicador20',
     'south',
+    'django_extensions',
 )
