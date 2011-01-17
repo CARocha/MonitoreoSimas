@@ -120,3 +120,5 @@ class OrganizacionComunitaria(models.Model):
         #db_table = "simas_organizacioncomunitaria"
 
 #-------------------------------------------------------------------------------
+
+#UPDATE indicador02_organizaciongremial SET miembro_gremial = 1 WHERE miembro_gremial = 2;

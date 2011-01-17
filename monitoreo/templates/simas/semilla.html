@@ -1,0 +1,30 @@
+{% extends "base.html"%}
+{%load unslugify %}
+{% block titulo %}Subindicador Uso de Semilla{% endblock%}
+{% block contenido %}
+<div class="contenido">
+    <table>
+        <caption>Uso de semilla</caption>
+        <thead>
+            <tr>
+                <th>Variedades</th>
+                <th>Nativos</th>
+                <th>%</th>
+                <th>Introducido</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.nativos|floatformat}}</td>
+                <td>{{value.por_nativos|floatformat}}</td>
+                <td>{{value.introducidos|floatformat}}</td>
+                <td>{{value.por_introducidos|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

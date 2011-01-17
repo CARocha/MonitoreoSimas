@@ -1,23 +1,23 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
-"""
-
+from tempfile import mktemp
 from django.test import TestCase
+from django.core import management
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
+from admin_tools.menu.items import AppList
 
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
+class ManagementCommandTest(TestCase):
 
->>> 1 + 1 == 2
-True
-"""}
+    def test_custommenu(self):
+        # check that custommenu command doesn't raise exceptions
+        file_name = mktemp()
+        management.call_command('custommenu', file=file_name)
+        # and fails if file is already here
+        try:
+            management.call_command('custommenu', file=file_name)
+            assert False
+        except:
+            pass
 
+
+__test__ = {
+    'AppList.is_empty': AppList.is_empty,
+}

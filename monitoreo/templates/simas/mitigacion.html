@@ -1,0 +1,35 @@
+{% extends "base.html"%}
+{%load unslugify %}
+{% block titulo %}Subindicador Mitigación de Riesgos{% endblock%}
+{% block contenido %}
+
+<div id="contenedor_igual">
+  <a href="#" class="educacion">Vulnerabilidad de la finca</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+  <a href="/mitigariesgos" class="educacion">Mitigación de riesgos</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+</div>
+<div class="separador"></div>
+                        
+<div class="contenido">
+    <table>
+        <caption>Mitigación de los Riesgos</caption>
+        <thead>
+            <tr>
+                <th>Preguntas</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.mitigacion|floatformat}}</td>
+                <td>{{value.por_mitigacion|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

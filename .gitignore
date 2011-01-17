@@ -19,3 +19,4 @@ settings_local.py
 *.tar
 *.tar.bz2
 *.tar.gz
+monitoreo/admin_tools/

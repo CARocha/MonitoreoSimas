@@ -1,0 +1,156 @@
+{% extends "base.html"%}
+{%load unslugify %}
+{% block titulo %}Subindicador Caracterización del Terrreno{% endblock%}
+{% block contenido %}
+
+<div id="contenedor_igual">
+  <a href="/suelos" class="educacion">Carácteristicas del terreno</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+  <a href="/manejosuelo" class="educacion">Manejo del suelo</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+</div>
+<div class="separador"></div>
+                        
+<div class="contenido">
+    <table>
+        <caption>¿Cúal es el tipo de textura del suelo?</caption>
+        <thead>
+            <tr>
+                <th>Texturas</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_textura.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.textura|floatformat}}</td>
+                <td>{{value.por_textura|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+    <table>
+        <caption>¿Cúal es la profundidad del suelo?</caption>
+        <thead>
+            <tr>
+                <th>Profundidad</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_profundidad.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.profundidad|floatformat}}</td>
+                <td>{{value.por_profundidad|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+    <table>
+        <caption>¿Cómo es la presencia de lombrice en el suelo?</caption>
+        <thead>
+            <tr>
+                <th>Presencia de Lombrices</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_lombrices.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.lombrices|floatformat}}</td>
+                <td>{{value.por_lombrices|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+     <table>
+        <caption>¿Cómo es la densidad de raiz en la capa productiva de suelo?</caption>
+        <thead>
+            <tr>
+                <th>Densidad</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_densidad.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.densidad|floatformat}}</td>
+                <td>{{value.por_densidad|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+    <table>
+        <caption>¿Cúal es la pendiente del terrreno?</caption>
+        <thead>
+            <tr>
+                <th>Pendientes</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_pendiente.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.pendiente|floatformat}}</td>
+                <td>{{value.por_pendiente|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+    <table>
+        <caption>¿Cómo es el drenaje del suelo?</caption>
+        <thead>
+            <tr>
+                <th>Drenaje</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_drenaje.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.drenaje|floatformat}}</td>
+                <td>{{value.por_drenaje|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+    <table>
+        <caption>¿Cómo es el contenido de materia orgánica?</caption>
+        <thead>
+            <tr>
+                <th>Contenido</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_materia.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.materia|floatformat}}</td>
+                <td>{{value.por_materia|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+</div>
+{% endblock %}
