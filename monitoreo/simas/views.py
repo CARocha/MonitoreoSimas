@@ -1058,16 +1058,15 @@ def agua_grafos_disponibilidad(request, tipo):
 #            choices = Disponibilidad.objects.all()[:2]  
 #        else:
 #            choices = Disponibilidad.objects.all()[2:]
-    for tipo in Fuente.objects.all():
-        for opcion in Disponibilidad.objects.all():
-            data.append(consulta.filter(agua__disponible=opcion, agua__fuente = tipo).count())
-            legends.append(opcion)
-        titulo = 'Disponibilidad del agua en %s' # % CHOICE_FUENTE_AGUA[tipo - 1][1]
-        return grafos.make_graph(data, legends, 
-                titulo, return_json = True,
-                type = grafos.PIE_CHART_3D)
-    else:
-        raise Http404    
+    tipo = get_object_or_404(Fuente, id = int(tipo)) 
+    for opcion in Disponibilidad.objects.all():
+        data.append(consulta.filter(agua__disponible=opcion, agua__fuente = tipo).count())
+        legends.append(opcion.nombre)
+    titulo = 'Disponibilidad del agua en %s' % tipo.nombre 
+    print titulo 
+    return grafos.make_graph(data, legends, 
+            titulo, return_json = True,
+            type = grafos.PIE_CHART_3D)
                                    
 # Aca empieza el menu para los subindicadores :)
                                
