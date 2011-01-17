@@ -1,0 +1,46 @@
+{% extends "base.html"%}
+{%load unslugify %}
+{% block titulo %}Subindicador Opciones de Manejo Agroecológico{% endblock%}
+{% block contenido %}
+<div class="contenido">
+    <table>
+        <caption>Manejo Agroecológico</caption>
+        <thead>
+            <tr>
+                <th>uso de manejo agro.</th>
+                <th>Nada</th>
+                <th>%</th>
+                <th>Poco</th>
+                <th>%</th>
+                <th>Algo</th>
+                <th>%</th>
+                <th>Bastante</th>
+                <th>%</th>
+                <th>Experimentan menor escala</th>
+                <th>%</th>
+                <th>Experimentan mayor escala</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.nada|floatformat}}</td>
+                <td>{{value.por_nada|floatformat}}</td>
+                <td>{{value.poco|floatformat}}</td>
+                <td>{{value.por_poco|floatformat}}</td>
+                <td>{{value.algo|floatformat}}</td>
+                <td>{{value.por_algo|floatformat}}</td>
+                <td>{{value.bastante|floatformat}}</td>
+                <td>{{value.por_bastante|floatformat}}
+                <td>{{value.menor_escala|floatformat}}</td>
+                <td>{{value.por_menor_escala|floatformat}}</td>
+                <td>{{value.mayor_escala|floatformat}}</td>
+                <td>{{value.por_mayor_escala|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

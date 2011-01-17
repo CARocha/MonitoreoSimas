@@ -147,7 +147,7 @@ class VulnerableInline(admin.TabularInline):
 class RiesgosInline(admin.TabularInline):
     model = Riesgos
     extra = 1
-    
+   
 class EncuestaAdmin(admin.ModelAdmin):
     def queryset(self, request):
         if request.user.is_superuser:

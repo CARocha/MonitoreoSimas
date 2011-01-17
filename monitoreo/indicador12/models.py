@@ -144,7 +144,7 @@ class ManejoSuelo(models.Model):
     traccion = models.ManyToManyField(Traccion,
                                       verbose_name="¿Qué tipo de traccion utiliza para la preparación del suelo?")
     analisis = models.IntegerField('¿Realiza análisis de fertilidad del suelo', choices=CHOICE_OPCION)
-    fertilizacion = models.ManyToManyField(Fertilizacion, verbose_name="¿Qué tipo de fertilización realiza")
+    fertilizacion = models.ManyToManyField(Fertilizacion, verbose_name="¿Qué tipo de fertilización realiza?")
     practica = models.IntegerField('¿Realiza práctica de conservación de suelo', choices=CHOICE_OPCION)
     obra = models.ManyToManyField(Conservacion, verbose_name="¿Qué tipo de obra de conservación de suelo?")
     encuesta = models.ForeignKey(Encuesta)

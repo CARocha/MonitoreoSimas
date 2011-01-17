@@ -14,14 +14,8 @@ def get_admin_menu():
     menu_cls = getattr(
         settings,
         'ADMIN_TOOLS_MENU',
-        'admin_tools.menu.models.DefaultMenu'
+        'admin_tools.menu.DefaultMenu'
     )
-    try:
-        mod, inst = menu_cls.rsplit('.', 1)
-        mod = import_module(mod)
-    except Exception, exc:
-        raise ImproperlyConfigured((
-            'The class pointed by your ADMIN_TOOLS_MENU setting variable '
-            'cannot be imported: %s' % exc.message
-        ))
+    mod, inst = menu_cls.rsplit('.', 1)
+    mod = import_module(mod)
     return getattr(mod, inst)()

@@ -1,0 +1,96 @@
+{% extends "base.html"%}
+{%load unslugify %}
+{% block titulo %}Subindicador Manejo del Suelo{% endblock%}
+{% block contenido %}
+
+<div id="contenedor_igual">
+  <a href="/suelos" class="educacion">Carácteristicas del terreno</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+  <a href="/manejosuelo" class="educacion">Manejo del suelo</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+</div>
+<div class="separador"></div>
+                        
+<div class="contenido">
+    <table>
+        <caption>¿Cómo preparan sus terrenos?</caption>
+        <thead>
+            <tr>
+                <th>Terrenos</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_terreno.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.preparan|floatformat}}</td>
+                <td>{{value.por_preparan|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+    <table>
+        <caption>¿Qué tipo de traccion utiliza para la preparación del suelo?</caption>
+        <thead>
+            <tr>
+                <th>Tipo Tracción</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_traccion.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.traccion|floatformat}}</td>
+                <td>{{value.por_traccion|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+    <table>
+        <caption>¿Qué tipo de fertilización realiza?</caption>
+        <thead>
+            <tr>
+                <th>Tipos de Fertilización</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_fertilizacion.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.fertilizacion|floatformat}}</td>
+                <td>{{value.por_fertilizacion|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+     <table>
+        <caption>¿Qué tipo de obra de conservación de suelo?</caption>
+        <thead>
+            <tr>
+                <th>Tipos de obras</th>
+                <th>Número</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla_obra.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.obra|floatformat}}</td>
+                <td>{{value.por_obra|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    
+</div>
+{% endblock %}

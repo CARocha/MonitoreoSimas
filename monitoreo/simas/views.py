@@ -506,6 +506,28 @@ def gremial(request):
                               {'tabla_socio': tabla_socio, 'num_familias': consulta.count(),
                                'tabla_beneficio': tabla_beneficio},
                               context_instance=RequestContext(request))
+
+#Tabla Organizacion comunitaria
+@session_required
+def comunitario(request):
+    ''' tablas organización comunitaria '''
+    #***********Variables***************
+    a = _queryset_filtrado(request)
+    num_familias = a.count()
+    #***********************************
+    
+    tabla = []
+    numero = a.aggregate(numero=Sum('organizacioncomunitaria__numero'))['numero']
+    pertence = a.aggregate(pertence=Sum('organizacioncomunitaria__pertence'))['pertence']
+    
+    for i in OrgComunitarias.objects.all():
+        #key = a.filter(organizacioncomunitaria__cual_organizacion = i)
+        tabla.append(i.nombre)
+        print tabla
+        
+    return render_to_response('simas/comunitario.html', {'numero':numero,'tabla':tabla, 
+                              'pertence':pertence, 'num_familias': num_familias},
+                                context_instance=RequestContext(request) )
                               
 #Tabla Cultivos
 @session_required
@@ -746,7 +768,243 @@ def seguridad_alimentaria(request):
     return render_to_response('simas/seguridad.html',{'tabla':tabla,
                               'num_familias':num_familia},
                                context_instance=RequestContext(request))
-                               
+
+#tabla opciones de manejo                               
+@session_required                               
+def opcionesmanejo(request):
+    '''Opciones de manejo agroecologico'''
+    #********variables globales****************
+    a = _queryset_filtrado(request)
+    num_familia = a.count()
+    #******************************************
+    tabla = {}
+    
+    for k in ManejoAgro.objects.all():
+        key = slugify(k.nombre).replace('-','_')
+        query = a.filter(opcionesmanejo__uso = k)
+        frecuencia = query.count()
+        nada = query.filter(opcionesmanejo__uso=k,opcionesmanejo__nivel=1).aggregate(nada=Count('opcionesmanejo__nivel'))['nada']
+        por_nada = saca_porcentajes(nada, num_familia)
+        poco = query.filter(opcionesmanejo__uso=k,opcionesmanejo__nivel=2).aggregate(poco=Count('opcionesmanejo__nivel'))['poco']
+        por_poco = saca_porcentajes(poco, num_familia)
+        algo = query.filter(opcionesmanejo__uso=k,opcionesmanejo__nivel=3).aggregate(algo=Count('opcionesmanejo__nivel'))['algo']
+        por_algo = saca_porcentajes(algo, num_familia)
+        bastante = query.filter(opcionesmanejo__uso=k,opcionesmanejo__nivel=4).aggregate(bastante=Count('opcionesmanejo__nivel'))['bastante']
+        por_bastante = saca_porcentajes(bastante, num_familia)
+        menor_escala = query.filter(opcionesmanejo__uso=k,opcionesmanejo__menor_escala=1).aggregate(menor_escala=Count('opcionesmanejo__menor_escala'))['menor_escala']
+        por_menor_escala = saca_porcentajes(menor_escala,num_familia)
+        mayor_escala = query.filter(opcionesmanejo__uso=k,opcionesmanejo__mayor_escala=1).aggregate(mayor_escala=Count('opcionesmanejo__mayor_escala'))['mayor_escala']
+        por_mayor_escala = saca_porcentajes(mayor_escala, num_familia)
+        
+        tabla[key] = {'nada':nada,'poco':poco,'algo':algo,'bastante':bastante,
+                      'por_nada':por_nada,'por_poco':por_poco,'por_algo':por_algo,
+                      'por_bastante':por_bastante,'menor_escala':menor_escala,
+                      'mayor_escala':mayor_escala,'por_menor_escala':por_menor_escala,
+                      'por_mayor_escala':por_mayor_escala}
+                      
+    return render_to_response('simas/manejo_agro.html',{'tabla':tabla,
+                              'num_familias':num_familia},
+                               context_instance=RequestContext(request))
+
+#tabla uso de semilla       
+@session_required        
+def usosemilla(request):
+    '''Uso de Semilla'''
+    #********variables globales****************
+    a = _queryset_filtrado(request)
+    num_familia = a.count()
+    #******************************************
+    tabla = {}
+    
+    for k in Variedades.objects.all():
+        key = slugify(k.variedad).replace('-','_')
+        query = a.filter(semilla__cultivo = k)
+        frecuencia = query.count()
+        nativos = query.filter(semilla__cultivo=k,semilla__origen=1).aggregate(nativos=Count('semilla__origen'))['nativos']
+        introducidos = query.filter(semilla__cultivo=k,semilla__origen=2).aggregate(introducidos=Count('semilla__origen'))['introducidos']
+        suma_semilla = nativos + introducidos
+        por_nativos = saca_porcentajes(nativos, suma_semilla)
+        por_introducidos = saca_porcentajes(introducidos, suma_semilla)
+        
+        tabla[key] = {'nativos':nativos,'introducidos':introducidos,
+                      'por_nativos':por_nativos,'por_introducidos':por_introducidos}
+                      
+    return render_to_response('simas/semilla.html',{'tabla':tabla,
+                              'num_familias':num_familia},
+                              context_instance=RequestContext(request))
+
+#tabla suelos                               
+@session_required
+def suelos(request):
+    '''Uso del suelos'''
+    #********variables globales****************
+    a = _queryset_filtrado(request)
+    num_familia = a.count()
+    #******************************************
+    tabla_textura = {}
+    
+    #caracteristicas del terrenos
+    for k in Textura.objects.all():
+        key = slugify(k.nombre).replace('-','_')
+        query = a.filter(suelo__textura = k)
+        frecuencia = query.count()
+        textura = query.filter(suelo__textura=k).aggregate(textura=Count('suelo__textura'))['textura']
+        por_textura = saca_porcentajes(textura, num_familia)
+        tabla_textura[key] = {'textura':textura,'por_textura':por_textura}
+        
+    #profundidad del terrenos
+    tabla_profundidad = {}
+    
+    for u in Profundidad.objects.all():
+        key = slugify(u.nombre).replace('-','_')
+        query = a.filter(suelo__profundidad = u)
+        frecuencia = query.count()
+        profundidad = query.filter(suelo__profundidad=u).aggregate(profundidad=Count('suelo__profundidad'))['profundidad']
+        por_profundidad = saca_porcentajes(profundidad, num_familia)
+        tabla_profundidad[key] = {'profundidad':profundidad,'por_profundidad':por_profundidad}
+        
+    #profundidad del lombrices
+    tabla_lombrices = {}
+    
+    for j in Densidad.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(suelo__lombrices = j)
+        frecuencia = query.count()
+        lombrices = query.filter(suelo__lombrices=j).aggregate(lombrices=Count('suelo__lombrices'))['lombrices']
+        por_lombrices = saca_porcentajes(lombrices, num_familia)
+        tabla_lombrices[key] = {'lombrices':lombrices,'por_lombrices':por_lombrices}
+
+     #Densidad
+    tabla_densidad = {}
+    
+    for j in Densidad.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(suelo__densidad = j)
+        frecuencia = query.count()
+        densidad = query.filter(suelo__densidad=j).aggregate(densidad=Count('suelo__densidad'))['densidad']
+        por_densidad = saca_porcentajes(densidad, num_familia)
+        tabla_densidad[key] = {'densidad':densidad,'por_densidad':por_densidad}
+        
+      #Pendiente
+    tabla_pendiente = {}
+    
+    for j in Pendiente.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(suelo__densidad = j)
+        frecuencia = query.count()
+        pendiente = query.filter(suelo__pendiente=j).aggregate(pendiente=Count('suelo__pendiente'))['pendiente']
+        por_pendiente = saca_porcentajes(pendiente, num_familia)
+        tabla_pendiente[key] = {'pendiente':pendiente,'por_pendiente':por_pendiente}
+        
+      #Drenaje
+    tabla_drenaje = {}
+    
+    for j in Drenaje.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(suelo__drenaje = j)
+        frecuencia = query.count()
+        drenaje = query.filter(suelo__drenaje=j).aggregate(drenaje=Count('suelo__drenaje'))['drenaje']
+        por_drenaje = saca_porcentajes(drenaje, num_familia)
+        tabla_drenaje[key] = {'drenaje':drenaje,'por_drenaje':por_drenaje}
+        
+    #Materia
+    tabla_materia = {}
+    
+    for j in Densidad.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(suelo__materia = j)
+        frecuencia = query.count()
+        materia = query.filter(suelo__materia=j).aggregate(materia=Count('suelo__materia'))['materia']
+        por_materia = saca_porcentajes(materia, num_familia)
+        tabla_materia[key] = {'materia':materia,'por_materia':por_materia}
+        
+    return render_to_response('simas/suelos.html',{'tabla_textura':tabla_textura,
+                              'tabla_profundidad':tabla_profundidad,'tabla_densidad':tabla_densidad,
+                              'tabla_lombrices':tabla_lombrices,'tabla_pendiente':tabla_pendiente,
+                              'tabla_drenaje':tabla_drenaje,'tabla_materia':tabla_materia,
+                              'num_familias':num_familia},
+                               context_instance=RequestContext(request))
+
+#tabla manejo de suelo
+@session_required        
+def manejosuelo(request):
+    ''' Manejo del suelos'''
+    #********variables globales****************
+    a = _queryset_filtrado(request)
+    num_familia = a.count()
+    #******************************************
+    
+    #Terrenos
+    tabla_terreno = {}
+    for j in Preparar.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(manejosuelo__preparan = j)
+        frecuencia = query.count()
+        preparan = query.filter(manejosuelo__preparan=j).aggregate(preparan=Count('manejosuelo__preparan'))['preparan']
+        por_preparan = saca_porcentajes(preparan, num_familia)
+        tabla_terreno[key] = {'preparan':preparan,'por_preparan':por_preparan}
+        
+    #Tracción
+    tabla_traccion = {}
+    for j in Traccion.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(manejosuelo__traccion = j)
+        frecuencia = query.count()
+        traccion = query.filter(manejosuelo__traccion=j).aggregate(traccion=Count('manejosuelo__traccion'))['traccion']
+        por_traccion = saca_porcentajes(traccion, num_familia)
+        tabla_traccion[key] = {'traccion':traccion,'por_traccion':por_traccion}
+        
+    #Fertilización
+    tabla_fertilizacion = {}
+    for j in Fertilizacion.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(manejosuelo__fertilizacion = j)
+        frecuencia = query.count()
+        fertilizacion = query.filter(manejosuelo__fertilizacion=j).aggregate(fertilizacion=Count('manejosuelo__fertilizacion'))['fertilizacion']
+        por_fertilizacion = saca_porcentajes(fertilizacion, num_familia)
+        tabla_fertilizacion[key] = {'fertilizacion':fertilizacion,
+                                    'por_fertilizacion':por_fertilizacion}
+                                    
+    #Tipo obra de conservación del suelo
+    tabla_obra = {}
+    for j in Conservacion.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(manejosuelo__obra = j)
+        frecuencia = query.count()
+        obra = query.filter(manejosuelo__obra=j).aggregate(obra=Count('manejosuelo__obra'))['obra']
+        por_obra = saca_porcentajes(obra, num_familia)
+        tabla_obra[key] = {'obra':obra,'por_obra':por_obra}
+        
+    return render_to_response('simas/manejo_suelo.html',{'tabla_terreno':tabla_terreno,
+                              'tabla_traccion':tabla_traccion,'tabla_fertilizacion':tabla_fertilizacion,
+                              'tabla_obra':tabla_obra,'num_familias':num_familia},
+                               context_instance=RequestContext(request))      
+
+#tabla mitigacion de riesgos
+@session_required    
+def mitigariesgos(request):
+    ''' Mitigación de los Riesgos '''
+    #********variables globales****************
+    a = _queryset_filtrado(request)
+    num_familia = a.count()
+    #******************************************
+    tabla = {}
+    for j in PreguntaRiesgo.objects.all():
+        key = slugify(j.nombre).replace('-','_')
+        query = a.filter(riesgos__pregunta = j)
+        mitigacion = query.filter(riesgos__pregunta=j, riesgos__respuesta=1).aggregate(mitigacion=Count('riesgos__pregunta'))['mitigacion']
+        por_mitigacion = saca_porcentajes(mitigacion, num_familia)
+        tabla[key] = {'mitigacion':mitigacion,'por_mitigacion':por_mitigacion}
+        
+    return render_to_response('simas/mitigacion.html',{'tabla':tabla,
+                              'num_familias':num_familia},
+                               context_instance=RequestContext(request)) 
+        
+#GRAFICOS
+@session_required
+def graficos        
+    
+                                   
 # Aca empieza el menu para los subindicadores :)
                                
 @session_required
@@ -823,12 +1081,18 @@ VALID_VIEWS = {
         'riesgo': riesgo,
         'tierra': tierra,
         'suelo': suelo,
+        'suelos': suelos,
         'familia': familia,
         'gremial': gremial,
         'tenencias': tenencias,
+        'usosemilla': usosemilla,
+        'manejosuelo': manejosuelo,
+        'comunitario' : comunitario,
         'organizacion': organizacion,
+        'mitigariesgos': mitigariesgos,
         'ahorro_credito': ahorro_credito,
-        'seguridad': seguridad_alimentaria,
+        'opcionesmanejo': opcionesmanejo,
+        'seguridad': seguridad_alimentaria,            
         #me quedo tuani el caminito :)
             }
         

@@ -1,6 +1,6 @@
 from django import forms
 
-from monitoreo.admin_tools.dashboard.models import DashboardPreferences
+from admin_tools.dashboard.models import DashboardPreferences
 
 
 class DashboardPreferencesForm(forms.ModelForm):
