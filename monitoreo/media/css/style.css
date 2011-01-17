@@ -626,7 +626,7 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
 
 /* EL MENU DE LOS GRAFICOS */
 
-#sidebar{float:right;}
+/*#sidebar{float:right;}*/
 
 .graficos_widget{
     width:240px;

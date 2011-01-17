@@ -1062,7 +1062,88 @@ def agua_grafos_disponibilidad(request, tipo):
                 type = grafos.PIE_CHART_3D)
     else:
         raise Http404    
-                                   
+
+
+@session_required
+def fincas_grafos(request, tipo):
+    '''Tipo puede ser: tenencia, solares, propietario'''
+    consulta = _queryset_filtrado(request)
+    #CHOICE_TENENCIA, CHOICE_DUENO
+    data = [] 
+    legends = []
+    if tipo == 'tenencia':
+        for opcion in CHOICE_TENENCIA:
+            data.append(consulta.filter(tenencia__parcela=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends, 
+                'Tenencia de las parcelas', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'solares':
+        for opcion in CHOICE_TENENCIA:
+            data.append(consulta.filter(tenencia__solar=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends, 
+                'Tenencia de los solares', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'propietario':
+        for opcion in CHOICE_DUENO:
+            data.append(consulta.filter(tenencia__dueno=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends, 
+                'Dueño de propiedad', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    else:
+        raise Http404     
+        
+@session_required
+def arboles_grafos(request, tipo):
+    ''' graficos para los distintos tipos de arboles en las fincas
+        Maderables, Forrajero, Energetico y Frutal
+    '''
+    #--- variables ---
+    consulta = _queryset_filtrado(request)
+    data = [] 
+    legends = []
+    #-----------------
+    if tipo == 'maderable':
+        for opcion in Maderable.objects.all():
+            data.append(consulta.filter(existenciarboles__maderable=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends, 
+                'Tipo Maderable', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'forrajero': 
+        for opcion in Forrajero.objects.all():
+            data.append(consulta.filter(existenciarboles__forrajero=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends, 
+                'Tipo Forrajero', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'energetico':
+        for opcion in Energetico.objects.all():
+            data.append(consulta.filter(existenciarboles__energetico=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends,
+               'Tipo Energetico', return_json = True,
+               type = grafos.PIE_CHART_3D)
+    elif tipo == 'frutal':
+        for opcion in Frutal.objects.all():
+            data.append(consulta.filter(existenciarboles__energetico=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends,
+               'Tipo Frutal', return_json = True,
+               type = grafos.PIE_CHART_3D)
+    elif tipo == 'nativos':
+        nativo = consulta.aggregate(nati=Count('reforestacion__nativos'))['nati']
+        nonativo = consulta.aggregate(noti=Count('reforestacion__nonativos'))['noti']
+        data = [[nativo], [nonativo]]
+        legends = ['Nativos','NoNativos']
+        message = "Especie de arboles"
+        return grafos.make_graph(data, legends, message, multiline=True,
+                                 return_json = True, type=grafos.GROUPED_BAR_CHART_V)
+    else:
+        raise Http404
+                              
 # Aca empieza el menu para los subindicadores :)
                                
 @session_required

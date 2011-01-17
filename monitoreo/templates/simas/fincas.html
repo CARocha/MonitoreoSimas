@@ -2,114 +2,155 @@
 {%load unslugify %}
 {%block titulo%}Subindicador Tierra{%endblock%}
 {% block extra_header %}
-<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
-<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
+<!--<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>-->
+<!--<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>-->
+<!--<script type="text/javascript">-->
+<!--    var chart;-->
+<!--    jQuery(document).ready(function() {-->
+<!--        Highcharts.setOptions({-->
+<!--            lang: {-->
+<!--                downloadPNG: 'Guardar como imagen',-->
+<!--                downloadJPEG: '',-->
+<!--                downloadPDF: 'Guardar como PDF',-->
+<!--                downloadSVG: '',-->
+<!--                exportButtonTitle: 'Guardar grafico',-->
+<!--                printButtonTitle: 'Imprimir'-->
+<!--            }-->
+<!--        });-->
+<!--        chart = new Highcharts.Chart({-->
+<!--            chart: {-->
+<!--                renderTo: 'container',-->
+<!--                defaultSeriesType: 'column'-->
+<!--            },-->
+<!--            title: {-->
+<!--                text: 'Tenencias'-->
+<!--            },-->
+<!--            subtitle: {-->
+<!--                text: 'Parcelas'-->
+<!--            },-->
+<!--            xAxis: {-->
+<!--                categories: [-->
+<!--                    'Tipos de tenencias'-->
+<!--                ]-->
+<!--            },-->
+<!--            yAxis: {-->
+<!--                min: 0,-->
+<!--                title: {-->
+<!--                    text: 'Cantidad'-->
+<!--                }-->
+<!--            },-->
+<!--            legend: {-->
+<!--                layout: 'vertical',-->
+<!--                align: 'right',-->
+<!--                backgroundColor : '#fff',-->
+<!--                verticalAlign: 'top',-->
+<!--                x: 0,-->
+<!--                y: 70-->
+<!--            },-->
+<!--            tooltip: {-->
+<!--                formatter: function() {-->
+<!--                    return ''+-->
+<!--                        this.series.name +': '+ this.y +'';-->
+<!--                }-->
+<!--            },-->
+<!--            plotOptions: {-->
+<!--                column: {-->
+<!--                    pointPadding: 0.2,                    -->
+<!--                    borderWidth: 1-->
+<!--                }-->
+<!--            },-->
+<!--            series: [{-->
+<!--                    name: 'Propia con escritura',-->
+<!--                    data: [60]-->
+
+<!--                }, {-->
+<!--                    name: 'Propia por herencia',-->
+<!--                    data: [80]-->
+
+<!--                }, {-->
+<!--                    name: 'Propias por promesa de venta',-->
+<!--                    data: [59]-->
+
+<!--                }, {-->
+<!--                    name: 'Con titulo de reforma agraria',-->
+<!--                    data: [35]-->
+
+<!--                },{-->
+<!--                    name: 'Arrendada',-->
+<!--                    data: [20]-->
+<!--                },{-->
+<!--                    name: 'Sin Nada',-->
+<!--                    data: [25]-->
+<!--                }]-->
+
+<!--            -->
+<!--        });-->
+
+
+<!--    });-->
+<!--</script>-->
 <script type="text/javascript">
-    var chart;
-    jQuery(document).ready(function() {
-        Highcharts.setOptions({
-            lang: {
-                downloadPNG: 'Guardar como imagen',
-                downloadJPEG: '',
-                downloadPDF: 'Guardar como PDF',
-                downloadSVG: '',
-                exportButtonTitle: 'Guardar grafico',
-                printButtonTitle: 'Imprimir'
+    //si activo es 0 el html interno esta vacio
+    //caso si activo es otro num sustituir grafico
+    //si activo es el mismo id, esconder grafico
+    var activo = 0; 
+    function click_callback(id){
+        $.getJSON('/grafo/fincas/' + id, function(data) {
+            if (activo!= id){
+                $("#grafo").html('<img src="' + data.url + '" />');
+                activo = id;
+            }else{
+                $("#grafo").html('');
+                activo = 0;
             }
         });
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'container',
-                defaultSeriesType: 'column'
-            },
-            title: {
-                text: 'Tenencias'
-            },
-            subtitle: {
-                text: 'Parcelas'
-            },
-            xAxis: {
-                categories: [
-                    'Tipos de tenencias'
-                ]
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Cantidad'
-                }
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                backgroundColor : '#fff',
-                verticalAlign: 'top',
-                x: 0,
-                y: 70
-            },
-            tooltip: {
-                formatter: function() {
-                    return ''+
-                        this.series.name +': '+ this.y +'';
-                }
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,                    
-                    borderWidth: 1
-                }
-            },
-            series: [{
-                    name: 'Propia con escritura',
-                    data: [60]
-
-                }, {
-                    name: 'Propia por herencia',
-                    data: [80]
-
-                }, {
-                    name: 'Propias por promesa de venta',
-                    data: [59]
-
-                }, {
-                    name: 'Con titulo de reforma agraria',
-                    data: [35]
-
-                },{
-                    name: 'Arrendada',
-                    data: [20]
-                },{
-                    name: 'Sin Nada',
-                    data: [25]
-                }]
-
-            
-        });
-
-
+    }
+    $(document).ready(function() {
+    $("#grafico1").click(function(){
+        $("#grafico1").addClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
     });
+    
+    $("#grafico2").click(function(){
+        $("#grafico2").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+    });
+
+    $("#grafico3").click(function(){
+        $("#grafico3").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+    });
+});
 </script>
-{% endblock %}
+{%endblock%}
 
 {% block contenido %}
 
 
  <div id="contenedor_igual">
-                            <a href="/fincas" class="educacion">Uso de tierra</a>
-                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-                           
-                            <a href="/arboles" class="educacion">Existencia de árboles y Reforestación</a>
-                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-                        </div>
-                        <div class="separador"></div>
+  <a href="/fincas" class="educacion">Uso de tierra</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+  <a href="/arboles" class="educacion">Existencia de árboles y Reforestación</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+ </div>
+ <div class="separador"></div>
 
+<div id="sidebar">
+    <div class="graficos_widget">
+        <h1>Gráficos</h1>
+        <a href="#" id="grafico1" onCLick="click_callback('tenencia')">Tenencia de las Parcelas</a>
+        <a href="#" id="grafico2" onCLick="click_callback('solares')">Tenencia de los solares</a>
+        <a href="#" id="grafico3" onCLick="click_callback('propietario')">Dueño de la Propiedad</a>
+    </div>
+</div>
+
+<div id="grafo"></div>
 
 <div class="contenido">
-    <div id="grafo"></div>
-<!--    <form action="#">       -->
-<!--        <label>Buscar en tabla: </label><input type="text" name="search" value="" id="id_search" placeholder="Search" autofocus />-->
-<!--    </form>-->
-    <table id="table_example" class="tablesorter" style="font-size:90%">
+    <table>
         <caption>Uso de Tierra</caption>
         <thead>
             <tr>
@@ -140,17 +181,7 @@
         </tbody>
     </table>
 </div>
-<div id="container" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
-<script>
-    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-    // ademas que ordene por defecto las filas 0,0 y 2,1
-    $(document).ready(function()
-    {
-        //$("#table_example").tablesorter();
-        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    }
-); 
-</script>
+#<div id="container" style="height:410px; width: 800px; margin: 0 auto; clear:both"></div>
+
 
 {% endblock %}
