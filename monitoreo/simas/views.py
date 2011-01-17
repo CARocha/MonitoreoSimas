@@ -1002,7 +1002,8 @@ def mitigariesgos(request):
         
 #GRAFICOS
 @session_required
-def graficos        
+def graficos
+    pass        
     
                                    
 # Aca empieza el menu para los subindicadores :)
