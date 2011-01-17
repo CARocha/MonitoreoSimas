@@ -1001,9 +1001,9 @@ def mitigariesgos(request):
                                context_instance=RequestContext(request)) 
         
 #GRAFICOS
-@session_required
-def graficos
-    pass        
+#@session_required
+#def graficos
+#    pass        
     
                                    
 # Aca empieza el menu para los subindicadores :)
