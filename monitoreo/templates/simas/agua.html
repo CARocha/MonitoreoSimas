@@ -1,21 +1,57 @@
 {% extends "base.html" %}
 {%load unslugify %}
 {% block titulo %}Subindicador Agua{%endblock%}
+{%block extra_header%}
+<script type="text/javascript">
+    //si activo es 0 el html interno esta vacio
+    //caso si activo es otro num sustituir grafico
+    //si activo es el mismo id, esconder grafico
+    var activo = 0; 
+    function click_callback(url, id){
+        $.getJSON(url + id, function(data) {
+            if (activo!= url + id){
+                $("#grafo").html('<img src="' + data.url + '" />');
+                activo = url + id;
+            }else{
+                $("#grafo").html('');
+                activo = 0;
+            }
+        });
+    }
+    function disp(id){
+        click_callback('/grafo/agua-disponibilidad/', id);
+    }
+</script>
+{%endblock%}
 {% block contenido %}
 
 <div id="contenedor_igual">
-                            <a href="/educacion" class="educacion">Educación</a>
-                            <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-                            <a href="/salud" class="educacion">Salud</a>
-                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-                            <a href="/luz"class="agua">Energia</a>
-                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-                            <a href="/agua"class="luz">Agua de consumo</a>
-                             <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-                        </div>
-                        <div class="separador"></div>
-                        <br></br>
+  <a href="/educacion" class="educacion">Educación</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+  <a href="/salud" class="educacion">Salud</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+  <a href="/luz"class="agua">Energia</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+  <a href="/agua"class="luz">Agua de consumo</a>
+  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
+</div>
+<div class="separador"></div>
 
+<div id="sidebar">
+    <div class="graficos_widget">
+        <h1>Gráficos de Disponibilidad </h1>
+        <a id="grafico1" href="#" onCLick="disp(1)">Disponibilidad en Quebrada</a>
+        <a id="grafico2" href="#" onCLick="disp(2)">Disponibilidad en Ojo de Agua</a>
+        <a id="grafico3" href="#" onCLick="disp(3)">Disponibilidad en Pozo Comunitario</a>
+        <a id="grafico4" href="#" onCLick="disp(4)">Disponibilidad en Pozo Propio</a>
+        <a id="grafico5" href="#" onCLick="disp(5)">Disponibilidad en Agua comunitaria</a>
+        <a id="grafico6" href="#" onCLick="disp(6)">Disponibilidad en Agua de la casa</a>
+    </div>
+    <div class="separador"></div>
+   
+</div>
+
+<div id="grafo"></div>
 
 <div class="contenido">
      <table>
@@ -34,6 +70,22 @@
         </tr>
         {%endfor%}
     </table>
+    
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+<br></br>
 </div>
 <div class="separador"></div>
 

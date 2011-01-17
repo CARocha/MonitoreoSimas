@@ -33,8 +33,8 @@ from datetime import date
 from forms import *
 from monitoreo.lugar.models import *
 from decimal import Decimal
-#from utils import grafos
-#from utils import *
+from utils import grafos
+from utils import *
 
 # Create your views here.
 
@@ -1001,10 +1001,67 @@ def mitigariesgos(request):
                                context_instance=RequestContext(request)) 
         
 #GRAFICOS
-#@session_required
-#def graficos
-#    pass        
+@session_required
+def organizacion_grafos(request, tipo):
+    '''grafos de organizacion
+       tipo puede ser: beneficio, miembro'''
+    consulta = _queryset_filtrado(request)
     
+    data = [] 
+    legends = []
+    if tipo == 'beneficio':
+        for opcion in BeneficiosObtenido.objects.all():
+            data.append(consulta.filter(organizaciongremial__beneficio=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends, 
+                '¿Qué beneficios ha tenido por ser socio/a de la cooperativa, la asociación o empresa', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'miembro':
+        for opcion in SerMiembro.objects.all():
+            data.append(consulta.filter(organizaciongremial__beneficio=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends, 
+                'Porque soy o quiero ser miembro de la junta directiva o las comisiones', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'beneficiorganizado':
+        for opcion in BeneficioOrgComunitaria.objects.all():
+            data.append(consulta.filter(organizacioncomunitaria__cual_beneficio=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends, 
+                '¿Cuáles son los beneficios de estar organizado', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'norganizado':
+        for opcion in NoOrganizado.objects.all():
+            data.append(consulta.filter(organizacioncomunitaria__no_organizado=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends, 
+                '¿Porqué no esta organizado?', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    else:
+        raise Http404
+            
+@session_required
+def agua_grafos_disponibilidad(request, tipo):
+    '''Tipo: numero del 1 al 6 en CHOICE_FUENTE_AGUA'''
+    consulta = _queryset_filtrado(request)
+    data = [] 
+    legends = []
+#    tipo = int(tipo)
+#    if tipo in [numero[0] for numero in Fuente.objects.all()]:
+#        if tipo in [1, 2]:
+#            choices = Disponibilidad.objects.all()[:2]  
+#        else:
+#            choices = Disponibilidad.objects.all()[2:]
+    for tipo in Fuente.objects.all():
+        for opcion in Disponibilidad.objects.all():
+            data.append(consulta.filter(agua__disponible=opcion, agua__fuente = tipo).count())
+            legends.append(opcion)
+        titulo = 'Disponibilidad del agua en %s' # % CHOICE_FUENTE_AGUA[tipo - 1][1]
+        return grafos.make_graph(data, legends, 
+                titulo, return_json = True,
+                type = grafos.PIE_CHART_3D)
+    else:
+        raise Http404    
                                    
 # Aca empieza el menu para los subindicadores :)
                                
