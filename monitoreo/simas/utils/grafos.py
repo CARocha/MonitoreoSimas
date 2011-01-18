@@ -4,7 +4,7 @@ from pygooglechart import GroupedHorizontalBarChart, GroupedVerticalBarChart
 from pygooglechart import Axis, SimpleLineChart
 from django.utils import simplejson
 from django.http import HttpResponse
-from settings import NO_DATA_GRAPH_URL
+from monitoreo.settings import NO_DATA_GRAPH_URL
 
 pie_types = [PieChart3D, PieChart2D]
 bar_types = [StackedHorizontalBarChart, StackedVerticalBarChart,
