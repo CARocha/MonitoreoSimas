@@ -1,6 +1,44 @@
 {% extends "base.html"%}
 {%load unslugify %}
 {% block titulo %}Subindicador Manejo del Suelo{% endblock%}
+{% block extra_header %}
+<script type="text/javascript">
+    //si activo es 0 el html interno esta vacio
+    //caso si activo es otro num sustituir grafico
+    //si activo es el mismo id, esconder grafico
+    var activo = 0; 
+    function click_callback(id){
+        $.getJSON('/grafo/manejosuelo/' + id, function(data) {
+            if (activo!= id){
+                $("#grafo").html('<img src="' + data.url + '" />');
+                activo = id;
+            }else{
+                $("#grafo").html('');
+                activo = 0;
+            }
+        });
+    }
+    $(document).ready(function() {
+    $("#grafico1").click(function(){
+        $("#grafico1").addClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+    });
+    
+    $("#grafico2").click(function(){
+        $("#grafico2").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico3").removeClass('enlace_seleccionado');
+    });
+
+    $("#grafico3").click(function(){
+        $("#grafico3").addClass('enlace_seleccionado'); 
+        $("#grafico1").removeClass('enlace_seleccionado');
+        $("#grafico2").removeClass('enlace_seleccionado');
+    });
+});
+</script>
+{%endblock%}
 {% block contenido %}
 
 <div id="contenedor_igual">
@@ -10,6 +48,16 @@
   <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
 </div>
 <div class="separador"></div>
+
+<div id="sidebar">
+    <div class="graficos_widget">
+        <h1>Gráficos</h1>
+        <a href="#" id="grafico1" onCLick="click_callback('analisis')">Realiza analisis</a>
+        <a href="#" id="grafico2" onCLick="click_callback('practica')">Realiza practica</a>
+    </div>
+</div>
+
+<div id="grafo"></div>
                         
 <div class="contenido">
     <table>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {%load unslugify %}
-
+{%block titulo %}Subindicador Ahorro y Credito{%endblock%}
 {%block extra_header%}
 <script type="text/javascript">
     var activo = 0; 
@@ -46,15 +46,18 @@
 </script>
 {%endblock%}
 {% block contenido %}
-<!--    <div class="graficos_widget">-->
-<!--        <h1>Graficos</h1>-->
-<!--        <a id="grafico1" href="#" onCLick="click_callback('ahorro')">Ahorro</a>-->
-<!--        <a id="grafico2" href="#" onCLick="click_callback('origen')">Origen del Crédito</a>-->
-<!--        <a id="grafico3" href="#" onCLick="click_callback('satisfaccion')">Satisfacción con el crédito</a>-->
-<!--        <a id="grafico4" href="#" onCLick="click_callback('uso')">Uso del crédito</a>-->
-<!--    </div>-->
+    <div class="graficos_widget">
+        <h1>Graficos</h1>
+        <a id="grafico1" href="#" onCLick="click_callback('ahorro')">Ahorro</a>
+        <a id="grafico2" href="#" onCLick="click_callback('origen')">Origen del Crédito</a>
+        <a id="grafico3" href="#" onCLick="click_callback('satisfaccion')">Satisfacción con el crédito</a>
+        <a id="grafico4" href="#" onCLick="click_callback('uso')">Uso del crédito</a>
+    </div>
+    
+<div id="grafo"></div>
+
 <div class="contenido">
-    <div id="grafo"></div>
+   
     <table id="table_example" class="tablesorter" style="font-size:90%">
         <caption>Los Ahorro</caption>
         <thead>
