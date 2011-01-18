@@ -1060,9 +1060,6 @@ def agua_grafos_disponibilidad(request, tipo):
     return grafos.make_graph(data, legends, 
             titulo, return_json = True,
             type = grafos.PIE_CHART_3D)
-    else:
-        raise Http404    
-
 
 @session_required
 def fincas_grafos(request, tipo):
@@ -1128,19 +1125,11 @@ def arboles_grafos(request, tipo):
                type = grafos.PIE_CHART_3D)
     elif tipo == 'frutal':
         for opcion in Frutal.objects.all():
-            data.append(consulta.filter(existenciarboles__energetico=opcion).count())
+            data.append(consulta.filter(existenciarboles__frutal=opcion).count())
             legends.append(opcion.nombre)
         return grafos.make_graph(data, legends,
                'Tipo Frutal', return_json = True,
                type = grafos.PIE_CHART_3D)
-    elif tipo == 'nativos':
-        nativo = consulta.aggregate(nati=Count('reforestacion__nativos'))['nati']
-        nonativo = consulta.aggregate(noti=Count('reforestacion__nonativos'))['noti']
-        data = [[nativo], [nonativo]]
-        legends = ['Nativos','NoNativos']
-        message = "Especie de arboles"
-        return grafos.make_graph(data, legends, message, multiline=True,
-                                 return_json = True, type=grafos.GROUPED_BAR_CHART_V)
     else:
         raise Http404
                               
