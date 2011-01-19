@@ -700,3 +700,8 @@ form.quicksearch img { vertical-align: middle; margin-left: 5px; }
     border-right:#d5d5d5 1px solid;
     color: #fff;
 }
+
+#mostrar{
+    display: none;
+
+}

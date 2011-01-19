@@ -3,6 +3,15 @@
 {%block titulo %}Subindicador Ahorro y Credito{%endblock%}
 {%block extra_header%}
 <script type="text/javascript">
+$(document).ready(function(){
+
+    $('#mas').click(function(){
+    $('#mostrar').slideDown();
+
+    })
+});
+
+
     var activo = 0; 
     function click_callback(id){
         $.getJSON('/grafo/ahorro-credito/' + id, function(data) {
@@ -46,6 +55,13 @@
 </script>
 {%endblock%}
 {% block contenido %}
+
+<div id="mostrar">
+     {% include "simas/menu.html" %}
+</div>
+
+<img id="mas" src="/archivos/imagen/more.png" alt="Indicadores">
+
     <div class="graficos_widget">
         <h1>Graficos</h1>
         <a id="grafico1" href="#" onCLick="click_callback('ahorro')">Ahorro</a>

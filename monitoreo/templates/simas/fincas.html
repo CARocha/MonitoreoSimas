@@ -3,6 +3,16 @@
 {%block titulo%}Subindicador Tierra{%endblock%}
 {% block extra_header %}
 <script type="text/javascript">
+
+$(document).ready(function(){
+
+    $('#mas').click(function(){
+    $('#mostrar').slideDown();
+
+    })
+});
+
+
     //si activo es 0 el html interno esta vacio
     //caso si activo es otro num sustituir grafico
     //si activo es el mismo id, esconder grafico
@@ -50,6 +60,12 @@
   <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
  </div>
  <div class="separador"></div>
+
+<div id="mostrar">
+     {% include "simas/menu.html" %}
+</div>
+
+<img id="mas" src="/archivos/imagen/more.png" alt="Indicadores">
 
 <div id="sidebar">
     <div class="graficos_widget">

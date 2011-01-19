@@ -17,6 +17,6 @@ class MonitoreoForm(forms.Form):
     comunidad = forms.CharField(widget = forms.Select, required=False)
     #organizacion = forms.ModelChoiceField(required = False, 
     #                                     queryset=Organizaciones.objects.all())
-    socio = forms.ChoiceField(choices = CHOICE_OPCION_F , required=False)
+    socio = forms.ChoiceField(choices = CHOICE_OPCION_F , required=False, label="Socio Gremial")
     desde = forms.ChoiceField(choices = CHOICE_DESDE_F , required=False)
     dueno = forms.ChoiceField(label = 'Dueño', choices = CHOICE_DUENO_F , required=False)
