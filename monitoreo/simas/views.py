@@ -1332,6 +1332,21 @@ def ahorro_credito_grafos(request, tipo):
                 type = grafos.PIE_CHART_3D)
     else:
         raise Http404
+        
+#Los puntos en el mapa
+
+def obtener_lista(request):
+    if request.is_ajax():
+        lista = []
+        for objeto in Encuesta.objects.all():
+            dicc = dict(nombre=objeto.nombre, id=objeto.id, 
+                        lon=float(objeto.comunidad.municipio.longitud) , 
+                        lat=float(objeto.comunidad.municipio.latitud)
+                        )
+            lista.append(dicc)
+
+        serializado = simplejson.dumps(lista)
+        return HttpResponse(serializado, mimetype='application/json')
                                           
 # Aca empieza el menu para los subindicadores :)
                                
