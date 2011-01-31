@@ -1,19 +1,7 @@
 {% extends "base.html" %}
 {% load unslugify %}
 {%block titulo%}Subindicador Educación{%endblock%}
-{%block extra_header%}
 
-<script type="text/javascript">
-$(document).ready(function(){
-
-    $('#mas').click(function(){
-    $('#mostrar').slideDown();
-
-    })
-});
-
-</script>
-{%endblock%}
 {% block contenido %}
 
 <div id="contenedor_igual">
@@ -32,8 +20,6 @@ $(document).ready(function(){
 <div id="mostrar">
      {% include "simas/menu.html" %}
 </div>
-
-<img id="mas" src="/archivos/imagen/more.png" alt="Indicadores">
 
 <div class="contenido">
     <table id="table_example" class="tablesorter" style="font-size:90%">
