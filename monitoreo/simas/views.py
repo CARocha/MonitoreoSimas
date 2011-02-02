@@ -408,7 +408,7 @@ def animales(request):
         query = consulta.filter(animalesfinca__animales = animal)
         numero = query.distinct().count()
         try:
-            producto = FincaAnimales.objects.filter(animales = animal)[0].produccion
+            producto = AnimalesFinca.objects.filter(animales = animal)[0].produccion
         except:
             #el animal no tiene producto aún
             continue
@@ -417,6 +417,7 @@ def animales(request):
         animales = query.aggregate(cantidad = Sum('animalesfinca__cantidad'),
                                    venta_libre = Sum('animalesfinca__venta_libre'),
                                    venta_organizada = Sum('animalesfinca__venta_organizada'),
+                                   total_produccion = Sum('animalesfinca__total_produccion'),
                                    consumo = Sum('animalesfinca__consumo'))
         try:
             animal_familia = float(animales['cantidad'])/float(numero) 
@@ -426,10 +427,12 @@ def animales(request):
         tabla.append([animal.nombre, numero, porcentaje_num,
                       animales['cantidad'], animal_familia])
         tabla_produccion.append([animal.nombre, animales['cantidad'], 
-                                 producto.nombre, producto.unidad, 
+                                 producto.nombre, producto.unidad,
+                                 animales['total_produccion'],
                                  animales['consumo'], 
                                  animales['venta_libre'], 
                                  animales['venta_organizada']])
+        print tabla_produccion
 
     return render_to_response('simas/animales.html', 
                               {'tabla':tabla, 'totales': totales, 
