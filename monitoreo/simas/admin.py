@@ -98,6 +98,8 @@ class SueloInline(admin.TabularInline):
     
 class ManejoSueloInline(admin.TabularInline):
     model = ManejoSuelo
+    fields = ['preparan','traccion','analisis','fertilizacion',
+              'practica','obra']
     extra = 1
     
 class IngresoFamiliarInline(admin.TabularInline):
@@ -134,6 +136,8 @@ class AhorroInline(admin.TabularInline):
     
 class CreditoInline(admin.TabularInline):
     model = Credito
+    fields = ['recibe','desde','quien_credito','ocupa_credito',
+              'satisfaccion','dia']
     extra = 1
     
 class SeguridadInline(admin.TabularInline):

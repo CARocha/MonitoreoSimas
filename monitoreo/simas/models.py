@@ -225,7 +225,7 @@ CHOICE_EDUCACION = ((1,'Hombre mas de 18 años'),(2,'Mujeres mas de 18 años'),(
 #        #app_label = "Indicador 02 Organizacion Gremial"
 #        #db_table = "simas_sermiembro"
 
-CHOICE_DESDE = ((1,'Menos de 5 años'),(2,'Más de 5 años'))
+CHOICE_DESDE = ((1,'Menos de 5 años'),(2,'Más de 5 años'),(3,'No utilizar'))
 #CHOICE_MIEMBRO_GREMIAL = ((1,'Junta directiva'),(2,'Comisiones de trabajo'),(3,'No'))
 
 
