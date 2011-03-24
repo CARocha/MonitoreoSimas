@@ -3,32 +3,25 @@
 {% block titulo %}Subindicador Mitigación de Riesgos{% endblock%}
 {%block extra_header%}
 <script type="text/javascript">
-$(document).ready(function(){
-
-    $('#mas').click(function(){
-    $('#mostrar').slideDown();
-
-    })
-});
+    $(document).ready(function(){
+        $('#mas').click(function(){
+            $('#mostrar').slideDown();
+        })
+    });
 
 </script>
 {%endblock%}
 {% block contenido %}
 
-<div id="contenedor_igual">
-  <a href="#" class="educacion">Vulnerabilidad de la finca</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/mitigariesgos" class="educacion">Mitigación de riesgos</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-</div>
+{% include "nav_riesgos.html" %}
 <div class="separador"></div>
- 
+
 <div id="mostrar">
-     {% include "simas/menu.html" %}
+    {% include "simas/menu.html" %}
 </div>
 
 <img id="mas" src="/archivos/imagen/more.png" alt="Indicadores"> 
-                        
+
 <div class="contenido">
     <table>
         <caption>Mitigación de los Riesgos</caption>

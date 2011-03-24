@@ -3,13 +3,11 @@
 {%block titulo%}Subindice Organización Gremial{%endblock%}
 {%block extra_header%}
 <script type="text/javascript">
-$(document).ready(function(){
-
-    $('#mas').click(function(){
-    $('#mostrar').slideDown();
-
-    })
-});
+    $(document).ready(function(){
+        $('#mas').click(function(){
+            $('#mostrar').slideDown();
+        })
+    });
     var activo = 0; 
     function click_callback(id){
         $.getJSON('/grafo/organizacion/' + id, function(data) {
@@ -23,15 +21,15 @@ $(document).ready(function(){
         });
     }
     $(document).ready(function() {
-    $("#grafico1").click(function(){
-        $("#grafico1").addClass('enlace_seleccionado');
-        $("#grafico2").removeClass('enlace_seleccionado');
-    });
+        $("#grafico1").click(function(){
+            $("#grafico1").addClass('enlace_seleccionado');
+            $("#grafico2").removeClass('enlace_seleccionado');
+        });
     
-    $("#grafico2").click(function(){
-        $("#grafico2").addClass('enlace_seleccionado'); 
-        $("#grafico1").removeClass('enlace_seleccionado');
-    });
+        $("#grafico2").click(function(){
+            $("#grafico2").addClass('enlace_seleccionado');
+            $("#grafico1").removeClass('enlace_seleccionado');
+        });
 
     });
 </script>
@@ -39,16 +37,12 @@ $(document).ready(function(){
 
 {% block contenido %}
 
-<div id="contenedor_igual">
-  <a href="/gremial" class="educacion">Gremial</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/comunitario" class="educacion">Comunitaria</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-</div>
+{% include "nav_org.html" %}
+
 <div class="separador"></div>
 
 <div id="mostrar">
-     {% include "simas/menu.html" %}
+    {% include "simas/menu.html" %}
 </div>
 
 <img id="mas" src="/archivos/imagen/more.png" alt="Indicadores">
@@ -58,109 +52,105 @@ $(document).ready(function(){
         <h1>Gráficos Org. Gremial </h1>
         <a id="grafico1" href="#" onCLick="onCLick=click_callback('miembro')">¿Porque es miembro?</a>
         <a id="grafico2" href="#" onCLick="click_callback('beneficio')">Beneficio de ser Socio/a</a>
-       
-</div>
-
-<div id="grafo"></div>
-
-<table>
-<caption>La organización socios adultos</caption>
- <thead>
-    <tr>
-        <th></th>
-        <th colspan="4">Socio/Socia</th>
-        <th colspan="4">Tiempo</th>
-    </tr>
-    <tr>
-        <th></th>
-        <th>Si</th>
-        <th>%</th>
-        <th>No</th>
-        <th>%</th>
-        <th>Menos de 5 años</th>
-        <th>%</th>
-        <th>Más de 5 años</th>
-        <th>%</th>
-    </tr>
- </thead>
-    <tr>
-        <td>Hombres</td>
-        {%for dato in tabla_socio.hombres_socio%}
-        <td>{{dato}}</td>
-        {%endfor%}
-    </tr>
-<!--    <tr>-->
-<!--        <td>Esposas</td>-->
-<!--        {%for dato in tabla_socio.hombres_conyugue%}-->
-<!--        <td>{{dato}}</td>-->
-<!--        {%endfor%}-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>Hijos/Hijas</td>-->
-<!--        {%for dato in tabla_socio.hombres_hijo%}-->
-<!--        <td>{{dato}}</td>-->
-<!--        {%endfor%}-->
-<!--    </tr>-->
-<!--    <tr>-->
+    </div>
+    <div id="grafo"></div>
+    <table>
+        <caption>La organización socios adultos</caption>
+        <thead>
+            <tr>
+                <th></th>
+                <th colspan="4">Socio/Socia</th>
+                <th colspan="4">Tiempo</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Si</th>
+                <th>%</th>
+                <th>No</th>
+                <th>%</th>
+                <th>Menos de 5 años</th>
+                <th>%</th>
+                <th>Más de 5 años</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>Hombres</td>
+            {%for dato in tabla_socio.hombres_socio%}
+            <td>{{dato}}</td>
+            {%endfor%}
+        </tr>
+        <!--    <tr>-->
+        <!--        <td>Esposas</td>-->
+        <!--        {%for dato in tabla_socio.hombres_conyugue%}-->
+        <!--        <td>{{dato}}</td>-->
+        <!--        {%endfor%}-->
+        <!--    </tr>-->
+        <!--    <tr>-->
+        <!--        <td>Hijos/Hijas</td>-->
+        <!--        {%for dato in tabla_socio.hombres_hijo%}-->
+        <!--        <td>{{dato}}</td>-->
+        <!--        {%endfor%}-->
+        <!--    </tr>-->
+        <!--    <tr>-->
         <td colspan="9"></td>
-    </tr>
-    <tr>
-        <td>Mujeres</td>
-        {%for dato in tabla_socio.mujeres_socio%}
-        <td>{{dato}}</td>
-        {%endfor%}
-    </tr>
-<!--    <tr>-->
-<!--        <td>Esposos</td>-->
-<!--        {%for dato in tabla_socio.mujeres_conyugue%}-->
-<!--        <td>{{dato}}</td>-->
-<!--        {%endfor%}-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--        <td>Hijos/Hijas</td>-->
-<!--        {%for dato in tabla_socio.mujeres_hijo%}-->
-<!--        <td>{{dato}}</td>-->
-<!--        {%endfor%}-->
-<!--    </tr>-->
-</table>
-
-<table>
-    <thead>
-        <tr>
-            <th></th>
-            <th colspan="4">Es miembro gremial</th>
-            <th colspan="4">¿Está interesado en asumir cargo¿</th>
-            <th colspan="4">Recibe Capacitación</th>
         </tr>
         <tr>
-            <th></th>
-            <th>Si</th>
-            <th>%</th>
-            <th>No</th>
-            <th>%</th>
-            <th>Si</th>
-            <th>%</th>
-            <th>No</th>
-            <th>%</th>
-            <th>Si</th>
-            <th>%</th>
-            <th>No</th>
-            <th>%</th>
+            <td>Mujeres</td>
+            {%for dato in tabla_socio.mujeres_socio%}
+            <td>{{dato}}</td>
+            {%endfor%}
         </tr>
-    </thead>
-    <tr>
-        <td>Hombres</td>
-        {%for celda in tabla_beneficio.hombres%}
-        <td>{{celda}}</td>
-        {%endfor%}
-    </tr>
-    <tr>
-        <td>Mujeres</td>
-        {%for celda in tabla_beneficio.mujeres%}
-        <td>{{celda}}</td>
-        {%endfor%}
-    </tr>
-</table>
+        <!--    <tr>-->
+        <!--        <td>Esposos</td>-->
+        <!--        {%for dato in tabla_socio.mujeres_conyugue%}-->
+        <!--        <td>{{dato}}</td>-->
+        <!--        {%endfor%}-->
+        <!--    </tr>-->
+        <!--    <tr>-->
+        <!--        <td>Hijos/Hijas</td>-->
+        <!--        {%for dato in tabla_socio.mujeres_hijo%}-->
+        <!--        <td>{{dato}}</td>-->
+        <!--        {%endfor%}-->
+        <!--    </tr>-->
+    </table>
 
-
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th colspan="4">Es miembro gremial</th>
+                <th colspan="4">¿Está interesado en asumir cargo¿</th>
+                <th colspan="4">Recibe Capacitación</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>Si</th>
+                <th>%</th>
+                <th>No</th>
+                <th>%</th>
+                <th>Si</th>
+                <th>%</th>
+                <th>No</th>
+                <th>%</th>
+                <th>Si</th>
+                <th>%</th>
+                <th>No</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>Hombres</td>
+            {%for celda in tabla_beneficio.hombres%}
+            <td>{{celda}}</td>
+            {%endfor%}
+        </tr>
+        <tr>
+            <td>Mujeres</td>
+            {%for celda in tabla_beneficio.mujeres%}
+            <td>{{celda}}</td>
+            {%endfor%}
+        </tr>
+    </table>
+</div>
 {% endblock %}

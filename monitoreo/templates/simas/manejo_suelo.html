@@ -3,14 +3,11 @@
 {% block titulo %}Subindicador Manejo del Suelo{% endblock%}
 {% block extra_header %}
 <script type="text/javascript">
-
-$(document).ready(function(){
-
-    $('#mas').click(function(){
-    $('#mostrar').slideDown();
-
-    })
-});
+    $(document).ready(function(){
+        $('#mas').click(function(){
+            $('#mostrar').slideDown();
+        })
+    });
 
     //si activo es 0 el html interno esta vacio
     //caso si activo es otro num sustituir grafico
@@ -28,38 +25,32 @@ $(document).ready(function(){
         });
     }
     $(document).ready(function() {
-    $("#grafico1").click(function(){
-        $("#grafico1").addClass('enlace_seleccionado');
-        $("#grafico2").removeClass('enlace_seleccionado');
-        $("#grafico3").removeClass('enlace_seleccionado');
-    });
+        $("#grafico1").click(function(){
+            $("#grafico1").addClass('enlace_seleccionado');
+            $("#grafico2").removeClass('enlace_seleccionado');
+            $("#grafico3").removeClass('enlace_seleccionado');
+        });
     
-    $("#grafico2").click(function(){
-        $("#grafico2").addClass('enlace_seleccionado'); 
-        $("#grafico1").removeClass('enlace_seleccionado');
-        $("#grafico3").removeClass('enlace_seleccionado');
-    });
+        $("#grafico2").click(function(){
+            $("#grafico2").addClass('enlace_seleccionado');
+            $("#grafico1").removeClass('enlace_seleccionado');
+            $("#grafico3").removeClass('enlace_seleccionado');
+        });
 
-    $("#grafico3").click(function(){
-        $("#grafico3").addClass('enlace_seleccionado'); 
-        $("#grafico1").removeClass('enlace_seleccionado');
-        $("#grafico2").removeClass('enlace_seleccionado');
+        $("#grafico3").click(function(){
+            $("#grafico3").addClass('enlace_seleccionado');
+            $("#grafico1").removeClass('enlace_seleccionado');
+            $("#grafico2").removeClass('enlace_seleccionado');
+        });
     });
-});
 </script>
 {%endblock%}
 {% block contenido %}
-
-<div id="contenedor_igual">
-  <a href="/suelos" class="educacion">Carácteristicas del terreno</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/manejosuelo" class="educacion">Manejo del suelo</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-</div>
+{% include "nav_suelo.html" %}
 <div class="separador"></div>
 
 <div id="mostrar">
-     {% include "simas/menu.html" %}
+    {% include "simas/menu.html" %}
 </div>
 
 <img id="mas" src="/archivos/imagen/more.png" alt="Indicadores">
@@ -73,7 +64,7 @@ $(document).ready(function(){
 </div>
 
 <div id="grafo"></div>
-                        
+
 <div class="contenido">
     <table>
         <caption>¿Cómo preparan sus terrenos?</caption>
@@ -94,7 +85,7 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
     <table>
         <caption>¿Qué tipo de traccion utiliza para la preparación del suelo?</caption>
         <thead>
@@ -114,7 +105,7 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
     <table>
         <caption>¿Qué tipo de fertilización realiza?</caption>
         <thead>
@@ -134,8 +125,8 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
-     <table>
+
+    <table>
         <caption>¿Qué tipo de obra de conservación de suelo?</caption>
         <thead>
             <tr>
@@ -154,6 +145,6 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
 </div>
 {% endblock %}

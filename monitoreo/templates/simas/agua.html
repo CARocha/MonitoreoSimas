@@ -3,13 +3,11 @@
 {% block titulo %}Subindicador Agua{%endblock%}
 {%block extra_header%}
 <script type="text/javascript">
-$(document).ready(function(){
-
-    $('#mas').click(function(){
-    $('#mostrar').slideDown();
-
-    })
-});
+    $(document).ready(function(){
+        $('#mas').click(function(){
+            $('#mostrar').slideDown();
+        })
+    });
     //si activo es 0 el html interno esta vacio
     //caso si activo es otro num sustituir grafico
     //si activo es el mismo id, esconder grafico
@@ -32,20 +30,9 @@ $(document).ready(function(){
 {%endblock%}
 {% block contenido %}
 
-<div id="contenedor_igual">
-  <a href="/educacion" class="educacion">Educación</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/salud" class="educacion">Salud</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/luz"class="agua">Energia</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/agua"class="luz">Agua de consumo</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-</div>
-<div class="separador"></div>
-
+{% include "nav_familia.html" %}
 <div id="mostrar">
-     {% include "simas/menu.html" %}
+    {% include "simas/menu.html" %}
 </div>
 
 <img id="mas" src="/archivos/imagen/more.png" alt="Indicadores">
@@ -61,13 +48,13 @@ $(document).ready(function(){
         <a id="grafico6" href="#" onCLick="disp(6)">Disponibilidad en Agua en casa</a>
     </div>
     <div class="separador"></div>
-   
+
 </div>
 
 <div id="grafo"></div>
 
 <div class="contenido">
-     <table>
+    <table>
         <thead>
             <tr>
                 <th>Fuente</th>
@@ -83,22 +70,21 @@ $(document).ready(function(){
         </tr>
         {%endfor%}
     </table>
-    
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
-<br></br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 </div>
 <div class="separador"></div>
 

@@ -15,18 +15,10 @@ $(document).ready(function(){
 {%endblock%}
 {% block contenido %}
 
-<div id="contenedor_igual">
-  <a href="/educacion" class="educacion">Educación</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/salud" class="educacion">Salud</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/luz"class="agua">Energia</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/agua"class="luz">Agua de consumo</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-</div>
+{% include "nav_familia.html" %}
+
 <div class="separador"></div>
-<br></br>
+<br>
 
 <div id="mostrar">
      {% include "simas/menu.html" %}

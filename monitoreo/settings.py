@@ -103,5 +103,7 @@ INSTALLED_APPS = (
     'monitoreo.indicador19',
     'monitoreo.indicador20',
     'south',
-    'django_extensions',
+    #'django_extensions',
 )
+
+NO_DATA_GRAPH_URL = '/'

@@ -3,32 +3,24 @@
 {% block titulo %}Subindicador Caracterización del Terrreno{% endblock%}
 {%block extra_header%}
 <script type="text/javascript">
-$(document).ready(function(){
-
-    $('#mas').click(function(){
-    $('#mostrar').slideDown();
-
-    })
-});
+    $(document).ready(function(){
+        $('#mas').click(function(){
+            $('#mostrar').slideDown();
+        })
+    });
 
 </script>
 {%endblock%}
 {% block contenido %}
-
-<div id="contenedor_igual">
-  <a href="/suelos" class="educacion">Carácteristicas del terreno</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-  <a href="/manejosuelo" class="educacion">Manejo del suelo</a>
-  <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-</div>
+{% include "nav_suelo.html" %}
 <div class="separador"></div>
 
 <div id="mostrar">
-     {% include "simas/menu.html" %}
+    {% include "simas/menu.html" %}
 </div>
 
 <img id="mas" src="/archivos/imagen/more.png" alt="Indicadores">
-                        
+
 <div class="contenido">
     <table>
         <caption>¿Cúal es el tipo de textura del suelo?</caption>
@@ -49,7 +41,7 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
     <table>
         <caption>¿Cúal es la profundidad del suelo?</caption>
         <thead>
@@ -69,7 +61,7 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
     <table>
         <caption>¿Cómo es la presencia de lombrice en el suelo?</caption>
         <thead>
@@ -89,8 +81,8 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
-     <table>
+
+    <table>
         <caption>¿Cómo es la densidad de raiz en la capa productiva de suelo?</caption>
         <thead>
             <tr>
@@ -109,7 +101,7 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
     <table>
         <caption>¿Cúal es la pendiente del terrreno?</caption>
         <thead>
@@ -129,7 +121,7 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
     <table>
         <caption>¿Cómo es el drenaje del suelo?</caption>
         <thead>
@@ -149,7 +141,7 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
     <table>
         <caption>¿Cómo es el contenido de materia orgánica?</caption>
         <thead>
@@ -169,6 +161,6 @@ $(document).ready(function(){
             {%endfor%}
         </tbody>
     </table>
-    
+
 </div>
 {% endblock %}
