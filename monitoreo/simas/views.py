@@ -133,12 +133,10 @@ def inicio(request):
 #-------------------------------------------------------------------------------
 
 def index(request):
-
     familias = Encuesta.objects.all().count()
     organizacion = Organizaciones.objects.all().count()
     mujeres = Encuesta.objects.filter(sexo=2).count()
-    hombres = Encuesta.objects.filter(sexo=1).count()
-    
+    hombres = Encuesta.objects.filter(sexo=1).count()    
 
     return direct_to_template(request, 'index.html', locals())        
         

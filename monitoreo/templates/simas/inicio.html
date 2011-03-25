@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {%block extra_header%}
-<script>
+<script type="text/javascript">
     $(document).ready(function() {
         var departamento = document.getElementById("id_departamento");
         var municipio = document.getElementById("id_municipio");
@@ -36,37 +36,49 @@
     });
 </script>
 {% endblock %}
-
+{% block titulo %}
+Filtros
+{% endblock %}
 
 {% block contenido %}
-<div class="contenido">
-    <form action"." method="POST">
-          {% csrf_token %}
-
-          <div id="formulario_tabla" >
-            <div class="form_label"><b>{{form.fecha.label}}</b></div>
-            <div class="form_widget">{{form.fecha}}</div>
-            <div class="form_label"><b>{{form.departamento.label}}</b></div>
-            <div class="form_widget">{{form.departamento}}</div>
-            <div class="form_label"><b>{{form.municipio.label}}</b></div>
-            <div class="form_widget">{{form.municipio}}</div>
-            <div class="form_label"><b>{{form.comunidad.label}}</b></div>
-            <div class="form_widget">{{form.comunidad}}</div>
-            <div class="form_label"><b>{{form.cooperativa.label}}</b></div>
-            <div class="form_widget"><b>{{form.cooperativa}}</b></div>
-            <div class="form_label"><b>{{form.socio.label}}</b></div>
-            <div class="form_widget">{{form.socio}}</div>
-            <div class="form_label"><b>{{form.desde.label}}</b></div>
-            <div class="form_widget">{{form.desde}}</div>
-            <div class="form_label"><b>{{form.dueno.label}}</b></div>
-            <div class="form_widget">{{form.dueno}}</div>
-        </div>
-
-        <input type="submit" value="Consultar" id="boton" class="filtro"/>
+<div class="contenido">    
+    <form action="." method="POST">
+        {% csrf_token %}
+        <div class="formulario_consulta">            
+            <div class="columna_uno">
+                <div class="form_label"><b>{{form.fecha.label}}</b></div>
+                <div class="form_widget">{{form.fecha}}</div>
+            </div>
+            <div class="columna_dos">
+                <div class="form_label"><b>{{form.departamento.label}}</b></div>
+                <div class="form_widget">{{form.departamento}}</div>
+                <div class="form_label"><b>{{form.municipio.label}}</b></div>
+                <div class="form_widget">{{form.municipio}}</div>
+                <div class="form_label"><b>{{form.comunidad.label}}</b></div>
+                <div class="form_widget">{{form.comunidad}}</div>
+            </div>
+            <div class="columna_tres">
+                <div class="form_label"><b>{{form.cooperativa.label}}</b></div>
+                <div class="form_widget"><b>{{form.cooperativa}}</b></div>
+                <div class="form_label"><b>{{form.socio.label}}</b></div>
+                <div class="form_widget">{{form.socio}}</div>
+                <div class="form_label"><b>{{form.desde.label}}</b></div>
+                <div class="form_widget">{{form.desde}}</div>
+                <div class="form_label"><b>{{form.dueno.label}}</b></div>
+                <div class="form_widget">{{form.dueno}}</div>
+            </div>
+            <div class="columna_cuatro">
+                <br><br>
+                <br><br>
+                <br><br>                
+                <input type="submit" value="Consultar" id="boton" class="filtro"/>
+            </div>
+            <div class="clean"></div>
+        </div>        
     </form>
     {%if centinela = 1 %}
-        {% include "simas/menu.html" %}
+    {% include "simas/menu.html" %}        
     {%endif%}
-    <div class="separador"></div>
+    <div style="height: 5px;"></div>
 </div>
 {% endblock %}

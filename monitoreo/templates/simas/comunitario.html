@@ -3,6 +3,11 @@
 {% block titulo %}Subindicador Organización Comunitaria{% endblock %}
 {%block extra_header%}
 <script type="text/javascript">
+    $(document).ready(function(){
+        $('#mas').click(function(){
+            $('#mostrar').slideDown();
+        })
+    });
     var activo = 0; 
     function click_callback(id){
         $.getJSON('/grafo/organizacion/' + id, function(data) {
@@ -16,31 +21,26 @@
         });
     }
     $(document).ready(function() {
-    $("#grafico1").click(function(){
-        $("#grafico1").addClass('enlace_seleccionado');
-        $("#grafico2").removeClass('enlace_seleccionado');
-    });
+        $("#grafico1").click(function(){
+            $("#grafico1").addClass('enlace_seleccionado');
+            $("#grafico2").removeClass('enlace_seleccionado');
+        });
     
-    $("#grafico2").click(function(){
-        $("#grafico2").addClass('enlace_seleccionado'); 
-        $("#grafico1").removeClass('enlace_seleccionado');
-    });
+        $("#grafico2").click(function(){
+            $("#grafico2").addClass('enlace_seleccionado');
+            $("#grafico1").removeClass('enlace_seleccionado');
+        });
 
     });
 </script>
 {%endblock%}
 
 {%block contenido%}
-<div id="contenedor_igual">
-   <a href="/gremial" class="educacion">Gremial</a>
-   <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-   <a href="/comunitario" class="educacion">Comunitaria</a>
-   <img src="/archivos/imagen/separadorsi.png" alt="description" title="description" width="1px" height="20px" />
-</div>
+{% include "nav_org.html" %}
 <div class="separador"></div>
 
 <div id="mostrar">
-     {% include "simas/menu.html" %}
+    {% include "simas/menu.html" %}
 </div>
 
 <div id="sidebar">
@@ -48,32 +48,33 @@
         <h1>Gráficos Org. Gremial </h1>
         <a id="grafico1" href="#" onCLick="onCLick=click_callback('beneficiorganizado')">¿Porque es miembro?</a>
         <a id="grafico2" href="#" onCLick="click_callback('norganizado')">Beneficio de ser Socio/a</a>
-       
+
+    </div>
 </div>
 
 <div id="grafo"></div>
 
 <table>
-        <caption>Organización Comunitaria</caption>
-        <thead>
-            <tr>
-                <th>Número de Organización</th>
-                <th> A Cuantas Pertenecen</th>
-                <th>A Cuales Pertenecen</th>
-            </tr>
-        </thead>
-        <tbody>
-        
-            <td>{{numero}}</td>
-            <td>{{pertence}}</td>
-            <td>
-            {%for key in tabla%}
-           
-                {{key|unslugify}},
-          
-            {%endfor%}
-            </td>
-        <tbody>
-    </table>
+    <caption>Organización Comunitaria</caption>
+    <thead>
+        <tr>
+            <th>Número de Organización</th>
+            <th> A Cuantas Pertenecen</th>
+            <th>A Cuales Pertenecen</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <td>{{numero}}</td>
+    <td>{{pertence}}</td>
+    <td>
+        {%for key in tabla%}
+
+        {{key|unslugify}},
+
+        {%endfor%}
+    </td>
+    <tbody>
+</table>
 
 {% endblock %}
