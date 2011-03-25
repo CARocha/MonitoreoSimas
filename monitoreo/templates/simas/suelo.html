@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
 {% block title %}Monitoreo - Suelo{% endblock %}
-{%block titulo%}Suelo{%endblock%}
+{%block titulo%}
+Suelo
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+{%endblock%}
 {% block contenido %}
 
 {% include "nav_suelo.html" %}

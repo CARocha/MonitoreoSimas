@@ -1,6 +1,9 @@
 {% extends "base.html"%}
 {% load humanize %}
-{% block titulo %}Subindicador Ingresos{% endblock %}
+{% block titulo %}
+Subindicador Ingresos
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+{% endblock %}
 {%load unslugify %}
 {% block extra_header %}
 <script type="text/javascript">

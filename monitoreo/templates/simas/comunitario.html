@@ -1,6 +1,9 @@
 {% extends "base.html"%}
 {%load unslugify %}
-{% block titulo %}Subindicador Organización Comunitaria{% endblock %}
+{% block titulo %}
+Subindicador Organización Comunitaria
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+{% endblock %}
 {%block extra_header%}
 <script type="text/javascript">
     $(document).ready(function(){

@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {%load unslugify %}
-{% block titulo %}Subindicador animales {% endblock%}
+{% block titulo %}
+Subindicador animales
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+{% endblock%}
 
 {% block contenido %}
 

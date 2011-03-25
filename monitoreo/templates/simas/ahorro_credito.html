@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {%load unslugify %}
-{%block titulo %}Subindicador Ahorro y Credito{%endblock%}
+{%block titulo %}
+Subindicador Ahorro y Credito
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+{%endblock%}
 {%block extra_header%}
 <script type="text/javascript">
     var activo = 0; 
