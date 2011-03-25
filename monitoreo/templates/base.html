@@ -54,20 +54,6 @@
             <div class="wrapper">
                 {% block filtros %}
                 <div id="filtros">
-<<<<<<< HEAD
-                                <span class="variables"><img id="mas" src="/archivos/imagen/cambiar.png" alt=""></span>
-                                <span class="variables_filtro"><b>Filtros <br>Seleccionados</b></span>
-                                {%if num_familias%}<span class="variables_filtro"><b>Familias</b><br>{{num_familias}}</span>{%endif%}
-                                {%if request.session.fecha%}<span class="variables_filtro"><b>Año</b><br>{{request.session.fecha}}</span>{%endif%}
-                                {%if request.session.departamento%}<span class="variables_filtro"><b>Departamento</b><br>{{request.session.departamento}}</span>{%endif%}
-                                {%if request.session.municipio.nombre%}<span class="variables_filtro"><b>Municipio</b><br>{{request.session.municipio.nombre}}</span>{%endif%}
-                                {%if request.session.comunidad.nombre%}<span class="variables_filtro"><b>Comunidad</b><br>{{request.session.comunidad.nombre}}</span>{%endif%}
-                                {%if request.session.socio%}<span class="variables_filtro"><b>Socio</b><br>{%if request.session.socio = '1'%}Si{%else%}No{%endif%}</span>{%endif%}
-                                {%if request.session.desde%}<span class="variables_filtro"><b>Años de socio</b><br>{%if request.session.desde = '1'%}Menos de 5 {%else%}Mas de 5 {%endif%}</span>{%endif%}
-                                {%if request.session.duenio%}<span class="variables_filtro"><b>Tipo Dueño</b><br>{%if request.session.duenio = '1'%}Hombre{%endif%}{%if request.session.duenio = '2'%}Mujer{%endif%}{%if request.session.duenio = '3'%}Mancomunado{%endif%}{%if request.session.duenio = '4'%}Parientes{%endif%}{%if request.session.duenio = '5'%}Colectivo{%endif%}{%if request.session.duenio = '6'%}No hay{%endif%}</span>{%endif%}
-                            </div>
-                
-=======
                     <a href="/index/" class="cambiar_consulta">Variables</a>
                     <img src="/archivos/imagen/separador.png" alt="separador" class="separador_vert">
                     <div class="filtros_seleccionados_text">Filtros <br>seleccionados</div>                    
@@ -80,7 +66,6 @@
                     {%if request.session.desde%}<span class="variables_filtro"><b>Años de socio</b>{%if request.session.desde = '1'%}Menos de 5 {%else%}Mas de 5 {%endif%}</span>{%endif%}
                     {%if request.session.duenio%}<span class="variables_filtro"><b>Tipo Dueño</b>{%if request.session.duenio = '1'%}Hombre{%endif%}{%if request.session.duenio = '2'%}Mujer{%endif%}{%if request.session.duenio = '3'%}Mancomunado{%endif%}{%if request.session.duenio = '4'%}Parientes{%endif%}{%if request.session.duenio = '5'%}Colectivo{%endif%}{%if request.session.duenio = '6'%}No hay{%endif%}</span>{%endif%}
                 </div>
->>>>>>> a6d712e7f8582131eb7a2411004fe599a7f54bc5
                 {% endblock %}
                 {% block index %}{% endblock %}
             </div>
