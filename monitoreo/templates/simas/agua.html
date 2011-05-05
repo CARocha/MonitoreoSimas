@@ -2,15 +2,10 @@
 {%load unslugify %}
 {% block titulo %}
 Subindicador Agua
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
 {%endblock%}
 {%block extra_header%}
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#mas').click(function(){
-            $('#mostrar').slideDown();
-        })
-    });
     //si activo es 0 el html interno esta vacio
     //caso si activo es otro num sustituir grafico
     //si activo es el mismo id, esconder grafico

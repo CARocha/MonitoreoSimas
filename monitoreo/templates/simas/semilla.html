@@ -2,19 +2,21 @@
 {%load unslugify %}
 {% block titulo %}
 Subindicador Uso de Semilla
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
 {% endblock%}
 {% block contenido %}
 <div id="mostrar">
      {% include "simas/menu.html" %}
 </div>
-
 <div class="contenido">
     <table>
         <caption>Uso de semilla</caption>
         <thead>
             <tr>
-                <th>Variedades</th>
+                <th>Cultivo</th>
+                <th>Variedad</th>
+                <th>Frecuencia</th>
+                <th>%</th>
                 <th>Nativos</th>
                 <th>%</th>
                 <th>Introducido</th>
@@ -24,7 +26,10 @@ Subindicador Uso de Semilla
         <tbody>
             {%for key, value in tabla.items%}
             <tr>
+                <td>{{value.key2|unslugify}}</td>
                 <td>{{key|unslugify}}</td>
+                <td>{{value.frec|floatformat}}</td>
+                <td>{{value.porce|floatformat}}</td>
                 <td>{{value.nativos|floatformat}}</td>
                 <td>{{value.por_nativos|floatformat}}</td>
                 <td>{{value.introducidos|floatformat}}</td>

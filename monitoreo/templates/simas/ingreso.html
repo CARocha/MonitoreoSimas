@@ -2,7 +2,7 @@
 {% load humanize %}
 {% block titulo %}
 Subindicador Ingresos
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
 {% endblock %}
 {%load unslugify %}
 {% block extra_header %}
@@ -92,7 +92,7 @@ Subindicador Ingresos
             <th></th>
             <th></th>
             <th></th>
-            <th>{{respuesta.ingreso_total|floatformat:2}}</th>
+            <th>{{respuesta.ingreso_total|intcomma}}</th>
         </tr>
 
     </table>
@@ -124,7 +124,7 @@ Subindicador Ingresos
             <th></th>
             <th></th>
             <th></th>
-            <th>{{respuesta.ingreso_otro|floatformat:2}}</th>
+            <th>{{respuesta.ingreso_otro|intcomma}}</th>
         </tr>
     </table>
     <br><br>
@@ -143,15 +143,5 @@ Subindicador Ingresos
         </tr>
     </table>
 </div>
-<script>
-    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-    // ademas que ordene por defecto las filas 0,0 y 2,1
-    $(document).ready(function()
-    {
-        //$("#table_example").tablesorter();
-        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    }
-); 
-</script>
+
 {%endblock%}

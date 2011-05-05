@@ -15,8 +15,6 @@ class OrgGremiales(models.Model):
 
     class Meta:
         verbose_name_plural = "Organizaciones Gremiales"
-        #app_label = "Indicador 02 Organizacion Gremial"
-        #db_table = "simas_orggremial"
 
 class BeneficiosObtenido(models.Model):
     nombre = models.CharField(max_length=200)
@@ -26,8 +24,6 @@ class BeneficiosObtenido(models.Model):
 
     class Meta:
         verbose_name_plural = "Benificios Obtenidos"
-        #app_label = "Indicador 02 Organizacion Gremial"
-        #db_table = "simas_beneficiosobtenidos"
 
 class SerMiembro(models.Model):
     nombre = models.CharField(max_length=200)
@@ -37,11 +33,9 @@ class SerMiembro(models.Model):
 
     class Meta:
         verbose_name_plural = "Porque quiere ser miembro"
-        #app_label = "Indicador 02 Organizacion Gremial"
-        #db_table = "simas_sermiembro"
 
 CHOICE_DESDE = ((1,'Menos de 5 años'),(2,'Más de 5 años'),(3, 'No utilizar'))
-CHOICE_MIEMBRO_GREMIAL = ((1,'Si'),(2,'No'))
+CHOICE_MIEMBRO_GREMIAL = ((1,'Junta directiva'),(2,'No'),(3,'Comisiones de trabajo'))
 
 
 class OrganizacionGremial(models.Model):
@@ -65,8 +59,6 @@ class OrganizacionGremial(models.Model):
     
     class Meta:
         verbose_name_plural = "Organizacion Gremial"
-        #app_label = "Indicador 02 Organizacion Gremial"
-        #db_table = "simas_organizaciongremial"
 
 # 2.1 Organización comunitaria
 
@@ -78,8 +70,6 @@ class OrgComunitarias(models.Model):
 
     class Meta:
         verbose_name_plural = "Organizaciones comunitarias"
-        #app_label = "Indicador 02 Organizacion Comunitaria"
-        #db_table = "simas_orgcomunitarias"
 
 class BeneficioOrgComunitaria(models.Model):
     nombre = models.CharField(max_length=200)
@@ -89,9 +79,7 @@ class BeneficioOrgComunitaria(models.Model):
 
     class Meta:
         verbose_name_plural = "Beneficios de estar organizado en comunidad"
-        #app_label = "Indicador 02 Organizacion Comunitaria"
-        #db_table = "simas_beneficiorgcomunitaria"
-
+     
 class NoOrganizado(models.Model):
     nombre = models.CharField(max_length=200)
 
@@ -100,8 +88,6 @@ class NoOrganizado(models.Model):
 
     class Meta:
         verbose_name_plural = "Porque No esta organizado"
-        #app_label = "Indicador 02 Organizacion Comunitaria"
-        #db_table = "simas_noorganizado"
 
 
 class OrganizacionComunitaria(models.Model):
@@ -116,8 +102,6 @@ class OrganizacionComunitaria(models.Model):
     
     class Meta:
         verbose_name_plural = "Organizacion Comunitaria"
-        #app_label = "Indicador 02 Organizacion Comunitaria"
-        #db_table = "simas_organizacioncomunitaria"
 
 #-------------------------------------------------------------------------------
 

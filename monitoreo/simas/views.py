@@ -121,7 +121,7 @@ def inicio(request):
 
             mensaje = "Todas las variables estan correctamente :)"
             request.session['activo'] = True
-            centinela = 1 #Variable para aparecer el menu de indicadores a lado del formulario
+            centinela = 1 
     else:
         form = MonitoreoForm()
         mensaje = "Existen alguno errores"
@@ -430,7 +430,6 @@ def animales(request):
                                  animales['consumo'], 
                                  animales['venta_libre'], 
                                  animales['venta_organizada']])
-        print tabla_produccion
 
     return render_to_response('simas/animales.html', 
                               {'tabla':tabla, 'totales': totales, 
@@ -443,76 +442,70 @@ def animales(request):
 @session_required
 def gremial(request):
     '''tabla de organizacion gremial'''
-    tabla_socio = {}
-    tabla_beneficio = {'hombres': [], 'mujeres': []}
-    consulta = _queryset_filtrado(request)
-
-    #fila si % no % <5 % >5 %
-    hombres = consulta.filter(sexo = 1).aggregate(socio = Sum('organizaciongremial__socio'),
-                                                         num = Count('organizaciongremial__socio'),
-                                                         miembro = Sum('organizaciongremial__miembro_gremial'),
-                                                         comision = Sum('organizaciongremial__asumir_cargo'),
-                                                         capacitacion = Sum('organizaciongremial__capacitacion'))
-
-    hombres_tiempo = consulta.filter(sexo=1, 
-                                      organizaciongremial__desde_socio__isnull = False,
-                                      organizaciongremial__desde_miembro__isnull = False).aggregate(
-                                                         num = Count('organizaciongremial__socio'),
-                                                         tiempo_socio = Sum('organizaciongremial__desde_socio'))
-
-
-    mujeres = consulta.filter(sexo = 2).aggregate(socio = Sum('organizaciongremial__socio'),
-                                                         num = Count('organizaciongremial__socio'),
-                                                         miembro = Sum('organizaciongremial__miembro_gremial'),
-                                                         comision = Sum('organizaciongremial__asumir_cargo'),
-                                                         capacitacion = Sum('organizaciongremial__capacitacion'))
-
-    mujeres_tiempo = consulta.filter(sexo=2, 
-                                      organizaciongremial__desde_socio__isnull = False,
-                                      organizaciongremial__desde_miembro__isnull = False).aggregate(
-                                                         num = Count('organizaciongremial__socio'),
-                                                         tiempo_socio = Sum('organizaciongremial__desde_socio'))
-
+     #***********Variables***************
+    a = _queryset_filtrado(request)
+    num_familias = a.count()
+    #***********************************
     
-    lista_llaves = [('socio', 'tiempo_socio'), 
-                   ]
-
-    for valor, tiempo in lista_llaves: 
-        tabla_socio['hombres_' + valor] = [calcular_positivos(hombres[valor], hombres['num'], False),
-                                          calcular_positivos(hombres[valor], hombres['num'], True),
-                                          calcular_negativos(hombres[valor], hombres['num'], False),
-                                          calcular_negativos(hombres[valor], hombres['num'], True),
-                                          calcular_positivos(hombres_tiempo[tiempo], hombres_tiempo['num'], False),
-                                          calcular_positivos(hombres_tiempo[tiempo], hombres_tiempo['num'], True),
-                                          calcular_negativos(hombres_tiempo[tiempo], hombres_tiempo['num'], False),
-                                          calcular_negativos(hombres_tiempo[tiempo], hombres_tiempo['num'], True)]
-
-        tabla_socio['mujeres_' + valor] = [calcular_positivos(mujeres[valor], mujeres['num'], False),
-                                          calcular_positivos(mujeres[valor], mujeres['num'], True),
-                                          calcular_negativos(mujeres[valor], mujeres['num'], False),
-                                          calcular_negativos(mujeres[valor], mujeres['num'], True),
-                                          calcular_positivos(mujeres_tiempo[tiempo], mujeres_tiempo['num'], False),
-                                          calcular_positivos(mujeres_tiempo[tiempo], mujeres_tiempo['num'], True),
-                                          calcular_negativos(mujeres_tiempo[tiempo], mujeres_tiempo['num'], False),
-                                          calcular_negativos(mujeres_tiempo[tiempo], mujeres_tiempo['num'], True)]
-
-    for llave in ('miembro', 'comision', 'capacitacion'):
-        for sexo in ('hombres', 'mujeres'):
-            if sexo == 'hombres':
-                tabla_beneficio[sexo].append(calcular_positivos(hombres[llave], hombres['num'], False))
-                tabla_beneficio[sexo].append(calcular_positivos(hombres[llave], hombres['num']))
-                tabla_beneficio[sexo].append(calcular_negativos(hombres[llave], hombres['num'], False))
-                tabla_beneficio[sexo].append(calcular_negativos(hombres[llave], hombres['num']))
-            else:
-                tabla_beneficio[sexo].append(calcular_positivos(mujeres[llave], mujeres['num'], False))
-                tabla_beneficio[sexo].append(calcular_positivos(mujeres[llave], mujeres['num']))
-                tabla_beneficio[sexo].append(calcular_negativos(mujeres[llave], mujeres['num'], False))
-                tabla_beneficio[sexo].append(calcular_negativos(mujeres[llave], mujeres['num']))
-    print tabla_beneficio 
+    tabla_gremial = {}
+    divisor = a.aggregate(divisor=Count('organizaciongremial__socio'))['divisor']
+    
+    for i in OrgGremiales.objects.all():
+        key = slugify(i.nombre).replace('-', '_')
+        query = a.filter(organizaciongremial__socio = i)
+        frecuencia = query.aggregate(frecuencia=Count('organizaciongremial__socio'))['frecuencia']     
+        porcentaje = saca_porcentajes(frecuencia,divisor)
+        tabla_gremial[key] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}
+    
+    #desde gremial
+    tabla_desde = {}
+    divisor1 = a.aggregate(divisor1=Count('organizaciongremial__desde_socio'))['divisor1']    
+    for k in CHOICE_DESDE:
+        key = slugify(k[1]).replace('-','_')
+        query = a.filter(organizaciongremial__desde_socio = k[0])
+        frecuencia = query.aggregate(frecuencia=Count('organizaciongremial__desde_socio'))['frecuencia']
+        porcentaje = saca_porcentajes(frecuencia,divisor1)
+        tabla_desde[key] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}
+     
+    #miembro
+    tabla_miembro = {}
+    divisor2  = a.filter(organizaciongremial__miembro_gremial__in=(1,2,3)).count()
+                                         
+    for p in CHOICE_MIEMBRO_GREMIAL:
+        key = slugify(p[1]).replace('-','_')
+        query = a.filter(organizaciongremial__miembro_gremial = p[0])
+        frecuencia = query.aggregate(frecuencia=Count('organizaciongremial__miembro_gremial'))['frecuencia']
+        porcentaje = saca_porcentajes(frecuencia,divisor2)
+        tabla_miembro[key] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}
+    
+    #desde miembro
+    tabla_desde_miembro = {}
+    divisor3 = a.aggregate(divisor3=Count('organizaciongremial__desde_miembro'))['divisor3']    
+    for k in CHOICE_DESDE:
+        key = slugify(k[1]).replace('-','_')
+        query = a.filter(organizaciongremial__desde_miembro = k[0])
+        frecuencia = query.aggregate(frecuencia=Count('organizaciongremial__desde_miembro'))['frecuencia']
+        porcentaje = saca_porcentajes(frecuencia,divisor3)
+        tabla_desde_miembro[key] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}
+        
+    #capacitación
+    tabla_capacitacion = {}
+    divisor4 = a.filter(organizaciongremial__capacitacion__in=[1,2]).count()    
+    for t in CHOICE_OPCION:
+        key = slugify(t[1]).replace('-','_')
+        query = a.filter(organizaciongremial__capacitacion = t[0])
+        frecuencia = query.aggregate(frecuencia=Count('organizaciongremial__capacitacion'))['frecuencia']
+        porcentaje = saca_porcentajes(frecuencia,divisor4)
+        tabla_capacitacion[key] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}
+        
+        
     return render_to_response('simas/gremial.html', 
-                              {'tabla_socio': tabla_socio, 'num_familias': consulta.count(),
-                               'tabla_beneficio': tabla_beneficio},
-                              context_instance=RequestContext(request))
+                                 {'tabla_gremial': tabla_gremial, 'tabla_desde':tabla_desde,
+                                 'num_familias': num_familias,'divisor':divisor,'divisor1':divisor1,
+                                 'tabla_miembro':tabla_miembro, 'divisor2':divisor2,
+                                 'tabla_desde_miembro':tabla_desde_miembro, 'divisor3':divisor3,
+                                 'tabla_capacitacion':tabla_capacitacion, 'divisor4':divisor4},
+                                 context_instance=RequestContext(request))
 
 #Tabla Organizacion comunitaria
 @session_required
@@ -523,17 +516,25 @@ def comunitario(request):
     num_familias = a.count()
     #***********************************
     
-    tabla = []
-    numero = a.aggregate(numero=Sum('organizacioncomunitaria__numero'))['numero']
-    pertence = a.aggregate(pertence=Sum('organizacioncomunitaria__pertence'))['pertence']
+    #rangos
+    uno = a.filter(organizacioncomunitaria__numero__range=(1,5)).count()
+    dos = a.filter(organizacioncomunitaria__numero__range=(6,10)).count()
+    tres = a.filter(organizacioncomunitaria__numero__gt=11).count()
     
-    for i in OrgComunitarias.objects.all():
-        #key = a.filter(organizacioncomunitaria__cual_organizacion = i)
-        tabla.append(i.nombre)
-        print tabla
+    tabla_pertenece = {}
+    divisor = a.filter(organizacioncomunitaria__pertence__in=[1,2]).count()    
+    for t in CHOICE_OPCION:
+        key = slugify(t[1]).replace('-','_')
+        query = a.filter(organizacioncomunitaria__pertence = t[0])
+        frecuencia = query.aggregate(frecuencia=Count('organizacioncomunitaria__pertence'))['frecuencia']
+        porcentaje = saca_porcentajes(frecuencia,divisor)
+        tabla_pertenece[key] = {'frecuencia':frecuencia, 'porcentaje':porcentaje}    
+    
+    
         
-    return render_to_response('simas/comunitario.html', {'numero':numero,'tabla':tabla, 
-                              'pertence':pertence, 'num_familias': num_familias},
+    return render_to_response('simas/comunitario.html', {'tabla_pertenece':tabla_pertenece, 
+                              'divisor':divisor, 'num_familias': num_familias,
+                              'uno':uno,'dos':dos,'tres':tres},
                                 context_instance=RequestContext(request) )
                               
 #Tabla Cultivos
@@ -555,7 +556,7 @@ def cultivos(request):
         libre = query.aggregate(libre=Sum('cultivosfinca__venta_libre'))['libre']
         organizada =query.aggregate(organizada=Sum('cultivosfinca__venta_organizada'))['organizada']
         tabla[key] = {'key2':key2,'totales':totales,'consumo':consumo,'libre':libre,'organizada':organizada}
-    #*******************************************
+    
     return render_to_response('simas/cultivos.html',
                              {'tabla':tabla,'num_familias':num_familias},
                              context_instance=RequestContext(request))  
@@ -790,27 +791,52 @@ def opcionesmanejo(request):
         key = slugify(k.nombre).replace('-','_')
         query = a.filter(opcionesmanejo__uso = k)
         frecuencia = query.count()
-        nada = query.filter(opcionesmanejo__uso=k,opcionesmanejo__nivel=1).aggregate(nada=Count('opcionesmanejo__nivel'))['nada']
+        nada = query.filter(opcionesmanejo__uso=k,
+                            opcionesmanejo__nivel=1).aggregate(nada=Count('opcionesmanejo__nivel'))['nada']
         por_nada = saca_porcentajes(nada, num_familia)
-        poco = query.filter(opcionesmanejo__uso=k,opcionesmanejo__nivel=2).aggregate(poco=Count('opcionesmanejo__nivel'))['poco']
+        poco = query.filter(opcionesmanejo__uso=k,
+                            opcionesmanejo__nivel=2).aggregate(poco=Count('opcionesmanejo__nivel'))['poco']
         por_poco = saca_porcentajes(poco, num_familia)
-        algo = query.filter(opcionesmanejo__uso=k,opcionesmanejo__nivel=3).aggregate(algo=Count('opcionesmanejo__nivel'))['algo']
+        algo = query.filter(opcionesmanejo__uso=k,
+                            opcionesmanejo__nivel=3).aggregate(algo=Count('opcionesmanejo__nivel'))['algo']
         por_algo = saca_porcentajes(algo, num_familia)
-        bastante = query.filter(opcionesmanejo__uso=k,opcionesmanejo__nivel=4).aggregate(bastante=Count('opcionesmanejo__nivel'))['bastante']
+        bastante = query.filter(opcionesmanejo__uso=k,
+                                opcionesmanejo__nivel=4).aggregate(bastante=Count('opcionesmanejo__nivel'))['bastante']
         por_bastante = saca_porcentajes(bastante, num_familia)
-        menor_escala = query.filter(opcionesmanejo__uso=k,opcionesmanejo__menor_escala=1).aggregate(menor_escala=Count('opcionesmanejo__menor_escala'))['menor_escala']
-        por_menor_escala = saca_porcentajes(menor_escala,num_familia)
-        mayor_escala = query.filter(opcionesmanejo__uso=k,opcionesmanejo__mayor_escala=1).aggregate(mayor_escala=Count('opcionesmanejo__mayor_escala'))['mayor_escala']
-        por_mayor_escala = saca_porcentajes(mayor_escala, num_familia)
         
         tabla[key] = {'nada':nada,'poco':poco,'algo':algo,'bastante':bastante,
                       'por_nada':por_nada,'por_poco':por_poco,'por_algo':por_algo,
-                      'por_bastante':por_bastante,'menor_escala':menor_escala,
-                      'mayor_escala':mayor_escala,'por_menor_escala':por_menor_escala,
-                      'por_mayor_escala':por_mayor_escala}
-                      
+                      'por_bastante':por_bastante}
+    tabla_escala = {}                 
+    for u in ManejoAgro.objects.all():
+        key = slugify(u.nombre).replace('-','_')
+        query = a.filter(opcionesmanejo__uso = u)
+        frecuencia = query.count()
+        menor_escala = query.filter(opcionesmanejo__uso=u,
+                                    opcionesmanejo__menor_escala=1).aggregate(menor_escala=
+                                    Count('opcionesmanejo__menor_escala'))['menor_escala']
+        menor_escala2 = query.filter(opcionesmanejo__uso=u,
+                                     opcionesmanejo__menor_escala=2).aggregate(menor_escala2=
+                                     Count('opcionesmanejo__menor_escala'))['menor_escala2']
+        total_menor = menor_escala + menor_escala2
+        por_menor_escala = saca_porcentajes(total_menor,num_familia)
+        # vamos ahora con la mayor escala
+        
+        mayor_escala = query.filter(opcionesmanejo__uso=u,
+                                    opcionesmanejo__mayor_escala=1).aggregate(mayor_escala=
+                                    Count('opcionesmanejo__mayor_escala'))['mayor_escala']
+        mayor_escala2 = query.filter(opcionesmanejo__uso=u,
+                                    opcionesmanejo__mayor_escala=2).aggregate(mayor_escala2=
+                                    Count('opcionesmanejo__mayor_escala'))['mayor_escala2']
+        total_mayor = mayor_escala + mayor_escala2
+        por_mayor_escala = saca_porcentajes(total_mayor, num_familia)
+        tabla_escala[key] = {'menor_escala':menor_escala,'menor_escala2':menor_escala2,
+                             'mayor_escala':mayor_escala,'mayor_escala2':mayor_escala2,
+                             'por_menor_escala':por_menor_escala,'por_mayor_escala':por_mayor_escala}
+                             
+                                          
     return render_to_response('simas/manejo_agro.html',{'tabla':tabla,
-                              'num_familias':num_familia},
+                              'num_familias':num_familia,'tabla_escala':tabla_escala},
                                context_instance=RequestContext(request))
 
 #tabla uso de semilla       
@@ -825,16 +851,19 @@ def usosemilla(request):
     
     for k in Variedades.objects.all():
         key = slugify(k.variedad).replace('-','_')
-        query = a.filter(semilla__cultivo = k)
+        key2 = slugify(k.cultivo.cultivo).replace('-','_')  
+        query = a.filter(semilla__cultivo = k )
         frecuencia = query.count()
+        frec = query.filter(semilla__cultivo=k).count()
+        porce = saca_porcentajes(frec,num_familia)
         nativos = query.filter(semilla__cultivo=k,semilla__origen=1).aggregate(nativos=Count('semilla__origen'))['nativos']
         introducidos = query.filter(semilla__cultivo=k,semilla__origen=2).aggregate(introducidos=Count('semilla__origen'))['introducidos']
         suma_semilla = nativos + introducidos
         por_nativos = saca_porcentajes(nativos, suma_semilla)
         por_introducidos = saca_porcentajes(introducidos, suma_semilla)
         
-        tabla[key] = {'nativos':nativos,'introducidos':introducidos,
-                      'por_nativos':por_nativos,'por_introducidos':por_introducidos}
+        tabla[key] = {'key2':key2,'frec':frec,'porce':porce,'nativos':nativos,'introducidos':introducidos,
+                      'por_nativos':por_nativos,'por_introducidos':por_introducidos}              
                       
     return render_to_response('simas/semilla.html',{'tabla':tabla,
                               'num_familias':num_familia},
@@ -987,6 +1016,37 @@ def manejosuelo(request):
                               'tabla_obra':tabla_obra,'num_familias':num_familia},
                                context_instance=RequestContext(request))      
 
+#tabla finca vulnerable
+@session_required
+def vulnerable(request):
+    ''' Cuales son los Riesgos que hace las fincas vulnerables '''
+    #********variables globales****************
+    a = _queryset_filtrado(request)
+    num_familia = a.count()
+    #******************************************
+    
+    tabla = {}
+    lista = []
+    for i in Fenomeno.objects.all():
+        key = slugify(i.nombre).replace('-','_')
+        key2 = slugify(i.causa.nombre).replace('-','_')
+        query = a.filter(vulnerable__motivo = i)
+        frecuencia = query.count()
+        porce = saca_porcentajes(frecuencia,num_familia)
+        fenon = query.filter(vulnerable__motivo=i,vulnerable__respuesta=1).aggregate(fenon=Count('vulnerable__respuesta'))['fenon']
+        agri = query.filter(vulnerable__motivo=i,vulnerable__respuesta=2).aggregate(agri=Count('vulnerable__respuesta'))['agri']
+        merc = query.filter(vulnerable__motivo=i,vulnerable__respuesta=3).aggregate(merc=Count('vulnerable__respuesta'))['merc']
+        inver = query.filter(vulnerable__motivo=i,vulnerable__respuesta=4).aggregate(inver=Count('vulnerable__respuesta'))['inver']
+        
+        #lista.append([casi,key2])
+                
+        tabla[key] = {'key2':key2,'frecuencia':frecuencia,'porce':porce,
+                      'fenon':fenon,'agri':agri,'merc':merc,'inver':inver}
+    
+    return render_to_response('simas/vulnerable.html',{'tabla':tabla,
+                              'num_familias':num_familia},
+                               context_instance=RequestContext(request))
+
 #tabla mitigacion de riesgos
 @session_required    
 def mitigariesgos(request):
@@ -1030,6 +1090,13 @@ def organizacion_grafos(request, tipo):
         return grafos.make_graph(data, legends, 
                 'Porque soy o quiero ser miembro de la junta directiva o las comisiones', return_json = True,
                 type = grafos.PIE_CHART_3D)
+    elif tipo == 'estructura':
+        for opcion in CHOICE_OPCION:
+            data.append(consulta.filter(organizaciongremial__asumir_cargo=opcion[0]).count())
+            legends.append(opcion[1])
+        return grafos.make_graph(data, legends, 
+                'Si no es miembro de ninguna estructura ¿estaria interesado en asumir cargos?', return_json = True,
+                type = grafos.PIE_CHART_3D)
     elif tipo == 'beneficiorganizado':
         for opcion in BeneficioOrgComunitaria.objects.all():
             data.append(consulta.filter(organizacioncomunitaria__cual_beneficio=opcion).count())
@@ -1043,6 +1110,13 @@ def organizacion_grafos(request, tipo):
             legends.append(opcion.nombre)
         return grafos.make_graph(data, legends, 
                 '¿Porqué no esta organizado?', return_json = True,
+                type = grafos.PIE_CHART_3D)
+    elif tipo == 'comunitario':
+        for opcion in OrgComunitarias.objects.all():
+            data.append(consulta.filter(organizacioncomunitaria__cual_organizacion=opcion).count())
+            legends.append(opcion.nombre)
+        return grafos.make_graph(data, legends, 
+                '¿A cual organizacion comunitaria pertenece', return_json = True,
                 type = grafos.PIE_CHART_3D)
     else:
         raise Http404
@@ -1430,13 +1504,14 @@ VALID_VIEWS = {
         'gremial': gremial,
         'tenencias': tenencias,
         'usosemilla': usosemilla,
+        'vulnerable': vulnerable,
         'manejosuelo': manejosuelo,
         'comunitario' : comunitario,
         'organizacion': organizacion,
         'mitigariesgos': mitigariesgos,
         'ahorro_credito': ahorro_credito,
         'opcionesmanejo': opcionesmanejo,
-        'seguridad': seguridad_alimentaria,            
+        'seguridad': seguridad_alimentaria,           
         #me quedo tuani el caminito :)
             }
         
@@ -1445,6 +1520,11 @@ VALID_VIEWS = {
 def get_municipios(request, departamento):
     municipios = Municipio.objects.filter(departamento = departamento)
     lista = [(municipio.id, municipio.nombre) for municipio in municipios]
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+    
+def get_organizacion(request, departamento):
+    organizaciones = Organizaciones.objects.filter(departamento = departamento)
+    lista = [(organizacion.id, organizacion.nombre) for organizacion in organizaciones]
     return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
 
 def get_comunidad(request, municipio):

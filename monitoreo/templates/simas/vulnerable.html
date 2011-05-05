@@ -1,39 +1,40 @@
 {% extends "base.html" %}
 {%load unslugify %}
 {% block titulo %}
-Subindicador Energia
+Subindicador Vulnerable
 <div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
-{%endblock%}
+{% endblock%}
 
 {% block contenido %}
-
-{% include "nav_familia.html" %}
-
+{% include "nav_riesgos.html" %}
 <div class="separador"></div>
-<br>
+
 <div id="mostrar">
-    {% include "simas/menu.html" %}
+     {% include "simas/menu.html" %}
 </div>
-
-
 <div class="contenido">
     <table>
+        <caption>Vulnerabilidades de las fincas</caption>
         <thead>
             <tr>
-                <th>Fuente</th>
+                <th>Fenomeno</th>
+                <th>Causa</th>
                 <th>Frecuencia</th>
                 <th>%</th>
+               
             </tr>
         </thead>
         <tbody>
-            {% for fila in tabla%}
+            {%for key, value in tabla.items%}
             <tr>
-                {%for celda in fila%}
-                <td>{{celda}}</td>
-                {%endfor%}
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.frecuencia|floatformat}}</td>
+                <td>{{value.porce|floatformat}}</td>
+                
             </tr>
             {%endfor%}
-        <tbody>
+        </tbody>
     </table>
 </div>
 {% endblock %}

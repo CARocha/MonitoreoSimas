@@ -2,15 +2,10 @@
 {%load unslugify %}
 {% block titulo %}
 Subindicador Mitigación de Riesgos
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
 {% endblock%}
 {%block extra_header%}
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#mas').click(function(){
-            $('#mostrar').slideDown();
-        })
-    });
 
 </script>
 {%endblock%}
@@ -22,9 +17,6 @@ Subindicador Mitigación de Riesgos
 <div id="mostrar">
     {% include "simas/menu.html" %}
 </div>
-
-
-<img id="mas" src="/archivos/imagen/more.png" alt="Indicadores"> 
 
 <div class="contenido">
     <table>

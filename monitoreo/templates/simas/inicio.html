@@ -4,9 +4,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var departamento = document.getElementById("id_departamento");
+        var organizacion = document.getElementById("id_organizacion");
         var municipio = document.getElementById("id_municipio");
         var comunidad= document.getElementById("id_comunidad");
-       
+        
+        //municipios
         $("#id_departamento").change(function () {
             var index = departamento.options.selectedIndex;
             var id = departamento.options[index].value;
@@ -20,6 +22,23 @@
                 }
             });
         });
+        
+        //organizacion
+        $("#id_departamento").change(function () {
+            var index = departamento.options.selectedIndex;
+            var id = departamento.options[index].value;
+            $.getJSON("ajax/organizaciones/" + id +"/",
+            function(data){
+                organizacion.options.length = 0;
+                organizacion.options.length = 0;
+                organizacion.options[0] = new Option("--------");
+                for(i=0; i< data.length; i++){
+                    organizacion.options[i+1] = new Option(data[i][1], data[i][0]);
+                }
+            });
+        });
+        
+        //comunidad
         $("#id_municipio").change(function () {
             var index = municipio.options.selectedIndex;
             var id = municipio.options[index].value;
@@ -52,6 +71,8 @@ Filtros
             <div class="columna_dos">
                 <div class="form_label"><b>{{form.departamento.label}}</b></div>
                 <div class="form_widget">{{form.departamento}}</div>
+                <div class="form_label"><b>{{form.organizacion.label}}</b></div>
+                <div class="form_widget">{{form.organizacion}}</div>                
                 <div class="form_label"><b>{{form.municipio.label}}</b></div>
                 <div class="form_widget">{{form.municipio}}</div>
                 <div class="form_label"><b>{{form.comunidad.label}}</b></div>

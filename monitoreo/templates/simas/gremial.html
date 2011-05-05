@@ -2,15 +2,10 @@
 {%load unslugify %}
 {%block titulo%}
 Subindice Organización Gremial
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno">[&raquo;]</span></div>
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
 {%endblock%}
 {%block extra_header%}
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#mas').click(function(){
-            $('#mostrar').slideDown();
-        })
-    });
     var activo = 0; 
     function click_callback(id){
         $.getJSON('/grafo/organizacion/' + id, function(data) {
@@ -51,107 +46,148 @@ Subindice Organización Gremial
 <div id="sidebar">
     <div class="graficos_widget">
         <h1>Gráficos Org. Gremial </h1>
-        <a id="grafico1" href="#" onCLick="onCLick=click_callback('miembro')">¿Porque es miembro?</a>
+        <a id="grafico1" href="#" onCLick="onCLick=click_callback('miembro')">¿Porque soy o quiero ser miembro?</a>
         <a id="grafico2" href="#" onCLick="click_callback('beneficio')">Beneficio de ser Socio/a</a>
+        <a id="grafico3" href="#" onCLick="click_callback('estructura')">Interesado en asumir cargo?</a>
     </div>
     <div id="grafo"></div>
     <table>
-        <caption>La organización socios adultos</caption>
+        <caption>Es socio/a de organización Gremial</caption>
         <thead>
             <tr>
-                <th></th>
-                <th colspan="4">Socio/Socia</th>
-                <th colspan="4">Tiempo</th>
-            </tr>
-            <tr>
-                <th></th>
-                <th>Si</th>
-                <th>%</th>
-                <th>No</th>
-                <th>%</th>
-                <th>Menos de 5 años</th>
-                <th>%</th>
-                <th>Más de 5 años</th>
-                <th>%</th>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentaje %</th>
             </tr>
         </thead>
+        <tbody>
         <tr>
-            <td>Hombres</td>
-            {%for dato in tabla_socio.hombres_socio%}
-            <td>{{dato}}</td>
-            {%endfor%}
-        </tr>
-        <!--    <tr>-->
-        <!--        <td>Esposas</td>-->
-        <!--        {%for dato in tabla_socio.hombres_conyugue%}-->
-        <!--        <td>{{dato}}</td>-->
-        <!--        {%endfor%}-->
-        <!--    </tr>-->
-        <!--    <tr>-->
-        <!--        <td>Hijos/Hijas</td>-->
-        <!--        {%for dato in tabla_socio.hombres_hijo%}-->
-        <!--        <td>{{dato}}</td>-->
-        <!--        {%endfor%}-->
-        <!--    </tr>-->
-        <!--    <tr>-->
-        <td colspan="9"></td>
-        </tr>
+            {% for key, value in tabla_gremial.items %}
+            <td>{{key|unslugify}}</td>
+            <td>{{value.frecuencia|floatformat:2}}</td>
+            <td>{{value.porcentaje|floatformat:2}}</td>
+       </tr>
+            {% endfor %}
+            
+       <tr>
+            <th>TOTAL</th>
+            <th>{{divisor|floatformat:2}}</th>
+            <th>100</th>
+      </tr>
+       
+       <tbody>
+    </table>
+    
+    
+     <table>
+        <caption>Desde cuando socios</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentaje %</th>
+            </tr>
+        </thead>
+        <tbody>
         <tr>
-            <td>Mujeres</td>
-            {%for dato in tabla_socio.mujeres_socio%}
-            <td>{{dato}}</td>
-            {%endfor%}
-        </tr>
-        <!--    <tr>-->
-        <!--        <td>Esposos</td>-->
-        <!--        {%for dato in tabla_socio.mujeres_conyugue%}-->
-        <!--        <td>{{dato}}</td>-->
-        <!--        {%endfor%}-->
-        <!--    </tr>-->
-        <!--    <tr>-->
-        <!--        <td>Hijos/Hijas</td>-->
-        <!--        {%for dato in tabla_socio.mujeres_hijo%}-->
-        <!--        <td>{{dato}}</td>-->
-        <!--        {%endfor%}-->
-        <!--    </tr>-->
+            {% for key, value in tabla_desde.items %}
+            <td>{{key|unslugify}}</td>
+            <td>{{value.frecuencia|floatformat:2}}</td>
+            <td>{{value.porcentaje|floatformat:2}}</td>
+       </tr>
+            {% endfor %}
+            
+       <tr>
+            <th>TOTAL</th>
+            <th>{{divisor1|floatformat:2}}</th>
+            <th>100</th>
+      </tr>
+       
+       </tbody>
+    </table>
+    
+     <table>
+        <caption>Soy miembro de órgano gremial</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentaje %</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for key, value in tabla_miembro.items %}
+            <td>{{key|unslugify}}</td>
+            <td>{{value.frecuencia|floatformat:2}}</td>
+            <td>{{value.porcentaje|floatformat:2}}</td>
+       </tr>
+            {% endfor %}
+            
+       <tr>
+            <th>TOTAL</th>
+            <th>{{divisor2|floatformat:2}}</th>
+            <th>100</th>
+      </tr>
+       
+       </tbody>
     </table>
 
-    <table>
+
+<table>
+        <caption>Desde cuando miembro</caption>
         <thead>
             <tr>
-                <th></th>
-                <th colspan="4">Es miembro gremial</th>
-                <th colspan="4">¿Está interesado en asumir cargo¿</th>
-                <th colspan="4">Recibe Capacitación</th>
-            </tr>
-            <tr>
-                <th></th>
-                <th>Si</th>
-                <th>%</th>
-                <th>No</th>
-                <th>%</th>
-                <th>Si</th>
-                <th>%</th>
-                <th>No</th>
-                <th>%</th>
-                <th>Si</th>
-                <th>%</th>
-                <th>No</th>
-                <th>%</th>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentaje %</th>
             </tr>
         </thead>
+        <tbody>
         <tr>
-            <td>Hombres</td>
-            {%for celda in tabla_beneficio.hombres%}
-            <td>{{celda}}</td>
-            {%endfor%}
-        </tr>
-        <tr>
-            <td>Mujeres</td>
-            {%for celda in tabla_beneficio.mujeres%}
-            <td>{{celda}}</td>
-            {%endfor%}
-        </tr>
+            {% for key, value in tabla_desde_miembro.items %}
+            <td>{{key|unslugify}}</td>
+            <td>{{value.frecuencia|floatformat:2}}</td>
+            <td>{{value.porcentaje|floatformat:2}}</td>
+       </tr>
+            {% endfor %}
+            
+       <tr>
+            <th>TOTAL</th>
+            <th>{{divisor3|floatformat:2}}</th>
+            <th>100</th>
+      </tr>
+       
+       </tbody>
     </table>
+    
+    
+    <table>
+        <caption>He recibido capacitación para desempeñar mi cargo</caption>
+        <thead>
+            <tr>
+                <th>Categoria</th>
+                <th>Frecuencia</th>
+                <th>porcentaje %</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for key, value in tabla_capacitacion.items %}
+            <td>{{key|unslugify}}</td>
+            <td>{{value.frecuencia|floatformat:2}}</td>
+            <td>{{value.porcentaje|floatformat:2}}</td>
+       </tr>
+            {% endfor %}
+            
+       <tr>
+            <th>TOTAL</th>
+            <th>{{divisor4|floatformat:2}}</th>
+            <th>100</th>
+      </tr>
+       
+       </tbody>
+    </table>
+
 </div>
 {% endblock %}

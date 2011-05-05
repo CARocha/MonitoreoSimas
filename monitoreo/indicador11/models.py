@@ -15,8 +15,7 @@ class CultivosVariedad(models.Model):
 
     class Meta:
         verbose_name_plural = "Cultivos variedad"
-        #app_label = "Indicador 11 Uso de semilla"
-        #db_table = "simas_cultivosvariedad"
+        ordering = ['cultivo']
 
 class Variedades(models.Model):
     cultivo = models.ForeignKey(CultivosVariedad)
@@ -27,8 +26,7 @@ class Variedades(models.Model):
 
     class Meta:
         verbose_name_plural = "Variedades"
-        #app_label = "Indicador 11 Uso de semilla"
-        #db_table = "simas_variedades"
+        ordering = ['cultivo']
 
 CHOICE_ORIGEN = ((1,'Nativo'), (2,'Introducido'))
 
@@ -45,7 +43,5 @@ class Semilla(models.Model):
     
     class Meta:
         verbose_name_plural = "Semilla"
-        #app_label = "Indicador 11 Uso de semilla"
-        #db_table = "simas_semilla"
 
 #-------------------------------------------------------------------------------

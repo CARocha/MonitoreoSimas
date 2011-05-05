@@ -10,7 +10,7 @@ USE_I18N = True
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
-USE_L10N = False
+USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
@@ -103,7 +103,6 @@ INSTALLED_APPS = (
     'monitoreo.indicador19',
     'monitoreo.indicador20',
     'south',
-    #'django_extensions',
 )
 
 NO_DATA_GRAPH_URL = '/'

@@ -15,8 +15,6 @@ class Causa(models.Model):
         
     class Meta:
         verbose_name_plural = "Vulnerable - causa"
-        #app_label = "Indicador 19 Riesgo Finca vulnerable"
-        #db_table = "simas_causa"
         
 class Fenomeno(models.Model):
     causa = models.ForeignKey(Causa)
@@ -27,8 +25,6 @@ class Fenomeno(models.Model):
         
     class Meta:
         verbose_name_plural = "Vulnerable - causa + fenomeno"
-        #app_label = "Indicador 19 Riesgo Finca vulnerable"
-        #db_table = "simas_fenomeno"
         
 class Graves(models.Model):
     nombre = models.CharField(max_length=100)
@@ -38,19 +34,15 @@ class Graves(models.Model):
         
     class Meta:
         verbose_name_plural = "Vulnerable - daños graves"
-        #app_label = "Indicador 19 Riesgo Finca vulnerable"
-        #db_table = "simas_graves"
         
 class Vulnerable(models.Model):
     ''' 20 modelo vulnerable
     '''
     motivo = models.ForeignKey(Fenomeno)
-    respuesta = models.ManyToManyField(Graves, verbose_name="¿Casa cuanto hay daños graves en la finca?")
+    respuesta = models.ManyToManyField(Graves, verbose_name="¿Cada cuanto hay daños graves en la finca?")
     encuesta = models.ForeignKey(Encuesta)
     
     class Meta:
         verbose_name_plural = "Vulnerable"
-        #app_label = "Indicador 19 Riesgo Finca vulnerable"
-        #db_table = "simas_vulnerable"
 
 #-------------------------------------------------------------------------------

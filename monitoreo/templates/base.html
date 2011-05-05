@@ -10,12 +10,12 @@
             $(document).ready(function(){
                 $('#mas').click(function(){
                     if(flag==true){
-                        $('#mostrar').slideDown();
-                        $('#estado').text('[«]');
+                        $('#mostrar').slideDown('slow');
+                        $('#estado').html('<img src="/archivos/imagen/more.png"/>');
                         flag = false;
-                    }else{
-                        $('#mostrar').slideUp();
-                        $('#estado').text('[»]');
+                    }else if (flag==false){
+                        $('#mostrar').slideUp('slow');
+                        $('#estado').html('<img src="/archivos/imagen/menos.png"/>');
                         flag = true;
                     }
                     return false;

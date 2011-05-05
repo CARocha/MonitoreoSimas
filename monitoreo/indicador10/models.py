@@ -16,8 +16,6 @@ class ManejoAgro(models.Model):
 
     class Meta:
         verbose_name_plural = "Uso opciones de manejo agroecologico"
-        #app_label = "Indicador 10 Opciones de manejo agroecologico"
-        #db_table = "simas_manejoagro"
 
 CHOICE_NIVEL_CONOCIMIENTO = ((1,'Nada'),(2,'Poco'),(3,'Algo'),(4,'Bastante'))
 
@@ -36,7 +34,5 @@ class OpcionesManejo(models.Model):
     
     class Meta:
         verbose_name_plural = "Opciones de manejo"
-        #app_label = "Indicador 10 Opciones de manejo agroecologico"
-        #db_table = "simas_opcionesmanejo"
 
 #-------------------------------------------------------------------------------

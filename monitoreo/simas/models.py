@@ -35,6 +35,7 @@ class Organizaciones(models.Model):
 
     def __unicode__(self):
         return self.nombre
+#        return '%s - %s' % (self.departamento.nombre, self.nombre)
 
     class Meta:
         verbose_name_plural = "Organizaciones"

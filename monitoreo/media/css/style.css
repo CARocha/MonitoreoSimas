@@ -315,7 +315,7 @@ pre { font-size: 130%; background: #f7f7f7; padding: 10px 10px; font-weight: bol
 
 /* COMIEZA CSS FILTROS DEL FORMULARIO */
 #id_cooperativa, #id_fecha, #id_departamento, #id_municipio,
-#id_comunidad, #id_socio, #id_sexo, #id_dueno,#id_desde {
+#id_comunidad, #id_socio, #id_sexo, #id_dueno,#id_desde,#id_organizacion {
     width:200px;
     height:30px;
     background: #fff;
@@ -543,8 +543,11 @@ input[type='submit']:hover{
 }
 .cambiar_indicador{
     float: right;
+    margin: -11px 0 0 0;
+    padding: -2px 0 0 0;
 }
 .cambiar_indicador a{
     color: #665845;
+    
 }
 
