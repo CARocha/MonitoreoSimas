@@ -25,16 +25,19 @@ Subindicador Vulnerable
             </tr>
         </thead>
         <tbody>
-            {%for key, value in tabla.items%}
+            {%for a in lista2%}
+               
             <tr>
-                <td>{{value.key2|unslugify}}</td>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frecuencia|floatformat}}</td>
-                <td>{{value.porce|floatformat}}</td>
-                
+                <td>{{a.1|unslugify}}</td>
+                <td>{{a.0|unslugify}}</td>
+                <td>{{a.2|floatformat}}</td>
+                <td>{{a.3|floatformat}}</td>
+           
             </tr>
             {%endfor%}
         </tbody>
     </table>
+    <br></br><br></br>
 </div>
+    
 {% endblock %}

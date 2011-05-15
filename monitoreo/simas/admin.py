@@ -40,10 +40,13 @@ class CocinaInline(admin.TabularInline):
     model = Cocina
     extra = 1
     max_num = 1
+    can_delete = False
     
 class AguaInline(admin.TabularInline):
     model = Agua
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class OrganizacionGremialInline(admin.TabularInline):
     model = OrganizacionGremial
@@ -51,106 +54,140 @@ class OrganizacionGremialInline(admin.TabularInline):
               'desde_miembro', 'capacitacion','desde_capacitacion',
               'miembro_junta', 'asumir_cargo']
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class OrganizacionComunitariaInline(admin.TabularInline):
     model = OrganizacionComunitaria
     fields = ['numero', 'pertence', 'cual_organizacion', 
               'cual_beneficio', 'no_organizado']
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class TenenciaInline(admin.TabularInline):
     model = Tenencia
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class UsoTierraInline(admin.TabularInline):
     model = UsoTierra
     extra = 1
+    max_num = 8
+    can_delete = False
     
 class ExistenciaArbolesInline(admin.TabularInline):
     model = ExistenciaArboles
     fields = ['maderable', 'cantidad_maderable', 'forrajero', 'cantidad_forrajero',
               'energetico', 'cantidad_energetico', 'frutal', 'cantidad_frutal']
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class ReforestacionInline(admin.TabularInline):
     model = Reforestacion
     extra = 1
+    can_delete = False
     
 class AnimalesFincaInline(admin.TabularInline):
     model = AnimalesFinca
     extra = 1
+    can_delete = False
     
 class CultivosFincaInline(admin.TabularInline):
     model = CultivosFinca
     extra = 1
+    can_delete = False
     
 class OpcionesManejoInline(admin.TabularInline):
     model= OpcionesManejo
     extra = 1
+    can_delete = False
     
 class SemillaInline(admin.TabularInline):
     model = Semilla
     extra = 1
+    can_delete = False
     
 class SueloInline(admin.TabularInline):
     model = Suelo
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class ManejoSueloInline(admin.TabularInline):
     model = ManejoSuelo
     fields = ['preparan','traccion','analisis','fertilizacion',
               'practica','obra']
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class IngresoFamiliarInline(admin.TabularInline):
     model = IngresoFamiliar
     extra = 1
+    can_delete = False
     
 class OtrosIngresosInline(admin.TabularInline):
     model = OtrosIngresos
     extra = 1
+    can_delete = False
     
 class TipoCasaInline(admin.TabularInline):
     model = TipoCasa
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class DetalleCasaInline(admin.TabularInline):
     model = DetalleCasa
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class PropiedadesInline(admin.TabularInline):
     model = Propiedades
     extra = 1
+    can_delete = False
     
 class HerramientasInline(admin.TabularInline):
     model = Herramientas
     extra = 1
+    can_delete = False
     
 class TransporteInline(admin.TabularInline):
     model = Transporte
     extra = 1
+    can_delete = False
     
 class AhorroInline(admin.TabularInline):
     model = Ahorro
     extra = 1
+    can_delete = False
     
 class CreditoInline(admin.TabularInline):
     model = Credito
     fields = ['recibe','desde','quien_credito','ocupa_credito',
               'satisfaccion','dia']
     extra = 1
+    max_num = 1
+    can_delete = False
     
 class SeguridadInline(admin.TabularInline):
     model = Seguridad
     extra = 1
+    can_delete = False
     
 class VulnerableInline(admin.TabularInline):
     model = Vulnerable
     extra = 1
+    can_delete = False
     
 class RiesgosInline(admin.TabularInline):
     model = Riesgos
     extra = 1
+    can_delete = False
    
 class EncuestaAdmin(admin.ModelAdmin):
     def queryset(self, request):

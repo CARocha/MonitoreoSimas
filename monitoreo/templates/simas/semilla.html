@@ -8,7 +8,7 @@ Subindicador Uso de Semilla
 <div id="mostrar">
      {% include "simas/menu.html" %}
 </div>
-<div class="contenido">
+<div class="contenido">   
     <table>
         <caption>Uso de semilla</caption>
         <thead>
@@ -24,19 +24,21 @@ Subindicador Uso de Semilla
             </tr>
         </thead>
         <tbody>
-            {%for key, value in tabla.items%}
+            {%for k in lista%}
             <tr>
-                <td>{{value.key2|unslugify}}</td>
-                <td>{{key|unslugify}}</td>
-                <td>{{value.frec|floatformat}}</td>
-                <td>{{value.porce|floatformat}}</td>
-                <td>{{value.nativos|floatformat}}</td>
-                <td>{{value.por_nativos|floatformat}}</td>
-                <td>{{value.introducidos|floatformat}}</td>
-                <td>{{value.por_introducidos|floatformat}}</td>
+                <td>{{k.1|unslugify}}</td>
+                <td>{{k.0|unslugify}}</td>
+                <td>{{k.2|floatformat}}</td>
+                <td>{{k.3|floatformat}}</td>
+                <td>{{k.4|floatformat}}</td>
+                <td>{{k.5|floatformat}}</td>
+                <td>{{k.6|floatformat}}</td>
+                <td>{{k.7|floatformat}}</td>
             </tr>
             {%endfor%}
         </tbody>
     </table>
+    <br></br><br></br>
 </div>
+
 {% endblock %}

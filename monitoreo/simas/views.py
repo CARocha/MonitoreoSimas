@@ -68,8 +68,8 @@ def _queryset_filtrado(request):
             else:
                 params['comunidad__municipio__departamento'] = request.session['departamento']
 
-#        if 'cooperativa' in request.session:
-#            params['encuesta__organizacion'] = request.session['organizacion']
+        if 'cooperativa' in request.session:
+            params['encuesta__organizacion'] = request.session['organizacion']
 
         if 'socio' in request.session:
             params['organizaciongremial__socio'] = request.session['socio']
@@ -99,8 +99,8 @@ def inicio(request):
         mensaje = None
         form = MonitoreoForm(request.POST)
         if form.is_valid():
-            #organizacion = form.cleaned_data['organizacion']
-            #request.session['organizacion'] = organizacion
+            organizacion = form.cleaned_data['organizacion']
+            request.session['organizacion'] = organizacion
             request.session['fecha'] = form.cleaned_data['fecha']
             request.session['departamento'] = form.cleaned_data['departamento']
             try:
@@ -848,7 +848,7 @@ def usosemilla(request):
     num_familia = a.count()
     #******************************************
     tabla = {}
-    
+    lista = []
     for k in Variedades.objects.all():
         key = slugify(k.variedad).replace('-','_')
         key2 = slugify(k.cultivo.cultivo).replace('-','_')  
@@ -862,10 +862,13 @@ def usosemilla(request):
         por_nativos = saca_porcentajes(nativos, suma_semilla)
         por_introducidos = saca_porcentajes(introducidos, suma_semilla)
         
+        lista.append([key,key2,frec,porce,nativos,por_nativos,
+                      introducidos,por_introducidos])
+        
         tabla[key] = {'key2':key2,'frec':frec,'porce':porce,'nativos':nativos,'introducidos':introducidos,
                       'por_nativos':por_nativos,'por_introducidos':por_introducidos}              
                       
-    return render_to_response('simas/semilla.html',{'tabla':tabla,
+    return render_to_response('simas/semilla.html',{'tabla':tabla,'lista':lista,
                               'num_familias':num_familia},
                               context_instance=RequestContext(request))
 
@@ -1026,26 +1029,30 @@ def vulnerable(request):
     #******************************************
     
     tabla = {}
-    lista = []
+    lista2 = []
     for i in Fenomeno.objects.all():
         key = slugify(i.nombre).replace('-','_')
         key2 = slugify(i.causa.nombre).replace('-','_')
         query = a.filter(vulnerable__motivo = i)
         frecuencia = query.count()
         porce = saca_porcentajes(frecuencia,num_familia)
-        fenon = query.filter(vulnerable__motivo=i,vulnerable__respuesta=1).aggregate(fenon=Count('vulnerable__respuesta'))['fenon']
-        agri = query.filter(vulnerable__motivo=i,vulnerable__respuesta=2).aggregate(agri=Count('vulnerable__respuesta'))['agri']
-        merc = query.filter(vulnerable__motivo=i,vulnerable__respuesta=3).aggregate(merc=Count('vulnerable__respuesta'))['merc']
-        inver = query.filter(vulnerable__motivo=i,vulnerable__respuesta=4).aggregate(inver=Count('vulnerable__respuesta'))['inver']
+#        fenon = query.filter(vulnerable__motivo=i,vulnerable__respuesta=1).aggregate(fenon=Count('vulnerable__respuesta'))['fenon']
+#        agri = query.filter(vulnerable__motivo=i,vulnerable__respuesta=2).aggregate(agri=Count('vulnerable__respuesta'))['agri']
+#        merc = query.filter(vulnerable__motivo=i,vulnerable__respuesta=3).aggregate(merc=Count('vulnerable__respuesta'))['merc']
+#        inver = query.filter(vulnerable__motivo=i,vulnerable__respuesta=4).aggregate(inver=Count('vulnerable__respuesta'))['inver']
         
-        #lista.append([casi,key2])
-                
-        tabla[key] = {'key2':key2,'frecuencia':frecuencia,'porce':porce,
-                      'fenon':fenon,'agri':agri,'merc':merc,'inver':inver}
+        lista2.append([key,key2,frecuencia,porce])
+                       
+        #tabla[key] = {'key2':key2,'frecuencia':frecuencia,'porce':porce}
+#    lista = []              
+#    for key, value in sorted(tabla.iteritems(), key=lambda (k,v): (v,k)):
+#        lista.append([key,value])
+                      
+    #print lista
     
-    return render_to_response('simas/vulnerable.html',{'tabla':tabla,
-                              'num_familias':num_familia},
-                               context_instance=RequestContext(request))
+    return render_to_response('simas/vulnerable.html',{'num_familias':num_familia, 
+                              'lista2':lista2},
+                              context_instance=RequestContext(request))
 
 #tabla mitigacion de riesgos
 @session_required    

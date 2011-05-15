@@ -311,7 +311,9 @@ CHOICE_DESDE = ((1,'Menos de 5 años'),(2,'Más de 5 años'),(3,'No utilizar'))
 
 CHOICE_TENENCIA = ((1,"Propia con escritura pública"),(2,"Propia por herencia"),
                    (3,"Propias con promesa de venta"),(4,"Propias con titulo de reforma agraria"),
-                   (5,"Arrendada"),(6,"Sin documento"))
+                   (5,"Arrendada"),(6,"Sin documento"),(7,"Escritura posesoria"))
+                   
+                   
 CHOICE_DUENO = ((1,"Hombre"),(2,"Mujer"),(3,"Mancomunado"),(4,"Parientes"),
                 (5,"Colectivo"),(6,"No hay"))
 
