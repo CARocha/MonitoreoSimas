@@ -215,7 +215,7 @@ class EncuestaAdmin(admin.ModelAdmin):
                TransporteInline, AhorroInline, CreditoInline, SeguridadInline,
                VulnerableInline, RiesgosInline,
                ]
-    list_display = ('nombre', 'finca', 'comunidad', 'organizacion')
+    list_display = ('nombre', 'finca', 'comunidad')
     list_filter = ['comunidad', 'organizacion']
     search_fields = ['nombre', 'comunidad__nombre', 'organizacion__nombre']
     date_hierarchy = 'fecha'

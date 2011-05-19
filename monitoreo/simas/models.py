@@ -53,7 +53,7 @@ class Encuesta(models.Model):
     finca = models.CharField('Nombre de Finca', max_length=200)
     comunidad = models.ForeignKey(Comunidad)
     sexo = models.IntegerField(choices=CHOICE_SEXO)
-    organizacion = models.ForeignKey(Organizaciones)
+    organizacion = models.ManyToManyField(Organizaciones, related_name ="org")
     user = models.ForeignKey(User)
     
     def __unicode__(self):
