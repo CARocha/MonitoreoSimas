@@ -1,6 +1,7 @@
 import os
 from django.conf.urls.defaults import *
 from django.conf import settings
+from django.views.generic.simple import direct_to_template
 from models import Encuesta
 
 urlpatterns = patterns('monitoreo.simas.views',
@@ -18,6 +19,8 @@ urlpatterns = patterns('monitoreo.simas.views',
     (r'^grafo/bienes/(?P<tipo>\w+)/$', 'grafos_bienes'),
     (r'^grafo/ahorro-credito/(?P<tipo>\w+)/$', 'ahorro_credito_grafos'),
     (r'^mapa/$', 'obtener_lista'),
+    (r'^ayuda/$',   direct_to_template,{'template': 'simas/acerca.html'}),
     (r'^(?P<vista>\w+)/$', '_get_view'),
+    
    
 )
