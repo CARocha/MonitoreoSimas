@@ -29,8 +29,8 @@ class IngresoFamiliar(models.Model):
     ''' Modelo Ingreso familiar. venta de rubros
     '''
     rubro = models.ForeignKey(Rubros)
-    cantidad = models.IntegerField('Cantidad vendida en el año pasado',null=True, blank=True)
-    precio = models.IntegerField('Precio de venta por unidad',null=True, blank=True)
+    cantidad = models.FloatField('Cantidad vendida en el año pasado',null=True, blank=True)
+    precio = models.FloatField('Precio de venta por unidad',null=True, blank=True)
     quien_vendio = models.IntegerField('¿A quien vendio?', choices=CHOICE_VENDIO,null=True, blank=True)
     maneja_negocio = models.IntegerField('¿Quién maneja el negocio', choices=CHOICE_MANEJA,null=True, blank=True)
     encuesta = models.ForeignKey(Encuesta)
