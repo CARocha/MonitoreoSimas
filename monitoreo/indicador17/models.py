@@ -15,8 +15,6 @@ class DaCredito(models.Model):
 
     class Meta:
         verbose_name_plural = "Credito-Dacredito"
-        #app_label = "Indicador 17 Credito"
-        #db_table = "simas_dacredito"
 
 
 class OcupaCredito(models.Model):
@@ -26,12 +24,12 @@ class OcupaCredito(models.Model):
 
     class Meta:
         verbose_name_plural = "Credito-Ocupa"
-        #app_label = "Indicador 17 Credito"
-        #db_table = "simas_ocupacredito"
+
 
 CHOICE_SATISFACCION = ((1,"Menos de 25 % de las necesidades"),
                        (2,"Entre 25 y 50 % de las necesidades"),
-                       (3,"Entre 50 y 100 % de las necesidades"))
+                       (3,"Entre 50 y 100 % de las necesidades"),
+                       (4,"No aplica"))
 
 class Credito(models.Model):
     ''' Modelo de credito
