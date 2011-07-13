@@ -68,8 +68,8 @@ def _queryset_filtrado(request):
             else:
                 params['comunidad__municipio__departamento'] = request.session['departamento']
 
-        if 'cooperativa' in request.session:
-            params['encuesta__organizacion'] = request.session['organizacion']
+        if 'organizacion' in request.session:
+            params['organizacion'] = request.session['organizacion']
 
         if 'socio' in request.session:
             params['organizaciongremial__socio'] = request.session['socio']
@@ -99,8 +99,6 @@ def inicio(request):
         mensaje = None
         form = MonitoreoForm(request.POST)
         if form.is_valid():
-            organizacion = form.cleaned_data['organizacion']
-            request.session['organizacion'] = organizacion
             request.session['fecha'] = form.cleaned_data['fecha']
             request.session['departamento'] = form.cleaned_data['departamento']
             try:
@@ -112,9 +110,15 @@ def inicio(request):
                 
             except:
                 comunidad = None
+            try:
+                organizacion = Organizaciones.objects.get(id=form.cleaned_data['organizacion'])
+            except:
+                organizacion = None
+                
 
             request.session['municipio'] = municipio 
             request.session['comunidad'] = comunidad
+            request.session['organizacion'] = organizacion
             request.session['socio'] = form.cleaned_data['socio']
             request.session['desde'] = form.cleaned_data['desde']
             request.session['duenio'] = form.cleaned_data['dueno']
@@ -136,8 +140,8 @@ def index(request):
     familias = Encuesta.objects.all().count()
     organizacion = Organizaciones.objects.all().count()
     mujeres = Encuesta.objects.filter(sexo=2).count()
-    hombres = Encuesta.objects.filter(sexo=1).count()    
-
+    hombres = Encuesta.objects.filter(sexo=1).count()
+    
     return direct_to_template(request, 'index.html', locals())        
         
 #-------------------------------------------------------------------------------
@@ -311,7 +315,7 @@ def fincas(request):
     totales['manzanas'] = consulta.aggregate(area=Sum('usotierra__area'))['area']
     totales['porcentaje_mz'] = 100
 
-    for uso in Uso.objects.all():
+    for uso in Uso.objects.all().exclude(id=1):
         key = slugify(uso.nombre).replace('-', '_')
         query = consulta.filter(usotierra__tierra = uso)
         numero = query.count()

@@ -69,6 +69,7 @@
                     {%if num_familias%}<span class="variables_filtro"><b>Familias</b>{{num_familias}}</span>{%endif%}
                     {%if request.session.fecha%}<span class="variables_filtro"><b>Año</b>{{request.session.fecha}}</span>{%endif%}
                     {%if request.session.departamento%}<span class="variables_filtro"><b>Departamento</b>{{request.session.departamento}}</span>{%endif%}
+                    {%if request.session.organizacion%}<span class="variables_filtro"><b>Organización</b>{{request.session.organizacion.nombre}}</span>{%endif%}
                     {%if request.session.municipio.nombre%}<span class="variables_filtro"><b>Municipio</b>{{request.session.municipio.nombre}}</span>{%endif%}
                     {%if request.session.comunidad.nombre%}<span class="variables_filtro"><b>Comunidad</b>{{request.session.comunidad.nombre}}</span>{%endif%}
                     {%if request.session.socio%}<span class="variables_filtro"><b>Socio</b>{%if request.session.socio = '1'%}Si{%else%}No{%endif%}</span>{%endif%}

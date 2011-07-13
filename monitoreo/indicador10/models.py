@@ -17,7 +17,10 @@ class ManejoAgro(models.Model):
     class Meta:
         verbose_name_plural = "Uso opciones de manejo agroecologico"
 
-CHOICE_NIVEL_CONOCIMIENTO = ((1,'Nada'),(2,'Poco'),(3,'Algo'),(4,'Bastante'))
+CHOICE_NIVEL_CONOCIMIENTO = ((1,'Nada'),
+                             (2,'Poco'),
+                             (3,'Algo'),
+                             (4,'Bastante'))
 
 class OpcionesManejo(models.Model):
     ''' opciones de manejo agroecologico
