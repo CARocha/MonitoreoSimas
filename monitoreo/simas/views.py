@@ -270,7 +270,7 @@ def luz(request):
         else:
             fila = [choice.pregunta, 
                     resultados,
-                    saca_porcentajes(resultados, total_tiene_luz, False)]
+                    saca_porcentajes(resultados, consulta.count(), False)]
             tabla.append(fila)
 
     return render_to_response('simas/luz.html', 
