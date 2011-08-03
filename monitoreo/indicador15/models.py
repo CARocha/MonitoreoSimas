@@ -100,7 +100,7 @@ class Propiedades(models.Model):
     encuesta = models.ForeignKey(Encuesta)
     
     def __unicode__(self):
-        return u'%s' % self.equipo.nombre
+        return self.equipo.nombre
     
     class Meta:
         verbose_name_plural = "Propiedades"
