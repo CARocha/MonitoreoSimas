@@ -99,8 +99,8 @@ class Propiedades(models.Model):
     cantidad_infra = models.IntegerField('Cantidad', null=True, blank=True)
     encuesta = models.ForeignKey(Encuesta)
     
-    def __unicode__(self):
-        return self.equipo.nombre
+    #def __unicode__(self):
+    #    return self.equipo.nombre
     
     class Meta:
         verbose_name_plural = "Propiedades"
