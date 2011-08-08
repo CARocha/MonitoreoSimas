@@ -40,13 +40,13 @@ class CocinaInline(admin.TabularInline):
     model = Cocina
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class AguaInline(admin.TabularInline):
     model = Agua
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class OrganizacionGremialInline(admin.TabularInline):
     model = OrganizacionGremial
@@ -55,7 +55,7 @@ class OrganizacionGremialInline(admin.TabularInline):
               'miembro_junta', 'asumir_cargo']
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class OrganizacionComunitariaInline(admin.TabularInline):
     model = OrganizacionComunitaria
@@ -63,19 +63,19 @@ class OrganizacionComunitariaInline(admin.TabularInline):
               'cual_beneficio', 'no_organizado']
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class TenenciaInline(admin.TabularInline):
     model = Tenencia
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class UsoTierraInline(admin.TabularInline):
     model = UsoTierra
     extra = 1
     max_num = 8
-    can_delete = False
+    can_delete = True
     
 class ExistenciaArbolesInline(admin.TabularInline):
     model = ExistenciaArboles
@@ -83,38 +83,38 @@ class ExistenciaArbolesInline(admin.TabularInline):
               'energetico', 'cantidad_energetico', 'frutal', 'cantidad_frutal']
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class ReforestacionInline(admin.TabularInline):
     model = Reforestacion
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class AnimalesFincaInline(admin.TabularInline):
     model = AnimalesFinca
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class CultivosFincaInline(admin.TabularInline):
     model = CultivosFinca
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class OpcionesManejoInline(admin.TabularInline):
     model= OpcionesManejo
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class SemillaInline(admin.TabularInline):
     model = Semilla
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class SueloInline(admin.TabularInline):
     model = Suelo
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class ManejoSueloInline(admin.TabularInline):
     model = ManejoSuelo
@@ -122,49 +122,49 @@ class ManejoSueloInline(admin.TabularInline):
               'practica','obra']
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class IngresoFamiliarInline(admin.TabularInline):
     model = IngresoFamiliar
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class OtrosIngresosInline(admin.TabularInline):
     model = OtrosIngresos
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class TipoCasaInline(admin.TabularInline):
     model = TipoCasa
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class DetalleCasaInline(admin.TabularInline):
     model = DetalleCasa
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class PropiedadesInline(admin.TabularInline):
     model = Propiedades
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class HerramientasInline(admin.TabularInline):
     model = Herramientas
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class TransporteInline(admin.TabularInline):
     model = Transporte
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class AhorroInline(admin.TabularInline):
     model = Ahorro
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class CreditoInline(admin.TabularInline):
     model = Credito
@@ -172,22 +172,22 @@ class CreditoInline(admin.TabularInline):
               'satisfaccion','dia']
     extra = 1
     max_num = 1
-    can_delete = False
+    can_delete = True
     
 class SeguridadInline(admin.TabularInline):
     model = Seguridad
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class VulnerableInline(admin.TabularInline):
     model = Vulnerable
     extra = 1
-    can_delete = False
+    can_delete = True
     
 class RiesgosInline(admin.TabularInline):
     model = Riesgos
     extra = 1
-    can_delete = False
+    can_delete = True
    
 class EncuestaAdmin(admin.ModelAdmin):
     def queryset(self, request):
