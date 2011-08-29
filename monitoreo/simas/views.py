@@ -56,20 +56,20 @@ def _queryset_filtrado(request):
     #diccionario de parametros del queryset
     params = {}
     if 'fecha' in request.session:
-        params['fecha__year__in'] = request.session['fecha']
+        params['year__in'] = request.session['fecha']
         
-        if request.session['departamento']:
-            if not request.session['municipio']:
-                municipios = Municipio.objects.filter(departamento__in=request.session['departamento'])
-                params['comunidad__municipio__in'] = municipios
+    if request.session['departamento']:
+        if not request.session['municipio']:
+            municipios = Municipio.objects.filter(departamento__in=request.session['departamento'])
+            params['comunidad__municipio__in'] = municipios
+        else:
+            if request.session['comunidad']:
+                params['comunidad__in'] = request.session['comunidad']
             else:
-                if request.session['comunidad']:
-                    params['comunidad__in'] = request.session['comunidad']
-                else:
-                    params['comunidad__municipio__in'] = request.session['municipio']
-                
-        if request.session['organizacion']:
-            params['organizacion__in'] = request.session['organizacion']
+                params['comunidad__municipio__in'] = request.session['municipio']
+            
+    if request.session['organizacion']:
+        params['organizacion__in'] = request.session['organizacion']
 
 #        if 'departamento' in request.session:
 #            #incluye municipio y comunidad
@@ -84,24 +84,24 @@ def _queryset_filtrado(request):
 #        if 'organizacion' in request.session:
 #            params['organizacion'] = request.session['organizacion']
 
-        if 'socio' in request.session:
-            params['organizaciongremial__socio'] = request.session['socio']
-            
-        if 'desde' in request.session:
-            params['organizaciongremial__desde_socio'] = request.session['desde']
+    if 'socio' in request.session:
+        params['organizaciongremial__socio'] = request.session['socio']
+        
+    if 'desde' in request.session:
+        params['organizaciongremial__desde_socio'] = request.session['desde']
 
-        if 'duenio' in  request.session:
-            params['tenencia__dueno'] = request.session['duenio']
-        
-        unvalid_keys = []
-        for key in params:
-            if not params[key]:
-                unvalid_keys.append(key)
-        
-        for key in unvalid_keys:
-            del params[key]
-        
-        return Encuesta.objects.filter(**params)        
+    if 'duenio' in  request.session:
+        params['tenencia__dueno'] = request.session['duenio']
+    
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
+    
+    for key in unvalid_keys:
+        del params[key]
+    
+    return Encuesta.objects.filter(**params)        
 
 #-------------------------------------------------------------------------------
 
