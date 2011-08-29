@@ -1,58 +1,147 @@
 {% extends "base.html" %}
 
 {%block extra_header%}
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+<script src="{{MEDIA_URL}}js/jquery.multiselect.min.js" type="text/javascript"></script>
+<script src="{{MEDIA_URL}}js/jquery.multiselect.filter.js" type="text/javascript"></script>
+<link href="{{MEDIA_URL}}css/jquery.multiselect.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript">
-    $(document).ready(function() {
-        var departamento = document.getElementById("id_departamento");
-        var organizacion = document.getElementById("id_organizacion");
-        var municipio = document.getElementById("id_municipio");
-        var comunidad= document.getElementById("id_comunidad");
-        
-        //municipios
-        $("#id_departamento").change(function () {
-            var index = departamento.options.selectedIndex;
-            var id = departamento.options[index].value;
-            $.getJSON("ajax/municipio/" + id +"/",
-            function(data){
-                municipio.options.length = 0;
-                comunidad.options.length = 0;
-                municipio.options[0] = new Option("--------");
-                for(i=0; i< data.length; i++){
-                    municipio.options[i+1] = new Option(data[i][1], data[i][0]);
-                }
-            });
+    var organizacion;
+    var comunidad;
+    var municipio;
+    $(document).ready(function(){
+    
+        $("#id_fecha").multiselect({
+            noneSelectedText: 'Seleccione elementos',
+            selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
+            minWidth: 200,
+            beforeclose: function(event, ui){
+                var selectos = $("#id_fecha").multiselect("getChecked").map(function(){
+                    return this.value;
+                }).get();
+                
+            }
         });
-        
-        //organizacion
-        $("#id_departamento").change(function () {
-            var index = departamento.options.selectedIndex;
-            var id = departamento.options[index].value;
-            $.getJSON("ajax/organizaciones/" + id +"/",
-            function(data){
-                organizacion.options.length = 0;
-                organizacion.options.length = 0;
-                organizacion.options[0] = new Option("--------");
-                for(i=0; i< data.length; i++){
-                    organizacion.options[i+1] = new Option(data[i][1], data[i][0]);
-                }
-            });
+    
+        $("#id_organizacion, #id_municipio, #id_comunidad").html('');
+        comunidad = $("#id_comunidad").multiselect({
+            noneSelectedText: 'Seleccione elementos',
+            selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
+            minWidth: 200
         });
-        
-        //comunidad
-        $("#id_municipio").change(function () {
-            var index = municipio.options.selectedIndex;
-            var id = municipio.options[index].value;
-            $.getJSON("ajax/comunidad/" + id +"/",
-            function(data){
-                comunidad.options.length = 0;
-                comunidad.options[0] = new Option("---------");
-                for(i=0; i< data.length; i++){
-                    comunidad.options[i+1] = new Option(data[i][1], data[i][0]);
+           organizacion = $("#id_organizacion").multiselect({
+            noneSelectedText: 'Seleccione la organizacion',
+            selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
+            minWidth: 200,
+            beforeclose: function(event, ui){
+                var selectos = $("#id_organizacion").multiselect("getChecked").map(function(){
+                    return this.value;
+                }).get();
+                if(selectos.length!=0){
+                    filtrarMunicipio(selectos, 2);
+                }else{
+                    var depas = $("#id_departamento").multiselect("getChecked").map(function(){
+                        return this.value;
+                    }).get();
+                    filtrarMunicipio(depas, 1);
                 }
-            });
+            }
         });
-        
+
+        $("#id_departamento").multiselect({
+            noneSelectedText: 'Seleccione elementos',
+            selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
+            minWidth: 200,
+            beforeclose: function(event, ui){
+                var selectos = $("#id_departamento").multiselect("getChecked").map(function(){
+                    return this.value;
+                }).get();
+                if(selectos.length!=0){
+                    filtrarMunicipio(selectos, 1);
+                    filtrarOrganizacion(selectos);
+                }else{
+                    organizacion.multiselect("disable");
+                    municipio.multiselect("disable");
+                }
+            }
+        });
+
+        municipio = $("#id_municipio").multiselect({
+            noneSelectedText: 'Seleccione elementos',
+            selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
+            minWidth: 200,
+            beforeclose: function(event, ui){
+                var selectos = $("#id_municipio").multiselect("getChecked").map(function(){
+                    return this.value;
+                }).get();
+                if(selectos.length!=0){
+                    $.getJSON('/ajax/comunies/?ids='+selectos.join(","), function(data){
+                        $('#id_comunidad').html('');
+                        if(data){
+                            $.each(data, function(i, item){
+                                comunidad.append($('<option></option>').val(item.id).html(item.nombre));
+                                comunidad.multiselect('refresh');
+                            });
+                        }
+                    });
+                    comunidad.multiselect("enable");
+                }
+                else{
+                    comunidad.multiselect("disable");
+                }
+            }
+        });
+        municipio.multiselect("disable");
+        organizacion.multiselect("disable");
+        comunidad.multiselect("disable");
     });
+    function filtrarMunicipio(selectos, opcion){
+        if (opcion == 1){
+            var url = '/ajax/munis/?ids='+selectos.join(",");
+        }else{
+            var url = '/ajax/munis/?org_ids='+selectos.join(",");
+        }
+        $.getJSON(url, function(data){
+            $('#id_municipio').html('');
+            if(data){
+                $.each(data, function(i, item){
+                    $.each(item, function(j, item2){
+                        var group = $('<optgroup></optgroup>').attr('label', j);
+                        $.each(item2, function(k, item3){
+                            group.append($('<option></option>').val(item3.id).html(item3.nombre));
+                        });
+                        group.appendTo(municipio);
+                    });
+                    municipio.multiselect('refresh');
+                    municipio.multiselect('enable');
+                });
+            }
+        });
+    }
+
+    function filtrarOrganizacion(selectos){
+        $.getJSON('/ajax/organi/?ids='+selectos.join(","), function(data){
+            $("#id_organizacion").html('');
+            if(data){
+                $.each(data, function(i, item){
+                    $('<option></option>').val(item.id).html(item.nombre).appendTo(organizacion)
+                });
+                organizacion.multiselect('refresh');
+                organizacion.multiselect("enable");
+            }
+        });
+    }
 </script>
 {% endblock %}
 {% block titulo %}

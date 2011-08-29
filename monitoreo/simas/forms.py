@@ -9,13 +9,16 @@ CHOICE_OPCION_F = (('','----'),(1,'Si'),(2,'No'))
 CHOICE_DESDE_F = (('','----'),(1,"Menos de 5 año"),(2,"Mas de 5 años"))
 CHOICE_DUENO_F = (('','----'),(1,"Hombre"),(2,"Mujer"),(3,"Mancomunado"),(4,"Parientes"),(5,"Colectivo"),(6,"No hay"))
 
+def departamentos():   
+    foo = Encuesta.objects.all().order_by('comunidad__municipio__departamento__nombre').distinct().values_list('comunidad__municipio__departamento__id', flat=True)
+    return Departamento.objects.filter(id__in=foo)
+
 class MonitoreoForm(forms.Form):
-    fecha = forms.ChoiceField(choices=ANOS_CHOICES)
-    departamento = forms.ModelChoiceField(queryset=Departamento.objects.all(), 
-            required=False, empty_label="Todos los Departamentos")
-    organizacion = forms.CharField(widget = forms.Select, required=False, label="Organizaciones")
-    municipio = forms.CharField(widget = forms.Select, required=False)
-    comunidad = forms.CharField(widget = forms.Select, required=False)
+    fecha = forms.MultipleChoiceField(choices=ANOS_CHOICES)
+    departamento = forms.ModelMultipleChoiceField(queryset=departamentos(), required=False, label=u'Departamentos')
+    organizacion = forms.ModelMultipleChoiceField(queryset=Organizaciones.objects.all().order_by('nombre'), required=False, label=u'Organización')
+    municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all().order_by('nombre'), required=False)
+    comunidad = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), required=False)
     socio = forms.ChoiceField(choices = CHOICE_OPCION_F , required=False, label="Socio Gremial")
     desde = forms.ChoiceField(choices = CHOICE_DESDE_F , required=False)
     dueno = forms.ChoiceField(label = 'Dueño', choices = CHOICE_DUENO_F , required=False)
