@@ -8,7 +8,8 @@ class Migration(DataMigration):
 
     def forwards(self, orm):
         "Write your forwards methods here."
-        for encuesta in orm.Encuesta.objects.all():            
+        for encuesta in orm.Encuesta.objects.all():
+            encuesta.year = encuesta.fecha.year            
             encuesta.save()
 
     def backwards(self, orm):
