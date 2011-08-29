@@ -1610,20 +1610,20 @@ def get_organi(request):
 
 ######viejo codigo#############################
 
-#def get_municipios(request, departamento):
-#    municipios = Municipio.objects.filter(departamento = departamento)
-#    lista = [(municipio.id, municipio.nombre) for municipio in municipios]
-#    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
-#    
-#def get_organizacion(request, departamento):
-#    organizaciones = Organizaciones.objects.filter(departamento = departamento)
-#    lista = [(organizacion.id, organizacion.nombre) for organizacion in organizaciones]
-#    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+def get_municipios(request, departamento):
+    municipios = Municipio.objects.filter(departamento = departamento)
+    lista = [(municipio.id, municipio.nombre) for municipio in municipios]
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+    
+def get_organizacion(request, departamento):
+    organizaciones = Organizaciones.objects.filter(departamento = departamento)
+    lista = [(organizacion.id, organizacion.nombre) for organizacion in organizaciones]
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
 
-#def get_comunidad(request, municipio):
-#    comunidades = Comunidad.objects.filter(municipio = municipio )
-#    lista = [(comunidad.id, comunidad.nombre) for comunidad in comunidades]
-#    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+def get_comunidad(request, municipio):
+    comunidades = Comunidad.objects.filter(municipio = municipio )
+    lista = [(comunidad.id, comunidad.nombre) for comunidad in comunidades]
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
     
 # Funciones utilitarias para cualquier proposito
 

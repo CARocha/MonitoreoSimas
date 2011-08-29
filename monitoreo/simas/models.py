@@ -56,6 +56,13 @@ class Encuesta(models.Model):
     organizacion = models.ManyToManyField(Organizaciones, related_name ="org")
     user = models.ForeignKey(User)
     
+    #campos ocultos para querys
+    year = models.IntegerField(editable=False)
+    
+    def save(self):
+        self.year = self.fecha.year
+        super(Encuesta, self).save()
+    
     def __unicode__(self):
         return self.nombre
         
