@@ -46,5 +46,8 @@ Subindicador Educación
         </tbody>
     </table>
 </div>
+{%for k,v in request.session.items %}
+{{k}} ---> {{v}}<br>
+{%endfor%}
 {% endblock %}
 
