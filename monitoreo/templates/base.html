@@ -67,7 +67,8 @@
                     <img src="/archivos/imagen/separador.png" alt="separador" class="separador_vert">
                     <div class="filtros_seleccionados_text">Filtros <br>seleccionados</div>                    
                     {%if num_familias%}<span class="variables_filtro"><b>Familias</b>{{num_familias}}</span>{%endif%}
-                    {%if request.session.fecha%}<span class="variables_filtro"><b>Año</b>{{request.session.fecha}}</span>{%endif%}
+                    {%if request.session.fecha%}
+                    <span class="variables_filtro"><b>Año</b>{%for x in request.session.fecha%}{{x}},{%endfor%}</span>{%endif%}
                     {%if request.session.departamento%}
                     <span class="variables_filtro"><b>Departamento</b>{%for a in request.session.departamento.all %}{{a}},{%endfor%}</span>{%endif%}
                     {%if request.session.organizacion%}
