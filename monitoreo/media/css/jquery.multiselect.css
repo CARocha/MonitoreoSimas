@@ -8,7 +8,7 @@
 .ui-multiselect-header { margin-bottom:3px; padding:3px 0 3px 4px }
 .ui-multiselect-header ul { font-size:11px }
 .ui-multiselect-header ul li { float:left; padding:0 10px 0 0 }
-.ui-multiselect-header a { text-decoration:none }
+.ui-multiselect-header a { text-decoration:none; font-size:9px !important;}
 .ui-multiselect-header a:hover { text-decoration:underline }
 .ui-multiselect-header span.ui-icon { float:left }
 .ui-multiselect-header li.ui-multiselect-close { float:right; text-align:right; padding-right:0 }

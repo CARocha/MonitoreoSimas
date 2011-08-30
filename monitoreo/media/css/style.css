@@ -12,7 +12,7 @@ body{
 #user1{
     background: #384e66;
     border-top: 1px #707070 solid;
-    min-height: 41px;
+    
 }
 #user2{
     background: #e8e8e8;
@@ -489,7 +489,7 @@ input[type='submit']:hover{
 /*Esta es la parte de las variables filtradas y mostradas al usuario que consulta*/
 
 #filtros{
-    height: 41px;
+    
     width:962px;
 }
 
@@ -551,3 +551,7 @@ input[type='submit']:hover{
     
 }
 
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+    background: #fff !important;
+    border: 5px solid #F5F5F5 !important;
+}
