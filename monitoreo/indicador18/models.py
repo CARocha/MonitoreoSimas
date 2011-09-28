@@ -6,17 +6,21 @@ from monitoreo.simas.models import *
 # Create your models here.
 
 # Indicador 18. Seguridad alimentaria
+CHOICE_CATEGORIA = (
+                        (1,'Carbohidrátos'),
+                        (2,'Grasas'),
+                        (3,'Minerales/Vitaminas'),
+                        (4,'Proteinas')
+                    )
 
 class Alimentos(models.Model):
     nombre = models.CharField(max_length=100)
-
+    categoria = models.IntegerField(choices=CHOICE_CATEGORIA, null=True, blank=True)
     def __unicode__(self):
         return self.nombre
 
     class Meta:
         verbose_name_plural = "Seguridad-Alimento"
-        #app_label = "Indicador 18 Seguridad Alimentaria"
-        #db_table = "simas_alimentos"
 
 class Seguridad(models.Model):
     ''' Modelo Seguridad alimentaria
@@ -33,7 +37,5 @@ class Seguridad(models.Model):
     
     class Meta:
         verbose_name_plural = "Seguridad"
-        #app_label = "Indicador 18 Seguridad Alimentaria"
-        #db_table = "simas_seguridad"
-
+       
 #-------------------------------------------------------------------------------

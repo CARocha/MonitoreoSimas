@@ -6,6 +6,8 @@ Subindicador Ingresos
 {% endblock %}
 {%load unslugify %}
 {% block extra_header %}
+<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
 <script type="text/javascript">
     var activo = 0;
     function click_callback(id){
@@ -39,6 +41,191 @@ Subindicador Ingresos
         });
     });
 </script>
+<script type="text/javascript">
+function Grafo8(){
+       var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'grafo',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Ingreso por sistema de produccion'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'   
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 33,
+                    minPointLength : 1
+                }
+            },
+            series: [{%for a in grafo%}
+            {%for k,v in a.items%}
+                {   
+                    name: '{{k|unslugify}}',
+                    data: [{{v}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                }
+                     
+                },
+           {%endfor%}
+                {%endfor%}]
+        });
+    }
+    
+
+function Grafo9(){
+     var  chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'grafo',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Número de rubros en cada sistema de produccion'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'   
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 33,
+                    minPointLength : 1
+                }
+            },
+            series: [{%for a in cuantos%}
+            {%for k,v in a.items%}
+                {   
+                    name: '{{k|unslugify}}',
+                    data: [{{v}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                }
+                     
+                },
+           {%endfor%}
+                {%endfor%}]
+        });
+    }
+    
+function Grafo10(){
+	var chart = new Highcharts.Chart({
+	      chart: {
+	         renderTo: 'grafo',
+	         defaultSeriesType: 'pie',
+	         height: 350,
+             width: 520	         
+	      },
+	      title: {
+	         text: 'Ingreso por clase'
+	      },
+	      tooltip: {
+	         formatter: function() {
+	            return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +' %';
+	         }
+	      },
+	      plotOptions: {
+	          pie: {
+	              allowPointSelect: true,
+	              cursor: 'pointer',
+	              dataLabels: {
+	                 enabled: false
+	              },
+	              showInLegend: true
+	           },
+	           series: {
+	              dataLabels: {
+	                  enabled: true,
+	                  align: "center",
+	                  formatter: function() {
+	                      return ''+ this.percentage.toFixed(1) + ' %';
+	                  },
+	                  color: '#000',
+	                  style: {
+	                      font: '12px Trebuchet MS, Verdana, sans-serif'
+	                  }
+	              }
+	          }
+	      },
+	       series: [{         
+	         name: 'Ingresos de clases',
+	         data: [
+	            ['Ingreso agropecuario - C${{respuesta.ingreso}}',   {{respuesta.ingreso}}],
+	            ['Otros ingresos - C${{respuesta.ingreso_otro}}', {{respuesta.ingreso_otro}}]
+	         ]
+	      }]
+	 });	
+}
+</script>
 {% endblock %}
 {%block contenido%}
 
@@ -53,29 +240,32 @@ Subindicador Ingresos
             <a href="#" id="grafico1" onCLick="click_callback('vendio')">A quién venden?</a>
             <a href="#" id="grafico2" onCLick="click_callback('maneja')">Quién maneja el negocio?</a>
             <a href="#" id="grafico3" onCLick="click_callback('ingreso')">Quién tiene los ingresos?</a>
+            <a href="#" id="grafico9" onclick="Grafo8();" class="grafo">Ingreso por sistema</a>
+            <a href="#" id="grafico10" onCLick="Grafo9();" class="grafo">Número de rubro en cada sistema</a>
+            <a href="#" id="grafico11" onCLick="Grafo10();" class="grafo">Ingreso por clase</a>
             <h1>Gráficos Otros ingresos</h1>
              <a href="#" id="grafico4" onCLick="click_callback('salario')">Tipos de Salarios</a>
             <a href="#" id="grafico5" onCLick="click_callback('negocio')">Tipos de Negocio</a>
             <a href="#" id="grafico6" onCLick="click_callback('remesa')">Tipos Remesas</a>
             <a href="#" id="grafico7" onCLick="click_callback('alquiler')">Tipo alquiler</a>
-            <a href="#" id="grafico8" onCLick="click_callback('aportar')">Persona aportar en la finca</a>
+<!--            <a href="#" id="grafico8" onCLick="click_callback('aportar')">Persona aportar en la finca</a>-->
         </div>
     </div>
     <div id="grafo"></div>
-    <table id="table_example" class="tablesorter" style="font-size:90%">
-        <caption>Los Ingresos familiares</caption>
+     <table>
+        <caption>Agroforestales</caption>
         <thead>
             <tr>
-                <th>RUBROS</th>
-                <th>Frecuencia</th>
-                <th>Unidad</th>
-                <th>Cantidad</th>
-                <th>Precio promedio</th>
-                <th>Ingreso por venta</th>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
             </tr>
         </thead>
         <tbody>
-            {%for key, value in tabla.items%}
+            {%for key, value in agro.items%}
             <tr>
                 <td>{{key|unslugify}}</td>
                 <td>{{value.numero|floatformat}}</td>
@@ -92,18 +282,268 @@ Subindicador Ingresos
             <th></th>
             <th></th>
             <th></th>
-            <th>{{respuesta.ingreso_total|intcomma}}</th>
+            <th>{{total_agro|intcomma}}</th>
         </tr>
 
     </table>
-    <br><br>
-    <table id="table_example" class="tablesorter" style="font-size:90%">
-        <caption>Los Otros Ingresos familiares</caption>
+    <br></br>
+    <table>
+        <caption>Forestales</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in forestal.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_forestal|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table>
+        <caption>Granos básicos</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in grano_basico.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_basico|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table>
+        <caption>Ganado mayor</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in ganado_mayor.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_ganado|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table>
+        <caption>Animales de patio</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in patio.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_patio|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table>
+        <caption>Hortalizas y frutas</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in frutas.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_fruta|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table>
+        <caption>Musaceas</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in musaceas.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_musaceas|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table>
+        <caption>Raíces y tubérculos</caption>
+        <thead>
+            <tr>
+                <th style="font-size:9px;">RUBROS</th>
+                <th style="font-size:9px;">Número de familias que venden</th>
+                <th style="font-size:9px;">Unidad</th>
+                <th style="font-size:9px;">Cantidad vendida por familia</th>
+                <th style="font-size:9px;">Precio promedio</th>
+                <th style="font-size:9px;">Ingreso por venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in raices.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.numero|floatformat}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.cantidad|floatformat}}</td>
+                <td>{{value.precio|floatformat}}</td>
+                <td>{{value.ingreso|floatformat}}</td>
+
+                {%endfor%}
+        </tbody>
+        <tr>
+            <th>TOTAL VENTA RUBROS</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>{{total_raices|intcomma}}</th>
+        </tr>
+
+    </table>
+    <br></br>
+    <table>
+        <th>Ingreso agropecuario: {{respuesta.ingreso|intcomma}}</th>
+    </table>
+</div>
+    <br><div class="subindicador">INGRESO  &raquo; Los Otros Ingresos familiares <a href="#" class="exportar"></a></div><br>
+    <table>
+        <caption></caption>
         <thead>
             <tr>
                 <th>FUENTES</th>
-                <th>FRECUENCIA</th>
-                <th>PROMEDIO MESES</th>
+                <th>NÚMERO DE FAMILIAS</th>
+                <th>TOTAL MESES</th>
                 <th>INGRESO MENSUAL PROMEDIO</th>
                 <th>INGRESO TOTAL PROMEDIO</th>
             </tr>
@@ -127,14 +567,16 @@ Subindicador Ingresos
             <th>{{respuesta.ingreso_otro|intcomma}}</th>
         </tr>
     </table>
-    <br><br>
+    <br>
+<div class="subindicador">INGRESO  &raquo; Ingreso Bruto por familia</div>
     <table>
         <tr colspan="2">
             <th>INGRESO BRUTO</th>
 
-            <th>{{respuesta.brutoo|intcomma}}</th>
+            <th>{{respuesta.bruto|intcomma}}</th>
         </tr>
     </table>
+    <div class="subindicador">INGRESO  &raquo; Ingreso Neto por familia</</a></div>
     <table>
         <tr colspan="2">
             <th>INGRESO NETO</th>

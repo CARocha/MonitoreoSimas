@@ -1,5 +1,467 @@
 {% extends "base.html"%}
 {%load unslugify %}
+{% block extra_header %}
+<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
+<script type="text/javascript">
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: '% que consumen suficiente en verano/invierno carbohidrátos'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Plantano',
+                    'Avena',
+                    'Miel',
+                    'Guineo',
+                    'Malanga',
+                    'Azucar',
+                    'Sorgo',
+                    'Papa',
+                    'Quequisque',
+                    'Yuca',
+                    'Maiz',
+                    'Millon',
+                    'Arroz'
+                    
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 22,
+                    minPointLength : 1
+                }
+            },
+            series: [
+                {
+                    name: 'Verano',
+                    data: [{{carbohidrato.platano.por_consumen}},{{carbohidrato.avena.por_consumen}},
+                           {{carbohidrato.miel.por_consumen}},{{carbohidrato.guineo.por_consumen}},
+                           {{carbohidrato.malanga.por_consumen}},{{carbohidrato.azucar.por_consumen}},
+                           {{carbohidrato.sorgo.por_consumen}},{{carbohidrato.papa.por_consumen}},
+                           {{carbohidrato.quequisque.por_consumen}},{{carbohidrato.yuca.por_consumen}},
+                           {{carbohidrato.maiz.por_consumen}},{{carbohidrato.millon.por_consumen}},
+                           {{carbohidrato.arroz.por_consumen}}],
+                   dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                }  
+                },
+                {
+                    name: 'Invierno',
+                    data: [{{carbohidrato.platano.por_invierno}},{{carbohidrato.avena.por_invierno}},
+                           {{carbohidrato.miel.por_invierno}},{{carbohidrato.guineo.por_invierno}},
+                           {{carbohidrato.malanga.por_invierno}},{{carbohidrato.azucar.por_invierno}},
+                           {{carbohidrato.sorgo.por_invierno}},{{carbohidrato.papa.por_invierno}},
+                           {{carbohidrato.quequisque.por_invierno}},{{carbohidrato.yuca.por_invierno}},
+                           {{carbohidrato.maiz.por_invierno}},{{carbohidrato.millon.por_invierno}},
+                           {{carbohidrato.arroz.por_invierno}}],
+                   dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                } 
+                },
+
+                ]
+        });
+    });
+    
+var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container1',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: '% que consumen suficiente en verano/invierno de grasas'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Queso',
+                    'Aceite',
+                    'Cuajada',
+                    'Crema'                    
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 22,
+                    minPointLength : 1
+                }
+            },
+            series: [
+                {
+                    name: 'Verano',
+                    data: [{{grasa.queso.por_consumen}},{{grasa.aceite.por_consumen}},
+                           {{grasa.cuajada.por_consumen}},{{grasa.crema.por_consumen}},
+                          ],
+                   dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                }  
+                },
+                {
+                    name: 'Invierno',
+                    data: [{{grasa.queso.por_invierno}},{{grasa.aceite.por_invierno}},
+                           {{grasa.cuajada.por_invierno}},{{grasa.crema.por_invierno}},
+                          ],
+                   dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                } 
+                },
+
+                ]
+        });
+    });
+    
+var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container2',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: '% que consumen suficiente en verano/invierno de minerales/vitaminas'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Café',
+                    'Frutas',
+                    'Verduras'
+                                      
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 22,
+                    minPointLength : 1
+                }
+            },
+            series: [
+                {
+                    name: 'Verano',
+                    data: [{{minerales.cafe.por_consumen}},{{minerales.frutas.por_consumen}},
+                           {{minerales.verdura.por_consumen}},
+                          ],
+                   dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                }  
+                },
+                {
+                    name: 'Invierno',
+                    data: [{{minerales.cafe.por_invierno}},{{minerales.frutas.por_invierno}},
+                           {{minerales.verdura.por_invierno}},
+                          ],
+                   dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                } 
+                },
+
+                ]
+        });
+    });
+    
+var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container3',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: '% que consumen suficiente en verano/invierno de proteinas'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Carne de res',
+                    'Huevos',
+                    'Carne de cerdo',
+                    'Soya',
+                    'Pollo',
+                    'Leche',
+                    'Frijol'          
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 22,
+                    minPointLength : 1
+                }
+            },
+            series: [
+                {
+                    name: 'Verano',
+                    data: [{{proteinas.carne_de_res.por_consumen}},{{proteinas.huevos.por_consumen}},
+                           {{proteinas.carne_de_cerdo.por_consumen}},{{proteinas.soya.por_consumen}},
+                           {{proteinas.pollo.por_consumen}},{{proteinas.leche.por_consumen}},
+                           {{proteinas.frijol.por_consumen}},
+                          ],
+                   dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                }  
+                },
+                {
+                    name: 'Invierno',
+                    data: [{{proteinas.carne_de_res.por_invierno}},{{proteinas.huevos.por_invierno}},
+                           {{proteinas.carne_de_cerdo.por_invierno}},{{proteinas.soya.por_invierno}},
+                           {{proteinas.pollo.por_invierno}},{{proteinas.leche.por_invierno}},
+                           {{proteinas.frijol.por_invierno}},
+                          ],
+                   dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                } 
+                },
+
+                ]
+        });
+    });
+    
+var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container4',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Cuanto tipo de alimentos producen por cada clase'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Opciones'   
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Cantidad'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'';
+                }
+            },
+            plotOptions: {
+                column: {
+                    groupPadding: 0,
+                    pointPadding: 0.9,
+                    borderWidth: 0
+                },
+                series: {
+                    pointWidth: 44,
+                    minPointLength : 1
+                }
+            },
+            series: [{%for a in lista%}
+            {%for k,v in a.items%}
+                {   
+                    name: '{{k}}',
+                    data: [{{v}}],
+                    dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '';
+                                                  },
+                        style: {
+                            font: 'normal 10px Verdana, sans-serif'
+                                }
+                                }
+                     
+                },
+           {%endfor%}
+                {%endfor%}]
+        });
+    });
+</script>
+{% endblock %}
 {% block titulo %}
 Subindicador Seguridad alimentaria
 <div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
@@ -11,27 +473,31 @@ Subindicador Seguridad alimentaria
 </div>
 
 <div class="contenido">
-    <table id="table_example" class="tablesorter" style="font-size:90%">
-        <caption>La Seguridad Alimentaria</caption>
+
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container4"></div>
+</div>
+
+<table style="width:100%;">
+    <caption>Alimentos que contienen carbohidrátos</caption>
         <thead>
             <tr>
                 <th>ALIMENTOS</th>
-                <!--        <th>FRECUENCIA</th>-->
-                <th>Producen</th>
+                <th># de familias que producen</th>
                 <th>%</th>
-                <th>Compran</th>
+                <th># de familias que compran</th>
                 <th>%</th>
-                <th>Consumen suficiente verano</th>
+                <th># de familias que consumen suficiente verano</th>
                 <th>%</th>
-                <th>Consumen suficiente invierno</th>
+                <th># de familias que consumen suficiente invierno</th>
                 <th>%</th>
             </tr>
         </thead>
         <tbody>
-            {%for key, value in tabla.items%}
+            {%for key, value in carbohidrato.items%}
             <tr>
                 <td>{{key|unslugify}}</td>
-                <!--        <td>{{value.frecuencia|floatformat}}</td>-->
                 <td>{{value.producen|floatformat}}</td>
                 <td>{{value.por_producen|floatformat}}</td>
                 <td>{{value.compran|floatformat}}</td>
@@ -44,16 +510,117 @@ Subindicador Seguridad alimentaria
             {%endfor%}
         </tbody>
     </table>
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container"></div>
 </div>
-<script>
-    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-    // ademas que ordene por defecto las filas 0,0 y 2,1
-    $(document).ready(function()
-    {
-        //$("#table_example").tablesorter();
-        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    }
-); 
-</script>
+    <br></br>
+<table style="width:100%;">
+    <caption>Alimentos que contienen grasas</caption>
+        <thead>
+            <tr>
+                <th>ALIMENTOS</th>
+                <th># de familias que producen</th>
+                <th>%</th>
+                <th># de familias que compran</th>
+                <th>%</th>
+                <th># de familias que consumen suficiente verano</th>
+                <th>%</th>
+                <th># de familias que consumen suficiente invierno</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in grasa.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.producen|floatformat}}</td>
+                <td>{{value.por_producen|floatformat}}</td>
+                <td>{{value.compran|floatformat}}</td>
+                <td>{{value.por_compran|floatformat}}</td>
+                <td>{{value.consumen|floatformat}}</td>
+                <td>{{value.por_consumen|floatformat}}</td>
+                <td>{{value.invierno|floatformat}}</td>
+                <td>{{value.por_invierno|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container1"></div>
+</div>
+    <br></br>
+<table style="width:100%;">
+    <caption>Alimentos que contienen minerales/vitaminas</caption>
+        <thead>
+            <tr>
+                <th>ALIMENTOS</th>
+                <th># de familias que producen</th>
+                <th>%</th>
+                <th># de familias que compran</th>
+                <th>%</th>
+                <th># de familias que consumen suficiente verano</th>
+                <th>%</th>
+                <th># de familias que consumen suficiente invierno</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in minerales.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.producen|floatformat}}</td>
+                <td>{{value.por_producen|floatformat}}</td>
+                <td>{{value.compran|floatformat}}</td>
+                <td>{{value.por_compran|floatformat}}</td>
+                <td>{{value.consumen|floatformat}}</td>
+                <td>{{value.por_consumen|floatformat}}</td>
+                <td>{{value.invierno|floatformat}}</td>
+                <td>{{value.por_invierno|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container2"></div>
+</div>
+   <br></br> 
+<table style="width:100%;">
+    <caption>Alimentos que contienen proteinas</caption>
+        <thead>
+            <tr>
+                <th>ALIMENTOS</th>
+                <th># de familias que producen</th>
+                <th>%</th>
+                <th># de familias que compran</th>
+                <th>%</th>
+                <th># de familias que consumen suficiente verano</th>
+                <th>%</th>
+                <th># de familias que consumen suficiente invierno</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in proteinas.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.producen|floatformat}}</td>
+                <td>{{value.por_producen|floatformat}}</td>
+                <td>{{value.compran|floatformat}}</td>
+                <td>{{value.por_compran|floatformat}}</td>
+                <td>{{value.consumen|floatformat}}</td>
+                <td>{{value.por_consumen|floatformat}}</td>
+                <td>{{value.invierno|floatformat}}</td>
+                <td>{{value.por_invierno|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table> 
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container3"></div>
+</div> 
+</div>    
 {% endblock %}

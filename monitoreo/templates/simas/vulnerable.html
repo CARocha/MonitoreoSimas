@@ -1,5 +1,476 @@
 {% extends "base.html" %}
 {%load unslugify %}
+{%block extra_header%}
+<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
+<script type="text/javascript">
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Fenomenos naturales'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'sequia',
+                    'inundacion',
+                    'vientos',
+                    'deslizamiento'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+         column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+         }
+      },
+            series: [
+            {
+                name: 'año con año',
+                data: [{{sequia.0.2}},{{inundacion.0.2}},{{vientos.0.2}},{{deslizamiento.0.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                } 
+            },
+            {
+                name: 'cada 5 años',
+                data: [{{sequia.1.2}},{{inundacion.1.2}},{{vientos.1.2}},{{deslizamiento.1.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'cada 10 años',
+                data: [{{sequia.2.2}},{{inundacion.2.2}},{{vientos.2.2}},{{deslizamiento.2.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'nunca',
+                data: [{{sequia.3.2}},{{inundacion.3.2}},{{vientos.3.2}},{{deslizamiento.3.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            }
+            ]
+        });
+    });
+    
+var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container1',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Razones agricolas'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Falta de semilla',
+                    'Mala calidad de semilla',
+                    'Plagas y enfermedades'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+         column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+         }
+      },
+            series: [
+            {
+                name: 'año con año',
+                data: [{{falta_semilla.0.2}},{{mala_semilla.0.2}},{{plagas.0.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'cada 5 años',
+                data: [{{falta_semilla.1.2}},{{mala_semilla.1.2}},{{plagas.1.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'cada 10 años',
+                data: [{{falta_semilla.2.2}},{{mala_semilla.2.2}},{{plagas.2.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'nunca',
+                data: [{{falta_semilla.3.2}},{{mala_semilla.3.2}},{{plagas.3.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            }
+            ]
+        });
+    });
+    
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container2',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Razones de mercado'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Bajo precio',
+                    'Falta de venta',
+                    'Estafa de contrato',
+                    'Falta calidad de producto'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+         column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+         }
+      },
+            series: [
+            {
+                name: 'año con año',
+                data: [{{bajo_precio.0.2}},{{falta_venta.0.2}},{{estafa.0.2}},{{falta_calidad.0.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'cada 5 años',
+                data: [{{bajo_precio.1.2}},{{falta_venta.1.2}},{{estafa.1.2}},{{falta_calidad.1.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'cada 10 años',
+                data: [{{bajo_precio.2.2}},{{falta_venta.2.2}},{{estafa.2.2}},{{falta_calidad.2.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'nunca',
+                data: [{{bajo_precio.3.2}},{{falta_venta.3.2}},{{estafa.3.2}},{{falta_calidad.3.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            }
+            ]
+        });
+    });
+    
+    
+var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container3',
+                defaultSeriesType: 'column'
+            },
+            title: {
+                text: 'Inversión'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'Falta de crédito',
+                    'Altos interés'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Porcentajes (%)'
+                }
+            },
+            
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.series.name +': '+ this.y +'%';
+                }
+            },
+            plotOptions: {
+         column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+         }
+      },
+            series: [
+            {
+                name: 'año con año',
+                data: [{{falta_credito.0.2}},{{alto_interes.0.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'cada 5 años',
+                data: [{{falta_credito.1.2}},{{alto_interes.1.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'cada 10 años',
+                data: [{{falta_credito.2.2}},{{alto_interes.2.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            },
+            {
+                name: 'nunca',
+                data: [{{falta_credito.3.2}},{{alto_interes.3.2}}],
+                dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#632D00',
+                        align: 'center',
+                        x: -3,
+                        y: 0,
+                            formatter: function() {
+                                return this.y + '%';
+                                                  },
+                        style: {
+                            font: 'normal 12px Verdana, sans-serif'
+                                }
+                                }  
+            }
+            ]
+        });
+    });
+</script>    
+{%endblock%}
 {% block titulo %}
 Subindicador Vulnerable
 <div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
@@ -13,30 +484,205 @@ Subindicador Vulnerable
      {% include "simas/menu.html" %}
 </div>
 <div class="contenido">
-    <table>
-        <caption>Vulnerabilidades de las fincas</caption>
+    <table width="100%">
         <thead>
+        <caption>Fenomenos naturales</caption>
             <tr>
-                <th>Fenomeno</th>
                 <th>Causa</th>
-                <th>Frecuencia</th>
-                <th>%</th>
+                <th>Años con años</th>
+                <th>Cada 5 años</th>
+                <th>Cada 10 años</th>
+                <th>Nunca</th>
+                <th>Total</th>
                
             </tr>
         </thead>
         <tbody>
-            {%for a in lista2%}
-               
             <tr>
-                <td>{{a.1|unslugify}}</td>
-                <td>{{a.0|unslugify}}</td>
-                <td>{{a.2|floatformat}}</td>
-                <td>{{a.3|floatformat}}</td>
-           
+                <td>Sequía</td>
+                {%for a in sequia%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_sequia}}</td>
             </tr>
-            {%endfor%}
+            <tr>
+                <td>Inundación</td>
+                {%for a in inundacion%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_inundacion}}</td>
+            </tr>
+            <tr>
+                <td>Vientos</td>
+                {%for a in vientos%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_vientos}}</td>
+            </tr>
+            <tr>
+                <td>Deslizamiento</td>
+                {%for a in deslizamiento%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_deslizamiento}}</td>
+            </tr>
         </tbody>
-    </table>
+</table>
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container"></div>
+</div>
+<br>
+<table width="100%">
+        <thead>
+        <caption>Razones agrícolas</caption>
+            <tr>
+                <th>Causa</th>
+                <th>Años con años</th>
+                <th>Cada 5 años</th>
+                <th>Cada 10 años</th>
+                <th>Nunca</th>
+                <th>Total</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Falta de semilla</td>
+                {%for a in falta_semilla%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_falta_semilla}}</td>
+            </tr>
+            <tr>
+                <td>Mala calidad de semilla</td>
+                {%for a in mala_semilla%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_mala_semilla}}</td>
+            </tr>
+            <tr>
+                <td>Plagas y enfermedades</td>
+                {%for a in plagas%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_plagas}}</td>
+            </tr>
+        </tbody>
+</table>
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container1"></div>
+</div>
+<br>
+<table width="100%">
+        <thead>
+        <caption>Razones de mercados</caption>
+            <tr>
+                <th>Causa</th>
+                <th>Años con años</th>
+                <th>Cada 5 años</th>
+                <th>Cada 10 años</th>
+                <th>Nunca</th>
+                <th>Total</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bajo precio</td>
+                {%for a in bajo_precio%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_bajo_precio}}</td>
+            </tr>
+            <tr>
+                <td>Falta de venta</td>
+                {%for a in falta_venta%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_falta_venta}}</td>
+            </tr>
+            <tr>
+                <td>Estafa de contrato</td>
+                {%for a in estafa%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_estafa}}</td>
+            </tr>
+            <tr>
+                <td>Falta calidad de producto</td>
+                {%for a in falta_calidad%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_falta_calidad}}</td>
+            </tr>
+        </tbody>
+</table>
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container2"></div>
+</div>
+<br>
+<table width="100%">
+        <thead>
+        <caption>Inversión</caption>
+            <tr>
+                <th>Causa</th>
+                <th>Años con años</th>
+                <th>Cada 5 años</th>
+                <th>Cada 10 años</th>
+                <th>Nunca</th>
+                <th>Total</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Falta de crédito</td>
+                {%for a in falta_credito%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_falta_credito}}</td>
+            </tr>
+            <tr>
+                <td>Altos interés</td>
+                {%for a in alto_interes%}  
+                    <td>
+                        {{a.1}}       
+                    </td>
+                {%endfor%}
+                <td>{{total_alto_interes}}</td>
+            </tr>
+        </tbody>
+</table>
+<div class="contenedor">
+        <div class="grafico-title"></div>
+        <div id="container3"></div>
     <br></br><br></br>
 </div>
     

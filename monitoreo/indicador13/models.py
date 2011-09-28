@@ -12,10 +12,23 @@ CHOICE_VENDIO = ((1,"Comunidad"),(2,"Intermediario"),(3,"Mercado"),
 
 CHOICE_MANEJA = ((1,"Hombre"),(2,"Mujer"),(3,"Ambos"),(4,"Hijos/as"),
                  (5,'Hombre-Hijos'),(6,'Mujer-Hijos'),(7,'Todos'))
+                 
+CHOICE_CATEG = (
+                 (1,"Agroforestales"),
+                 (2,"Forestales"),
+                 (3,"Granos básicos"),
+                 (4,"Ganado mayor"),
+                 (5,"Animales de patio"),
+                 (6,"Hortalizas y frutas"),
+                 (7,"Musaceas"),
+                 (8,"Raíces y tubérculos")
+                     
+                )
 
 class Rubros(models.Model):
     nombre = models.CharField(max_length=50)
     unidad = models.CharField(max_length=50)
+    categoria = models.IntegerField(choices=CHOICE_CATEG, null = True, blank = True)
     
     def __unicode__(self):
         return self.nombre
