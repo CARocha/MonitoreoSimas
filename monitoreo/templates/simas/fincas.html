@@ -5,6 +5,8 @@ Subindicador Tierra
 <div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
 {%endblock%}
 {% block extra_header %}
+<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
 <script type="text/javascript">
     //si activo es 0 el html interno esta vacio
     //caso si activo es otro num sustituir grafico
@@ -41,6 +43,127 @@ Subindicador Tierra
         });
     });
 </script>
+
+<script type="text/javascript">
+function Grafo4(){
+	var chart = new Highcharts.Chart({
+	      chart: {
+	         renderTo: 'grafo',
+	         defaultSeriesType: 'pie',
+	         height: 350,
+             width: 520
+	      },
+	      title: {
+	         text: 'Rangos de Manzanas'
+	      },
+	      tooltip: {
+	         formatter: function() {
+	            return '<b>'+ this.point.name +'</b>: '+ this.percentage.toFixed(1) +' %';
+	         }
+	      },
+	      plotOptions: {
+	          pie: {
+	              allowPointSelect: true,
+	              cursor: 'pointer',
+	              dataLabels: {
+	                 enabled: false
+	              },
+	              showInLegend: true
+	           },
+	           series: {
+	              dataLabels: {
+	                  enabled: true,
+	                  align: "center",
+	                  formatter: function() {
+	                      return ''+ this.percentage.toFixed(1) + ' %';
+	                  },
+	                  color: '#000',
+	                  style: {
+	                      font: '12px Trebuchet MS, Verdana, sans-serif'
+	                  }
+	              }
+	          }
+	      },
+	       series: [{
+	         name: 'Rangos de manzanas',
+	         data: [
+	            ['0 Mz',   {{por_cero}}],
+	            ['1 - 10 Mz', {{por_rango1}}],
+	            ['11 - 25 Mz', {{por_rango2}}],
+	            ['26 - 50 Mz',  {{por_rango3}}],
+	            ['más de 50 Mz', {{por_rango4}}]
+	         ]
+	      }]
+	 });
+}
+
+function Grafo5(){
+	var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 520
+        },
+        title: {
+            text: 'Uso de tierra'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'Opciones'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Cantidad Mz'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +': '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in tabla.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{%if value.manzanas == None%} 0 {%else%} {{value.manzanas}} {%endif%}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+
+</script>
 {%endblock%}
 
 {% block contenido %}
@@ -57,6 +180,8 @@ Subindicador Tierra
         <a href="#" id="grafico1" onCLick="click_callback('tenencia')">Tenencia de las Parcelas</a>
         <a href="#" id="grafico2" onCLick="click_callback('solares')">Tenencia de los solares</a>
         <a href="#" id="grafico3" onCLick="click_callback('propietario')">Dueño de la Propiedad</a>
+        <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Rangos en Manzanas</a>
+	    <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Uso de tierra</a>
     </div>
 </div>
 
@@ -75,13 +200,6 @@ Subindicador Tierra
             </tr>
         </thead>
         <tbody>
-            <!--    <tr>-->
-            <!--        <td>Area Total</td>-->
-            <!--        <td>{{totales.numero}}</td>-->
-            <!--        <td>{{totales.porcentaje_num}}</td>-->
-            <!--        <td>{{totales.manzanas}}</td>-->
-            <!--        <td>{{totales.porcentaje_mz}}</td>-->
-            <!--    </tr>-->
             {%for key, value in tabla.items%}
             <tr>
                 <td>{{key|unslugify}}</td>
@@ -91,6 +209,67 @@ Subindicador Tierra
                 <td>{{value.porcentaje_mz|floatformat}}</td>
             </tr>
             {%endfor%}
+            <tr>
+                    <th>Area Total</th>
+                    <th></th>
+                    <th></th>
+                    <th>{{totales.manzanas}}</th>
+                    <th>{{totales.porcentaje_manzana}}</th>
+                </tr>
+        </tbody>
+    </table>
+     <table>
+    </br>
+        <tr>
+        <th>Promedio Mz: {{totales.promedio_manzana}}</th>
+        </tr>
+    </table>
+    
+    <br>
+<table style="width:100%;">
+        <thead>
+            <tr>
+                <th>Rangos</th>
+                <th>Frecuencias</th>
+                <th>%</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+			    <td>0 Mz</td>
+			    <td>{{cero}}</td>
+			    <td>{{por_cero}}</td>
+
+		    </tr>
+		    <tr>
+			    <td>1 -- 10 Mz</td>
+			    <td>{{rango1}}</td>
+			    <td>{{por_rango1}}</td>
+
+		    </tr>
+		    <tr>
+			    <td>11 -- 25 Mz</td>
+			    <td>{{rango2}}</td>
+			    <td>{{por_rango2}}</td>
+
+		    </tr>
+		    <tr>
+			    <td>26 -- 50 Mz</td>
+			    <td>{{rango3}}</td>
+			    <td>{{por_rango3}}</td>
+
+		    </tr>
+		    <tr>
+			    <td>Más de 50 Mz</td>
+			    <td>{{rango4}}</td>
+			    <td>{{por_rango4}}</td>
+
+		    </tr>
+            <tr>
+                <th>Rangos Total</th>
+                <th>{{total_rangos}}</th>
+                <th>{{total_porcentajes}}</th>
+            </tr>
         </tbody>
     </table>
 </div>
