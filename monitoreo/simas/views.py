@@ -721,8 +721,8 @@ def total_ingreso(request, numero):
         cantidad = query.aggregate(cantidad=Sum('ingresofamiliar__cantidad'))['cantidad']
         precio = query.aggregate(precio=Avg('ingresofamiliar__precio'))['precio']
         ingreso = cantidad * precio if cantidad != None and precio != None else 0
-        
-        tabla[key] = {'key2':key2,'numero':numero,'cantidad':cantidad,
+        if cantidad > 0:
+            tabla[key] = {'key2':key2,'numero':numero,'cantidad':cantidad,
                       'precio':precio,'ingreso':ingreso}
                       
     return tabla
