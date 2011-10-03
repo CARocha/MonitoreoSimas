@@ -70,7 +70,7 @@ a:hover{
     margin-right: 10px;
 }
 .top .entrar_link a{
-    color: #888a85;
+    color: #fff;
 }
 .tools .subtitulo{
     font-size: 16px;
@@ -260,10 +260,8 @@ caption {
     margin-bottom:5px;
     text-align: left;
     font-size:18px;
-    color:#48311a;
-    font-family:Georgia, 'Times New Roman', Times, serif;
-    border-top:#3d3123 1px dotted;
-    border-bottom:#3d3123 1px dotted;
+    color:#28374E;
+    border-bottom:#C5C5C5 1px dotted;
 }
 
 th{
@@ -278,7 +276,7 @@ th{
     text-align: left;
     font-weight:bold;
     padding: 10px 5px 4px 12px;
-    background:url(/archivos/imagen/bg_header.png) repeat-x;
+    background:url(/archivos/imagen/bg_header.png) repeat-x ;
     vertical-align:middle;
 
 }
@@ -554,4 +552,33 @@ input[type='submit']:hover{
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
     background: #fff !important;
     border: 5px solid #F5F5F5 !important;
+}
+
+
+/* tables */
+table.tablesorter {
+	font-family:arial;
+	margin:10px 0pt 15px;
+	text-align: left;
+}
+
+table.tablesorter thead tr .header {
+	background-repeat: no-repeat;
+	cursor: pointer;
+    background:#f0f0f0 url(/archivos/imagen/bg.gif) no-repeat center left;
+    padding-left:25px !important;
+}
+
+
+table.tablesorter thead tr .headerSortUp {
+    background:#f0f0f0 url(/archivos/imagen/asc.gif) no-repeat center left;
+    padding-left:25px !important;
+}
+table.tablesorter thead tr .headerSortDown {
+    background:#f0f0f0 url(/archivos/imagen/desc.gif) no-repeat center left;
+    padding-left:25px !important;
+}
+
+.tablesorter .header{
+    padding-left:25px !important;
 }
