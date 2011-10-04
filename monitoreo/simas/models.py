@@ -18,6 +18,8 @@ class Recolector(models.Model):
 
     class Meta:
         verbose_name_plural = "Recolector"
+        app_label = "01 simas"
+        db_table = "simas_recolector"
 
 class Organizaciones(models.Model):
     nombre = models.CharField(max_length=200)
@@ -39,6 +41,8 @@ class Organizaciones(models.Model):
 
     class Meta:
         verbose_name_plural = "Organizaciones"
+        app_label = "01 simas"
+        db_table = "simas_organizaciones"
 
 CHOICE_SEXO = ((1,'Hombre'),(2,'Mujer'))
 CHOICE_OPCION = ((1,'Si'),(2,'No')) # Este choice se utilizara en toda la aplicacion que necesite si o no
@@ -68,8 +72,8 @@ class Encuesta(models.Model):
         
     class Meta:
         verbose_name_plural = "Encuesta"
-        #app_label = "Encuesta"
-        #db_table = "simas_encuesta"
+        app_label = "01 simas"
+        db_table = "simas_encuesta"
 
 ## Indicador 1: Familia
 
