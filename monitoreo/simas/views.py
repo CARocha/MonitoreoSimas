@@ -809,10 +809,12 @@ def ingresos(request):
 
     respuesta['ingreso'] = total_agro + total_forestal + total_basico + total_ganado + total_patio + total_fruta + total_musaceas + total_raices
     grafo = []
-    grafo.append({'Agroforestales':total_agro,'Forestales':total_forestal,'Granos_basicos':total_basico,
-                  'Ganado_mayor':total_ganado,'Animales_de_patio':total_patio,
-                  'Hortalizas_y_frutas':total_fruta,'Musaceas':total_musaceas,
-                  'Tuberculos_y_raices':total_raices})
+    grafo.append({'Agroforestales':int(total_agro),'Forestales':int(total_forestal),
+                  'Granos_basicos':int(total_basico),'Ganado_mayor':int(total_ganado),
+                  'Animales_de_patio':int(total_patio),'Hortalizas_y_frutas':int(total_fruta),
+                  'Musaceas':int(total_musaceas),'Tuberculos_y_raices':int(total_raices)
+                 })
+                 
     cuantos = []
     cuantos.append({'Agroforestales':c_agro,'Forestales':c_forestal,'Granos_basicos':c_basico,
                   'Ganado_mayor':c_ganado,'Animales_de_patio':c_patio,

@@ -8,7 +8,6 @@ nbproject/
 *.db
 *.swp
 /media/profile/*.*
-*.pdf
 *.xls
 *.doc
 *.odt
