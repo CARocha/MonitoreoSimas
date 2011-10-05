@@ -19,6 +19,8 @@ class Recolector(models.Model):
     class Meta:
         verbose_name_plural = "Recolector"
 
+CHOICE_ZONA = ((1,'Seca'),(2,'Alta'))
+
 class Organizaciones(models.Model):
     nombre = models.CharField(max_length=200)
     telefono = models.IntegerField(null=True, blank=True)
@@ -30,7 +32,8 @@ class Organizaciones(models.Model):
     logo = ImageWithThumbsField(upload_to=get_file_path, 
                                 sizes=((150,150),(250,250)), null=True, blank=True)
     sitio_web = models.URLField(null=True, blank=True)
-    
+    descripcion = models.TextField(null=True, blank=True)
+    zona = models.IntegerField(choices=CHOICE_ZONA)
     fileDir = 'attachments/logos'
 
     def __unicode__(self):

@@ -1,7 +1,7 @@
 {% extends "base.html"%}
 {% load humanize %}
 {% block titulo %}
-Subindicador Ingresos
+Ingresos
 <div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
 {% endblock %}
 {%load unslugify %}
@@ -536,7 +536,7 @@ function Grafo10(){
     <table>
         <th>Ingreso agropecuario: {{respuesta.ingreso|intcomma}}</th>
     </table>
-</div>
+
     <br><div class="subindicador">INGRESO  &raquo; Los Otros Ingresos familiares <a href="#" class="exportar"></a></div><br>
     <table id="sortTableExample" class="tablesorter">
         <caption></caption>
@@ -584,8 +584,8 @@ function Grafo10(){
 
             <th>{{respuesta.total_neto|intcomma}}</th>
         </tr>
-    </table>
-    
+    </table><br><br>
+    </div>
 <script type="text/javascript">
   $(function() {
     $("table#sortTableExample").tablesorter( {sortList: [[0,0], [1,0]]} );

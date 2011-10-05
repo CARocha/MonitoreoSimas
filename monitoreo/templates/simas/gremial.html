@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {%load unslugify %}
 {%block titulo%}
-Subindice Organización Gremial
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+Organización &raquo; Subindicador Organización Gremial
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a></div>
 {%endblock%}
 {%block extra_header%}
+<style type="text/css">
+    .gremial{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
 <script type="text/javascript">
     var activo = 0; 
     function click_callback(id){
@@ -51,7 +54,8 @@ Subindice Organización Gremial
         <a id="grafico3" href="#" onCLick="click_callback('estructura')">Interesado en asumir cargo?</a>
     </div>
     <div id="grafo"></div>
-    <table>
+<div class="contenido">
+    <table width=500>
         <caption>Es socio/a de organización Gremial</caption>
         <thead>
             <tr>
@@ -79,7 +83,7 @@ Subindice Organización Gremial
     </table>
     
     
-     <table>
+     <table width=500>
         <caption>Desde cuando socios</caption>
         <thead>
             <tr>
@@ -106,7 +110,7 @@ Subindice Organización Gremial
        </tbody>
     </table>
     
-     <table>
+     <table width=500>
         <caption>Soy miembro de órgano gremial</caption>
         <thead>
             <tr>
@@ -134,7 +138,7 @@ Subindice Organización Gremial
     </table>
 
 
-<table>
+<table width=500>
         <caption>Desde cuando miembro</caption>
         <thead>
             <tr>
@@ -188,6 +192,8 @@ Subindice Organización Gremial
        
        </tbody>
     </table>
-
+        <br>
+    <br>
+</div>
 </div>
 {% endblock %}

@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {%load unslugify %}
 {%block titulo%}
-Existencia de árboles y Reforestación
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+Tierra &raquo; Existencia de árboles y Reforestación
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador<span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a> </div>
 {%endblock%}
 {% block extra_header %}
+<style type="text/css">
+    .arboles{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
 <script type="text/javascript">
     var activo = 0;
     function click_callback(id){

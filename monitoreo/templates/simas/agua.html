@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {%load unslugify %}
 {% block titulo %}
-Subindicador Agua
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+Familia &raquo;  Subindicador Agua
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador<span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a></div>
 {%endblock%}
 {%block extra_header%}
+<style type="text/css">
+    .agua{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
 <script type="text/javascript">
     //si activo es 0 el html interno esta vacio
     //caso si activo es otro num sustituir grafico
@@ -38,9 +41,9 @@ Subindicador Agua
         <h1>Gráficos de Disponibilidad </h1>
         <a id="grafico1" href="#" onCLick="disp(1)">Disponibilidad en Río</a>
         <a id="grafico2" href="#" onCLick="disp(2)">Disponibilidad en Ojo de Agua</a>
-        <a id="grafico3" href="#" onCLick="disp(3)">Disponibilidad en Pozo Comunitario</a>
-        <a id="grafico4" href="#" onCLick="disp(4)">Disponibilidad en Pozo Propio</a>
-        <a id="grafico5" href="#" onCLick="disp(5)">Disponibilidad en Agua comunitaria</a>
+        <a id="grafico3" href="#" onCLick="disp(3)">Disponibilidad en Quebrada</a>
+        <a id="grafico4" href="#" onCLick="disp(4)">Disponibilidad en Agua comunitaria</a>
+        <a id="grafico5" href="#" onCLick="disp(5)">Disponibilidad en Pozo Propio</a>
         <a id="grafico6" href="#" onCLick="disp(6)">Disponibilidad en Agua en casa</a>
     </div>
     <div class="separador"></div>
@@ -50,7 +53,8 @@ Subindicador Agua
 <div id="grafo"></div>
 
 <div class="contenido">
-    <table>
+    <table width=500>
+        <caption>Fuentes de agua</caption>
         <thead>
             <tr>
                 <th>Fuente</th>
@@ -66,16 +70,6 @@ Subindicador Agua
         </tr>
         {%endfor%}
     </table>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     <br>
     <br>
     <br>

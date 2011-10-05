@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {%load unslugify %}
+{%block extra_header%}
+<style type="text/css">
+    .luz{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
+{% endblock %}
 {% block titulo %}
-Subindicador Energia
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+Familia &raquo;  Subindicador Energia
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a><div class="separador"></div></div>
+
 {%endblock%}
 
 {% block contenido %}
@@ -15,9 +21,9 @@ Subindicador Energia
     {% include "simas/menu.html" %}
 </div>
 
-
 <div class="contenido">
-    <table>
+    <table width=500>
+        <caption>Fuentes de Energía</caption>
         <thead>
             <tr>
                 <th>Fuente</th>

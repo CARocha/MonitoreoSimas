@@ -1,10 +1,14 @@
 {% extends "base.html"%}
 {%load unslugify %}
 {% block titulo %}
-Subindicador Manejo del Suelo
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+Suelo &raquo; Subindicador Manejo del Suelo
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador<span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a> </div>
 {% endblock%}
 {% block extra_header %}
+
+<style type="text/css">
+    .manejosuelo{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
 <script type="text/javascript">
 
     //si activo es 0 el html interno esta vacio
@@ -62,7 +66,7 @@ Subindicador Manejo del Suelo
 <div id="grafo"></div>
 
 <div class="contenido">
-    <table>
+    <table width=500>
         <caption>¿Cómo preparan sus terrenos?</caption>
         <thead>
             <tr>
@@ -82,7 +86,7 @@ Subindicador Manejo del Suelo
         </tbody>
     </table>
 
-    <table>
+    <table width=500>
         <caption>¿Qué tipo de traccion utiliza para la preparación del suelo?</caption>
         <thead>
             <tr>
@@ -102,7 +106,7 @@ Subindicador Manejo del Suelo
         </tbody>
     </table>
 
-    <table>
+    <table width=500>
         <caption>¿Qué tipo de fertilización realiza?</caption>
         <thead>
             <tr>
@@ -122,7 +126,7 @@ Subindicador Manejo del Suelo
         </tbody>
     </table>
 
-    <table>
+    <table width=500>
         <caption>¿Qué tipo de obra de conservación de suelo?</caption>
         <thead>
             <tr>

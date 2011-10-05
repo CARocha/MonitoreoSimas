@@ -164,6 +164,12 @@ def index(request):
     return direct_to_template(request, 'index.html', locals())
 
 #-------------------------------------------------------------------------------
+# para presentar listado de zonas
+
+#def listado_zonas(request,zona):
+#    organizaciones = Organizaciones.objects.filter(organizacion__zona=zona)
+
+#-------------------------------------------------------------------------------
 
 def generales(request):
     total_encuesta = Encuesta.objects.all().count()

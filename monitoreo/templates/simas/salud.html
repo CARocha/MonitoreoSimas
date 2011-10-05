@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {%load unslugify %}
+{%block extra_header%}
+<style type="text/css">
+    .salud{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
+{% endblock %}
 {% block titulo %}
-Subindicador Salud
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+Familia &raquo; Subindicador Salud
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a></div>
 {%endblock%}
 {% block contenido %}
 

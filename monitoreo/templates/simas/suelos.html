@@ -1,10 +1,14 @@
 {% extends "base.html"%}
 {%load unslugify %}
 {% block titulo %}
-Subindicador Caracterización del Terrreno
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+Suelo &raquo; Subindicador Caracterización del Terrreno
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a></div>
 {% endblock%}
-
+{% block extra_header %}
+<style type="text/css">
+    .suelo{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
+{% endblock%}
 {% block contenido %}
 {% include "nav_suelo.html" %}
 <div class="separador"></div>
@@ -14,7 +18,7 @@ Subindicador Caracterización del Terrreno
 </div>
 
 <div class="contenido">
-    <table>
+    <table  width=500>
         <caption>¿Cúal es el tipo de textura del suelo?</caption>
         <thead>
             <tr>
@@ -34,7 +38,7 @@ Subindicador Caracterización del Terrreno
         </tbody>
     </table>
 
-    <table>
+    <table  width=500> 
         <caption>¿Cúal es la profundidad del suelo?</caption>
         <thead>
             <tr>
@@ -54,7 +58,7 @@ Subindicador Caracterización del Terrreno
         </tbody>
     </table>
 
-    <table>
+    <table  width=500>
         <caption>¿Cómo es la presencia de lombrice en el suelo?</caption>
         <thead>
             <tr>
@@ -74,7 +78,7 @@ Subindicador Caracterización del Terrreno
         </tbody>
     </table>
 
-    <table>
+    <table  width=500>
         <caption>¿Cómo es la densidad de raiz en la capa productiva de suelo?</caption>
         <thead>
             <tr>
@@ -94,7 +98,7 @@ Subindicador Caracterización del Terrreno
         </tbody>
     </table>
 
-    <table>
+    <table  width=500>
         <caption>¿Cúal es la pendiente del terrreno?</caption>
         <thead>
             <tr>
@@ -114,7 +118,7 @@ Subindicador Caracterización del Terrreno
         </tbody>
     </table>
 
-    <table>
+    <table  width=500>
         <caption>¿Cómo es el drenaje del suelo?</caption>
         <thead>
             <tr>
@@ -134,7 +138,7 @@ Subindicador Caracterización del Terrreno
         </tbody>
     </table>
 
-    <table>
+    <table  width=500>
         <caption>¿Cómo es el contenido de materia orgánica?</caption>
         <thead>
             <tr>

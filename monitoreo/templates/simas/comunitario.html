@@ -1,10 +1,13 @@
 {% extends "base.html"%}
 {%load unslugify %}
 {% block titulo %}
-Subindicador Organización Comunitaria
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador</a> <span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></div>
+Organización &raquo; Subindicador Organización Comunitaria
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador<span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a> </div>
 {% endblock %}
 {%block extra_header%}
+<style type="text/css">
+    .comunitario{background: url(/archivos/imagen/fondosubmenuhover.png) repeat-x;}
+</style>
 <script type="text/javascript">
     var activo = 0; 
     function click_callback(id){
@@ -52,8 +55,8 @@ Subindicador Organización Comunitaria
 </div>
 
 <div id="grafo"></div>
-
-<table>
+<div class="contenido">
+<table width=500>
         <caption>¿Cuántas organizaciones están activas en la localidad o comunidad?</caption>
         <thead>
             <tr>
@@ -81,7 +84,7 @@ Subindicador Organización Comunitaria
 
 
 
-<table>
+<table width=500>
         <caption>¿Pertenece a algunas organizaciones?</caption>
         <thead>
             <tr>
@@ -108,4 +111,7 @@ Subindicador Organización Comunitaria
        </tbody>
     </table>
 
+    <br>
+    <br>
+</div>
 {% endblock %}
