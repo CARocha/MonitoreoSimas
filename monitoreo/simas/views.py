@@ -1352,7 +1352,7 @@ def graves(request,numero):
     for x in Graves.objects.all():
         fenomeno = a.filter(vulnerable__motivo__id=numero, vulnerable__respuesta=x).count()
         porcentaje = round(saca_porcentajes(fenomeno,suma),2)
-        lista.append([x.nombre,fenomeno,porcentaje])
+        lista.append([x.nombre,fenomeno,int(porcentaje)])
     return lista
 
 #@session_required
