@@ -52,7 +52,7 @@
             series: [{% for key, value in tabla.items %}
                 {
                     name: '{{key|unslugify}}',
-                    data: [{{value.mitigacion}}],
+                    data: [{{value.por_mitigacion}}],
                     dataLabels: {
                         enabled: true,
                         rotation: 0,

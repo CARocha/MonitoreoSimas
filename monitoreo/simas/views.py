@@ -1429,7 +1429,7 @@ def mitigariesgos(request):
         query = a.filter(riesgos__pregunta = j)
         mitigacion = query.filter(riesgos__pregunta=j, riesgos__respuesta=1).aggregate(mitigacion=Count('riesgos__pregunta'))['mitigacion']
         por_mitigacion = saca_porcentajes(mitigacion, num_familia)
-        tabla[key] = {'mitigacion':mitigacion,'por_mitigacion':por_mitigacion}
+        tabla[key] = {'mitigacion':mitigacion,'por_mitigacion':int(por_mitigacion)}
 
     return render_to_response('simas/mitigacion.html',{'tabla':tabla,
                               'num_familias':num_familia},
