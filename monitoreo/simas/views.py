@@ -119,25 +119,6 @@ def inicio(request):
             request.session['organizacion'] = form.cleaned_data['organizacion']
             request.session['municipio'] = form.cleaned_data['municipio']
             request.session['comunidad'] = form.cleaned_data['comunidad']
-#            request.session['departamento'] = form.cleaned_data['departamento']
-#            try:
-#                municipio = Municipio.objects.get(id=form.cleaned_data['municipio'])
-#            except:
-#                municipio = None
-#            try:
-#                comunidad = Comunidad.objects.get(id=form.cleaned_data['comunidad'])
-#
-#            except:
-#                comunidad = None
-#            try:
-#                organizacion = Organizaciones.objects.get(id=form.cleaned_data['organizacion'])
-#            except:
-#                organizacion = None
-#
-
-#            request.session['municipio'] = municipio
-#            request.session['comunidad'] = comunidad
-#            request.session['organizacion'] = organizacion
             request.session['socio'] = form.cleaned_data['socio']
             request.session['desde'] = form.cleaned_data['desde']
             request.session['duenio'] = form.cleaned_data['dueno']
@@ -146,6 +127,14 @@ def inicio(request):
             request.session['activo'] = True
             centinela = 1
     else:
+        del request.session['fecha']
+        del request.session['departamento']
+        del request.session['organizacion']
+        del request.session['municipio']
+        del request.session['comunidad']
+        del request.session['socio']
+        del request.session['desde']
+        del request.session['duenio']
         form = MonitoreoForm()
         mensaje = "Existen alguno errores"
         centinela = 0
