@@ -127,14 +127,14 @@ def inicio(request):
             request.session['activo'] = True
             centinela = 1
     else:
-        del request.session['fecha']
-        del request.session['departamento']
-        del request.session['organizacion']
-        del request.session['municipio']
-        del request.session['comunidad']
-        del request.session['socio']
-        del request.session['desde']
-        del request.session['duenio']
+#        del request.session['fecha']
+#        del request.session['departamento']
+#        del request.session['organizacion']
+#        del request.session['municipio']
+#        del request.session['comunidad']
+#        del request.session['socio']
+#        del request.session['desde']
+#        del request.session['duenio']
         form = MonitoreoForm()
         mensaje = "Existen alguno errores"
         centinela = 0
@@ -691,11 +691,12 @@ def cultivos(request):
         key = slugify(i.nombre).replace('-', '_')
         key2 = slugify(i.unidad).replace('-', '_')
         query = a.filter(cultivosfinca__cultivos = i)
+        numero = query.count()
         totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
         consumo = query.aggregate(consumo=Sum('cultivosfinca__consumo'))['consumo']
         libre = query.aggregate(libre=Sum('cultivosfinca__venta_libre'))['libre']
         organizada =query.aggregate(organizada=Sum('cultivosfinca__venta_organizada'))['organizada']
-        tabla[key] = {'key2':key2,'totales':totales,'consumo':consumo,'libre':libre,'organizada':organizada}
+        tabla[key] = {'key2':key2,'numero':numero,'totales':totales,'consumo':consumo,'libre':libre,'organizada':organizada}
 
     return render_to_response('simas/cultivos.html',
                              {'tabla':tabla,'num_familias':num_familias},
