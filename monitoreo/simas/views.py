@@ -699,8 +699,9 @@ def cultivos(request):
         tabla[key] = {'key2':key2,'numero':numero,'totales':totales,'consumo':consumo,'libre':libre,'organizada':organizada}
     
     tabla2 = {}
+    lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
     productividad = 0
-    for i in Cultivos.objects.all():
+    for i in Cultivos.objects.filter(id__in=lista_pro):
         key = slugify(i.nombre).replace('-', '_')
         key2 = slugify(i.unidad).replace('-', '_')
         query = a.filter(cultivosfinca__cultivos = i)
@@ -711,7 +712,7 @@ def cultivos(request):
         try:
             productividad = totales / area_total
         except:
-            pass
+            productividad = 0
         tabla2[key] = {'key2':key2,'numero':numero,'area_total':area_total,
                        'area_avg':area_avg,'totales':totales,'productividad':productividad}
                                 
