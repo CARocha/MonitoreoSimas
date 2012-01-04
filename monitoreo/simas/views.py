@@ -699,6 +699,7 @@ def cultivos(request):
         tabla[key] = {'key2':key2,'numero':numero,'totales':totales,'consumo':consumo,'libre':libre,'organizada':organizada}
     
     tabla2 = {}
+    productividad = 0
     for i in Cultivos.objects.all():
         key = slugify(i.nombre).replace('-', '_')
         key2 = slugify(i.unidad).replace('-', '_')
