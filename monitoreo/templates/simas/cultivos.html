@@ -39,9 +39,35 @@ Subindicador los Cultivos y la producción
         <tbody>
     </table>
 </div>
+
+<table>
+        <caption>Los cultivos y la productividad</caption>
+        <thead>
+            <tr>
+                <th>CULTIVOS</th>
+                <th>Unidad</th>
+                <th>Número</th>
+                <th>Area total</th>
+                <th>Promedio de areas</th>
+                <th>Total producción</th>
+                <th>Productividad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for key, value in tabla2.items%}
+            <tr>
+                <td>{{key|unslugify}}</td>
+                <td>{{value.key2|unslugify}}</td>
+                <td>{{value.numero|unslugify}}</td>
+                <td>{{value.area_total|floatformat}}</td>
+                <td>{{value.area_avg|floatformat}}</td>
+                <td>{{value.totales|floatformat}}</td>
+                <td>{{value.productividad|floatformat}}</td>
+            </tr>
+            {%endfor%}
+        <tbody>
+    </table>    
 <script>
-    // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
-    // ademas que ordene por defecto las filas 0,0 y 2,1
     $(document).ready(function()
     {
         //$("#table_example").tablesorter();

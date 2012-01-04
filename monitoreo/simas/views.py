@@ -697,9 +697,22 @@ def cultivos(request):
         libre = query.aggregate(libre=Sum('cultivosfinca__venta_libre'))['libre']
         organizada =query.aggregate(organizada=Sum('cultivosfinca__venta_organizada'))['organizada']
         tabla[key] = {'key2':key2,'numero':numero,'totales':totales,'consumo':consumo,'libre':libre,'organizada':organizada}
-
+    
+    tabla2 = {}
+    for i in Cultivos.objects.all():
+        key = slugify(i.nombre).replace('-', '_')
+        key2 = slugify(i.unidad).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i)
+        numero = query.count()
+        area_total = query.aggregate(area_total=Sum('cultivosfinca__area'))['area_total']
+        area_avg = query.aggregate(area_avg=Avg('cultivosfinca__area'))['area_avg']
+        totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
+        productividad = totales / area_total
+        tabla2[key] = {'key2':key2,'numero':numero,'area_total':area_total,
+                       'area_avg':area_avg,'totales':totales,'productividad':productividad}
+                                
     return render_to_response('simas/cultivos.html',
-                             {'tabla':tabla,'num_familias':num_familias},
+                             {'tabla':tabla,'num_familias':num_familias,'tabla2':tabla2},
                              context_instance=RequestContext(request))
 
 #Tabla Ingreso familiar y otros ingresos
