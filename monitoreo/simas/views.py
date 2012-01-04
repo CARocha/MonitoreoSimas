@@ -707,7 +707,10 @@ def cultivos(request):
         area_total = query.aggregate(area_total=Sum('cultivosfinca__area'))['area_total']
         area_avg = query.aggregate(area_avg=Avg('cultivosfinca__area'))['area_avg']
         totales = query.aggregate(total=Sum('cultivosfinca__total'))['total']
-        productividad = totales / area_total
+        try:
+            productividad = totales / area_total
+        except:
+            pass
         tabla2[key] = {'key2':key2,'numero':numero,'area_total':area_total,
                        'area_avg':area_avg,'totales':totales,'productividad':productividad}
                                 
