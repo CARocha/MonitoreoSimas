@@ -1,14 +1,1141 @@
 {% extends "base.html"%}
+{% load tools %}
 {%load unslugify %}
 {% block titulo %}
 Subindicador los Cultivos y la producción
 <div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador<span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a> </div>
 {% endblock %}
-{
+{%block extra_header%}
+<script type="text/javascript" src="{{MEDIA_URL}}js/highcharts.js"></script>
+<script type="text/javascript" src="{{MEDIA_URL}}js/exporting.js"></script>
+<script type="text/javascript">
+    var activo = 0; 
+    function click_callback(id){
+        $.getJSON('/grafo/fincas/' + id, function(data) {
+            if (activo!= id){
+                $("#grafo").html('<img src="' + data.url + '" />');
+                activo = id;
+            }else{
+                $("#grafo").html('');
+                activo = 0;
+            }
+        });
+    }
+</script>
+ 
+<script type="text/javascript">    
+var chart;
+function Grafo() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo', 
+         defaultSeriesType: 'scatter',
+         zoomType: 'xy',
+         height: 350,
+         width: 620
+      },
+      title: {
+         text: 'Grafico de Maiz'
+      },
+      subtitle: {
+         text: ''
+      },
+      xAxis: {
+         title: {
+            enabled: true,
+            text: 'Areas (Manzana)'
+         },
+         startOnTick: true,
+         endOnTick: true,
+         showLastLabel: true
+      },
+      yAxis: {
+         title: {
+            text: 'Producción'
+         }
+      },
+      tooltip: {
+         formatter: function() {
+                   return ''+
+               this.x +' Mz, '+ this.y +'qq';
+         }
+      },
+      
+      plotOptions: {
+         scatter: {
+            marker: {
+               radius: 5,
+               states: {
+                  hover: {
+                     enabled: true,
+                     lineColor: 'rgb(100,100,100)'
+                  }
+               }
+            },
+            states: {
+               hover: {
+                  marker: {
+                     enabled: false
+                  }
+               }
+            }
+         }
+      },
+      series: [{%for key, value in maiz.items%}
+      {
+         name: '{{key|unslugify}}',
+         color: 'rgba(11, 28, 188, .5)',
+         data: {{value}}
+      }, 
+      {%endfor%}
+      ]
+   });
+   
+   
+}
+
+//frijol
+function Grafo1() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo', 
+         defaultSeriesType: 'scatter',
+         zoomType: 'xy',
+         height: 350,
+         width: 620
+      },
+      title: {
+         text: 'Grafico de frijol'
+      },
+      subtitle: {
+         text: ''
+      },
+      xAxis: {
+         title: {
+            enabled: true,
+            text: 'Areas (Manzana)'
+         },
+         startOnTick: true,
+         endOnTick: true,
+         showLastLabel: true
+      },
+      yAxis: {
+         title: {
+            text: 'Producción'
+         }
+      },
+      tooltip: {
+         formatter: function() {
+                   return ''+
+               this.x +' Mz, '+ this.y +'qq';
+         }
+      },
+      
+      plotOptions: {
+         scatter: {
+            marker: {
+               radius: 5,
+               states: {
+                  hover: {
+                     enabled: true,
+                     lineColor: 'rgb(100,100,100)'
+                  }
+               }
+            },
+            states: {
+               hover: {
+                  marker: {
+                     enabled: false
+                  }
+               }
+            }
+         }
+      },
+      series: [{%for key, value in frijol.items%}
+      {
+         name: '{{key|unslugify}}',
+         color: 'rgba(223, 83, 83, .5)',
+         data: {{value}}
+      }, 
+      {%endfor%}
+      ]
+   });  
+}
+
+//platano
+function Grafo2() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo', 
+         defaultSeriesType: 'scatter',
+         zoomType: 'xy',
+         height: 350,
+         width: 620
+      },
+      title: {
+         text: 'Grafico de Platano'
+      },
+      subtitle: {
+         text: ''
+      },
+      xAxis: {
+         title: {
+            enabled: true,
+            text: 'Areas (Manzana)'
+         },
+         startOnTick: true,
+         endOnTick: true,
+         showLastLabel: true
+      },
+      yAxis: {
+         title: {
+            text: 'Producción'
+         }
+      },
+      tooltip: {
+         formatter: function() {
+                   return ''+
+               this.x +' Mz, '+ this.y +'';
+         }
+      },
+      
+      plotOptions: {
+         scatter: {
+            marker: {
+               radius: 5,
+               states: {
+                  hover: {
+                     enabled: true,
+                     lineColor: 'rgb(100,100,100)'
+                  }
+               }
+            },
+            states: {
+               hover: {
+                  marker: {
+                     enabled: false
+                  }
+               }
+            }
+         }
+      },
+      series: [{%for key, value in platano.items%}
+      {
+         name: '{{key|unslugify}}',
+         color: 'rgba(188, 174, 19, .7)',
+         data: {{value}}
+      }, 
+      {%endfor%}
+      ]
+   });  
+}
+//guineo
+function Grafo3() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo', 
+         defaultSeriesType: 'scatter',
+         zoomType: 'xy',
+         height: 350,
+         width: 620
+      },
+      title: {
+         text: 'Grafico de Guineo'
+      },
+      subtitle: {
+         text: ''
+      },
+      xAxis: {
+         title: {
+            enabled: true,
+            text: 'Areas (Manzana)'
+         },
+         startOnTick: true,
+         endOnTick: true,
+         showLastLabel: true
+      },
+      yAxis: {
+         title: {
+            text: 'Producción'
+         }
+      },
+      tooltip: {
+         formatter: function() {
+                   return ''+
+               this.x +' Mz, '+ this.y +'';
+         }
+      },
+      
+      plotOptions: {
+         scatter: {
+            marker: {
+               radius: 5,
+               states: {
+                  hover: {
+                     enabled: true,
+                     lineColor: 'rgb(100,100,100)'
+                  }
+               }
+            },
+            states: {
+               hover: {
+                  marker: {
+                     enabled: false
+                  }
+               }
+            }
+         }
+      },
+      series: [{%for key, value in guineo.items%}
+      {
+         name: '{{key|unslugify}}',
+         color: 'rgba(41, 130, 36, .7)',
+         data: {{value}}
+      }, 
+      {%endfor%}
+      ]
+   });  
+}
+//cafe
+function Grafo4() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo', 
+         defaultSeriesType: 'scatter',
+         zoomType: 'xy',
+         height: 350,
+         width: 620
+      },
+      title: {
+         text: 'Grafico de Cáfe'
+      },
+      subtitle: {
+         text: ''
+      },
+      xAxis: {
+         title: {
+            enabled: true,
+            text: 'Areas (Manzana)'
+         },
+         startOnTick: true,
+         endOnTick: true,
+         showLastLabel: true
+      },
+      yAxis: {
+         title: {
+            text: 'Producción'
+         }
+      },
+      tooltip: {
+         formatter: function() {
+                   return ''+
+               this.x +' Mz, '+ this.y +'';
+         }
+      },
+      
+      plotOptions: {
+         scatter: {
+            marker: {
+               radius: 5,
+               states: {
+                  hover: {
+                     enabled: true,
+                     lineColor: 'rgb(100,100,100)'
+                  }
+               }
+            },
+            states: {
+               hover: {
+                  marker: {
+                     enabled: false
+                  }
+               }
+            }
+         }
+      },
+      series: [{%for key, value in cafe.items%}
+      {
+         name: '{{key|unslugify}}',
+         color: 'rgba(137, 63, 0, .7)',
+         data: {{value}}
+      }, 
+      {%endfor%}
+      ]
+   });  
+}
+//cacao
+function Grafo5() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo', 
+         defaultSeriesType: 'scatter',
+         zoomType: 'xy',
+         height: 350,
+         width: 620
+      },
+      title: {
+         text: 'Grafico de Cacao'
+      },
+      subtitle: {
+         text: ''
+      },
+      xAxis: {
+         title: {
+            enabled: true,
+            text: 'Areas (Manzana)'
+         },
+         startOnTick: true,
+         endOnTick: true,
+         showLastLabel: true
+      },
+      yAxis: {
+         title: {
+            text: 'Producción'
+         }
+      },
+      tooltip: {
+         formatter: function() {
+                   return ''+
+               this.x +' Mz, '+ this.y +'';
+         }
+      },
+      
+      plotOptions: {
+         scatter: {
+            marker: {
+               radius: 5,
+               states: {
+                  hover: {
+                     enabled: true,
+                     lineColor: 'rgb(100,100,100)'
+                  }
+               }
+            },
+            states: {
+               hover: {
+                  marker: {
+                     enabled: false
+                  }
+               }
+            }
+         }
+      },
+      series: [{%for key, value in cacao.items%}
+      {
+         name: '{{key|unslugify}}',
+         color: 'rgba(83, 90, 223, .7)',
+         data: {{value}}
+      }, 
+      {%endfor%}
+      ]
+   });  
+}
+</script> 
+<script type="text/javascript">
+//regresion de Maiz
+var chart;
+function Grafo6() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo',
+         height: 350,
+         width: 620
+      },
+      xAxis: {
+         min: -0.5,
+         max: 10.5
+      },
+      yAxis: {
+         min: 0
+      },
+      title: {
+         text: 'Grafico regresion lineal de Maiz'
+      },
+      series: [{%for k, v in maiz.items%}
+         {
+         type: 'line',
+         name: 'Regression Line',
+         data: [{%for a in regresion_maiz%} {{a}}, {%endfor%}],
+         marker: {
+            enabled: false
+         },
+         states: {
+            hover: {
+               lineWidth: 0
+            }
+         },
+         enableMouseTracking: false
+      },      
+      {
+         type: 'scatter',
+         name: 'Observations',
+         data: {{v}},
+         marker: {
+            radius: 4
+         }
+      } 
+      {%endfor%}]
+   });
+   
+}
+
+//regresion de frijoles
+function Grafo7() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo',
+         height: 350,
+         width: 620
+      },
+      xAxis: {
+         min: -0.5,
+         max: 10.5
+      },
+      yAxis: {
+         min: 0
+      },
+      title: {
+         text: 'Grafico regression lineal Frijol'
+      },
+      series: [{%for k, v in frijol.items%}
+         {
+         type: 'line',
+         name: 'Regression Line',
+         data: [{%for valor in regresion_frijol%} {{valor}}, {%endfor%}],
+         marker: {
+            enabled: false
+         },
+         states: {
+            hover: {
+               lineWidth: 0
+            }
+         },
+         enableMouseTracking: false
+      },      
+      {
+         type: 'scatter',
+         name: 'Observations',
+         data: {{v}},
+         marker: {
+            radius: 4
+         }
+      } 
+      {%endfor%}]
+   });
+   
+}
+
+//Regresión de platano
+function Grafo8() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo',
+         height: 350,
+         width: 620
+      },
+      xAxis: {
+         min: -0.5,
+         max: 10.5
+      },
+      yAxis: {
+         min: 0
+      },
+      title: {
+         text: 'Grafico regression lineal Plátano'
+      },
+      series: [{%for k, v in platano.items%}
+         {
+         type: 'line',
+         name: 'Regression Line',
+         data: [{%for valor in regresion_platano%} {{valor}}, {%endfor%}],
+         marker: {
+            enabled: false
+         },
+         states: {
+            hover: {
+               lineWidth: 0
+            }
+         },
+         enableMouseTracking: false
+      },      
+      {
+         type: 'scatter',
+         name: 'Observations',
+         data: {{v}},
+         marker: {
+            radius: 4
+         }
+      } 
+      {%endfor%}]
+   });
+   
+}
+
+// regresion guineo
+function Grafo9() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo',
+         height: 350,
+         width: 620
+      },
+      xAxis: {
+         min: -0.5,
+         max: 10.5
+      },
+      yAxis: {
+         min: 0
+      },
+      title: {
+         text: 'Grafico regression lineal Guíneo'
+      },
+      series: [{%for k, v in guineo.items%}
+         {
+         type: 'line',
+         name: 'Regression Line',
+         data: [{%for valor in regresion_guineo%} {{valor}}, {%endfor%}],
+         marker: {
+            enabled: false
+         },
+         states: {
+            hover: {
+               lineWidth: 0
+            }
+         },
+         enableMouseTracking: false
+      },      
+      {
+         type: 'scatter',
+         name: 'Observations',
+         data: {{v}},
+         marker: {
+            radius: 4
+         }
+      } 
+      {%endfor%}]
+   });
+   
+}
+//regresion cafe
+function Grafo10() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo',
+         height: 350,
+         width: 620
+      },
+      xAxis: {
+         min: -0.5,
+         max: 10.5
+      },
+      yAxis: {
+         min: 0
+      },
+      title: {
+         text: 'Grafico regression lineal Cáfe'
+      },
+      series: [{%for k, v in cafe.items%}
+         {
+         type: 'line',
+         name: 'Regression Line',
+         data: [{%for valor in regresion_cafe%} {{valor}}, {%endfor%}],
+         marker: {
+            enabled: false
+         },
+         states: {
+            hover: {
+               lineWidth: 0
+            }
+         },
+         enableMouseTracking: false
+      },      
+      {
+         type: 'scatter',
+         name: 'Observations',
+         data: {{v}},
+         marker: {
+            radius: 4
+         }
+      } 
+      {%endfor%}]
+   });
+   
+}
+//regresion cacao
+function Grafo11() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'grafo',
+         height: 350,
+         width: 620
+      },
+      xAxis: {
+         min: -0.5,
+         max: 10.5
+      },
+      yAxis: {
+         min: 0
+      },
+      title: {
+         text: 'Grafico regression lineal Cacao'
+      },
+      series: [{%for k, v in cacao.items%}
+         {
+         type: 'line',
+         name: 'Regression Line',
+         data: [{%for valor in regresion_cacao%} {{valor}}, {%endfor%}],
+         marker: {
+            enabled: false
+         },
+         states: {
+            hover: {
+               lineWidth: 0
+            }
+         },
+         enableMouseTracking: false
+      },      
+      {
+         type: 'scatter',
+         name: 'Observations',
+         data: {{v}},
+         marker: {
+            radius: 4
+         }
+      } 
+      {%endfor%}]
+   });
+   
+}
+//distribucion maiz
+function Grafo12(){
+	var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 620
+        },
+        title: {
+            text: 'Distribución de productividad Maiz'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'Rangos'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Número'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +'qq: '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in distribucion_maiz.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{%if value == None%} 0 {%else%} {{value}} {%endif%}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+
+function Grafo13(){
+	var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 620
+        },
+        title: {
+            text: 'Distribución de productividad Frijol'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'Rangos'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Número'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +'qq: '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in distribucion_frijol.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{%if value == None%} 0 {%else%} {{value}} {%endif%}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+function Grafo14(){
+	var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 620
+        },
+        title: {
+            text: 'Distribución de productividad Plátano'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'Rangos'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Número'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +'cbz: '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in distribucion_platano.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{%if value == None%} 0 {%else%} {{value}} {%endif%}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+function Grafo15(){
+	var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 620
+        },
+        title: {
+            text: 'Distribución de productividad Guíneo'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'Rangos'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Número'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +'cbz: '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in distribucion_guineo.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{%if value == None%} 0 {%else%} {{value}} {%endif%}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+
+function Grafo16(){
+	var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 620
+        },
+        title: {
+            text: 'Distribución de productividad Cáfe'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'Rangos'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Número'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +'qq: '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in distribucion_cafe.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{%if value == None%} 0 {%else%} {{value}} {%endif%}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+
+function Grafo17(){
+	var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'grafo',
+            defaultSeriesType: 'column',
+            height: 350,
+            width: 620
+        },
+        title: {
+            text: 'Distribución de productividad Cacao'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+                'Rangos'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Número'
+            }
+        },
+
+        tooltip: {
+            formatter: function() {
+                return ''+
+                    this.series.name +'qq: '+ this.y +'';
+            }
+        },
+        plotOptions: {
+            column: {
+                groupPadding: 0,
+                pointPadding: 0.9,
+                borderWidth: 0
+            },
+            series: {
+                pointWidth: 40,
+                minPointLength : 1
+            }
+        },
+        series: [{% for key, value in distribucion_cacao.items %}
+            {
+                name: '{{key|unslugify}}',
+                data: [{{value}}],
+                dataLabels: {
+                    enabled: true,
+                    rotation: 0,
+                    color: '#632D00',
+                    align: 'center',
+                    x: -3,
+                    y: 0,
+                        formatter: function() {
+                            return this.y + '';
+                                              },
+                    style: {
+                        font: 'normal 13px Verdana, sans-serif'
+                            }
+                }
+            },
+            {% endfor %}]
+    });
+}
+
+</script>  
+{%endblock%}
+
 {%block contenido%}
 <div id="mostrar">
      {% include "simas/menu.html" %}
 </div>
+
+<div id="sidebar">
+    <div class="graficos_widget">
+        <h1>Gráficos: Dispersión</h1>
+        <a href="#" id="grafico" onclick="Grafo();" class="grafo">Maíz</a>
+        <a href="#" id="grafico1" onclick="Grafo1();" class="grafo">Frijol</a>
+        <a href="#" id="grafico2" onclick="Grafo2();" class="grafo">Plátano</a>
+        <a href="#" id="grafico3" onclick="Grafo3();" class="grafo">Guíneo</a>
+	    <a href="#" id="grafico4" onclick="Grafo4();" class="grafo">Cáfe</a>
+	    <a href="#" id="grafico5" onclick="Grafo5();" class="grafo">Cacao</a>
+	    <h1>Gráficos: Regresión Lineal</h1>
+	    <a href="#" id="grafico6" onclick="Grafo6();" class="grafo">Maíz</a>
+        <a href="#" id="grafico7" onclick="Grafo7();" class="grafo">Frijol</a>
+        <a href="#" id="grafico8" onclick="Grafo8();" class="grafo">Plátano</a>
+        <a href="#" id="grafico9" onclick="Grafo9();" class="grafo">Guíneo</a>
+	    <a href="#" id="grafico10" onclick="Grafo10();" class="grafo">Cáfe</a>
+	    <a href="#" id="grafico11" onclick="Grafo11();" class="grafo">Cacao</a>
+	    <h1>Gráficos: Distribución de la productividad</h1>
+	    <a href="#" id="grafico12" onclick="Grafo12();" class="grafo">Maíz</a>
+        <a href="#" id="grafico13" onclick="Grafo13();" class="grafo">Frijol</a>
+        <a href="#" id="grafico14" onclick="Grafo14();" class="grafo">Plátano</a>
+        <a href="#" id="grafico15" onclick="Grafo15();" class="grafo">Guíneo</a>
+	    <a href="#" id="grafico16" onclick="Grafo16();" class="grafo">Cáfe</a>
+	    <a href="#" id="grafico17" onclick="Grafo17();" class="grafo">Cacao</a>
+    </div>
+</div>
+
+<div id="grafo"></div>
 
 <div class="contenido">
     <table>
@@ -67,13 +1194,5 @@ Subindicador los Cultivos y la producción
             {%endfor%}
         <tbody>
     </table>    
-<script>
-    $(document).ready(function()
-    {
-        //$("#table_example").tablesorter();
-        //$("#table_example").tablesorter({sortList:[[0,0],[2,1]], widgets: ['zebra']});
-        $("#table_example").tablesorter({sortList:[[1,0],[1,1]], widgets: ['zebra']});
-    }
-); 
-</script>
+<br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 {%endblock%}

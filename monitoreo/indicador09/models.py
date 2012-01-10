@@ -31,6 +31,16 @@ class CultivosFinca(models.Model):
     venta_organizada = models.FloatField('Venta organizada por año')
     encuesta = models.ForeignKey(Encuesta)
     
+    #campo oculto para calcular la productividad
+    productivos = models.FloatField(editable=False)
+    
+    def save(self):
+        try:
+            self.productivos = self.total / self.area
+        except:
+            self.productivos = 0 
+        super(CultivosFinca, self).save()
+
     def __unicode__(self):
         return u'%s' % self.cultivos.nombre
     

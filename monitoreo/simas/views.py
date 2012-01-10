@@ -678,14 +678,142 @@ def comunitario(request):
                                 context_instance=RequestContext(request) )
 
 #Tabla Cultivos
+def grafo_generic(request, producto):
+    #******Variables***************
+    a = _queryset_filtrado(request)
+    grafo = {}
+    for i in Cultivos.objects.filter(id=producto):
+        key = slugify(i.nombre).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i)
+        for obj in query:
+            cultivos_finca = obj.cultivosfinca_set.filter(cultivos__id=producto)
+            for datos in cultivos_finca:
+                if not key in grafo.keys():
+                    grafo[key] = [[datos.area,datos.total], ]
+                else:
+                    grafo[key].append([datos.area,datos.total])
+    return grafo
+    
+def regresion_linear(request, nidea):
+    filtro = _queryset_filtrado(request)
+    n = filtro.count()
+    xy = nidea
+    prueba = []
+    for k,v in xy.items():
+        for conteo in v:
+            prueba.append(conteo)
+    #comienza la formula
+    lista_x = []
+    lista_y = []
+    for numero in range(0, len(prueba)):
+        for k, v in xy.items():
+            lista_x.append(v[numero][0])
+            lista_y.append(v[numero][1])
+            
+    def cuadrado(n):
+        return n** 2
+    cuadrado_x = map(cuadrado, lista_x)
+    suma_x = sum(lista_x)
+    suma_y = sum(lista_y)
+    m1 = n * (suma_x + suma_y) - (suma_x + suma_y) 
+    m2 = n * sum(cuadrado_x) - (sum(lista_x))**2
+    #Pendiente
+    try:
+        m = m1 / m2
+    except:
+        m = 0
+    
+    b1 = suma_y - m * suma_x
+    #inteseccion
+    try:
+        b = b1 / n
+    except:
+        b = 0
+    
+    y1 = m * 1 + b
+    y2 = m * 10 + b
+    lineal = [[1,round(y1,2)]]
+    lineal.append([10,round(y2,2)]) 
+    
+    return lineal
+    
+def distribucion(request, items):
+    a = _queryset_filtrado(request)
+    grafo = {}
+    for i in Cultivos.objects.filter(id=items):
+        key = slugify(i.nombre).replace('-', '_')
+        query = a.filter(cultivosfinca__cultivos = i)
+        for obj in query:
+            cultivos_finca = obj.cultivosfinca_set.filter(cultivos__id=items)
+            for datos in cultivos_finca:
+                if not key in grafo.keys():
+                    grafo[key] = [[datos.productivos], ]
+                else:
+                    grafo[key].append([datos.productivos])
+    
+    xy = grafo
+    prueba = []
+    for k,v in xy.items():
+        for conteo in v:
+            prueba.append(conteo)
+    #comienza la formula
+    lista_productividad = []
+
+    for numero in range(0, len(prueba)):
+        for k, v in xy.items():
+            lista_productividad.append(v[numero][0])
+    rangos = {}
+    rango1 = 0
+    rango2 = 0
+    rango3 = 0
+    rango4 = 0
+    rango5 = 0
+    rango6 = 0
+    rango7 = 0
+    rango8 = 0
+    rango9 = 0
+    rango10 = 0
+    rango11 = 0
+    rango12 = 0   
+    for cantidad in lista_productividad:
+        if cantidad > 0.1 and cantidad <= 5:
+            rango1 += 1
+        elif cantidad > 5.1 and cantidad <= 10:
+            rango2 += 1
+        elif cantidad > 10.1 and cantidad <= 20:
+            rango3 += 1
+        elif cantidad > 20.1 and cantidad <= 30:
+            rango4 += 1  
+        elif cantidad > 30.1 and cantidad <= 40:
+            rango5 += 1
+        elif cantidad > 40.1 and cantidad <= 50:
+            rango6 += 1
+        elif cantidad > 50.1 and cantidad <= 60:
+            rango7 += 1
+        elif cantidad > 60.1 and cantidad <= 70:
+            rango8 += 1
+        elif cantidad > 70.1 and cantidad <= 80:
+            rango9 += 1
+        elif cantidad > 80.1 and cantidad <= 90:
+            rango10 += 1
+        elif cantidad > 90.1 and cantidad <= 100:
+            rango11 += 1
+        elif cantidad > 101:
+            rango12 += 1
+            
+    rangos = {'0.1 - 5':rango1,'6 - 10':rango2,'11 - 20':rango3,'21 - 30':rango4,
+              '31 - 40':rango5,'41 - 50':rango6,'51 - 60':rango7,'61 - 70':rango8,
+              '71 - 80':rango9,'81 - 90':rango10,'91 - 100':rango11,'mas de 101':rango12}
+
+    return rangos
+
+
 @session_required
 def cultivos(request):
     '''tabla los cultivos y produccion'''
-    #******Variables***************
     a = _queryset_filtrado(request)
     num_familias = a.count()
-    #******************************
-    #**********calculosdelasvariables*****
+    
     tabla = {}
     for i in Cultivos.objects.all():
         key = slugify(i.nombre).replace('-', '_')
@@ -696,7 +824,9 @@ def cultivos(request):
         consumo = query.aggregate(consumo=Sum('cultivosfinca__consumo'))['consumo']
         libre = query.aggregate(libre=Sum('cultivosfinca__venta_libre'))['libre']
         organizada =query.aggregate(organizada=Sum('cultivosfinca__venta_organizada'))['organizada']
-        tabla[key] = {'key2':key2,'numero':numero,'totales':totales,'consumo':consumo,'libre':libre,'organizada':organizada}
+        if numero > 0:
+            tabla[key] = {'key2':key2,'numero':numero,'totales':totales,
+                           'consumo':consumo,'libre':libre,'organizada':organizada}
     
     tabla2 = {}
     lista_pro = [19,2,4,5,9,20,15,13,22,12,18,3,8]
@@ -713,11 +843,33 @@ def cultivos(request):
             productividad = totales / area_total
         except:
             productividad = 0
-        tabla2[key] = {'key2':key2,'numero':numero,'area_total':area_total,
+        if numero > 0:
+            tabla2[key] = {'key2':key2,'numero':numero,'area_total':area_total,
                        'area_avg':area_avg,'totales':totales,'productividad':productividad}
-                                
+                       
+    maiz = grafo_generic(request,12)
+    frijol = grafo_generic(request,8)
+    platano = grafo_generic(request,18)
+    guineo = grafo_generic(request,9)
+    cafe = grafo_generic(request,5)
+    cacao = grafo_generic(request,4)
+    ###################################
+    regresion_maiz = regresion_linear(request,maiz)
+    regresion_frijol = regresion_linear(request,frijol)
+    regresion_platano = regresion_linear(request,platano)
+    regresion_guineo = regresion_linear(request,guineo)
+    regresion_cafe = regresion_linear(request,cafe)
+    regresion_cacao = regresion_linear(request,cacao)
+    ################################
+    distribucion_maiz = distribucion(request,12)
+    distribucion_frijol = distribucion(request,8)
+    distribucion_platano = distribucion(request,18)
+    distribucion_guineo = distribucion(request,9)
+    distribucion_cafe = distribucion(request,5)
+    distribucion_cacao = distribucion(request,4)
+                                           
     return render_to_response('simas/cultivos.html',
-                             {'tabla':tabla,'num_familias':num_familias,'tabla2':tabla2},
+                             locals(),
                              context_instance=RequestContext(request))
 
 #Tabla Ingreso familiar y otros ingresos
