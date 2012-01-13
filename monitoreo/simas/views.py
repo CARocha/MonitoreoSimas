@@ -682,6 +682,7 @@ def grafo_generic(request, producto):
     #******Variables***************
     a = _queryset_filtrado(request)
     grafo = {}
+    tabla = {}
     for i in Cultivos.objects.filter(id=producto):
         key = slugify(i.nombre).replace('-', '_')
         query = a.filter(cultivosfinca__cultivos = i)
@@ -690,9 +691,12 @@ def grafo_generic(request, producto):
             for datos in cultivos_finca:
                 if not key in grafo.keys():
                     grafo[key] = [[datos.area,datos.total], ]
+                    tabla[key] = [[datos.area,datos.total,datos.encuesta_id], ]
                 else:
                     grafo[key].append([datos.area,datos.total])
-    return grafo
+                    tabla[key].append([datos.area,datos.total,datos.encuesta_id])
+    dict = {'grafo':grafo,'tabla':tabla}
+    return dict
     
 def regresion_linear(request, nidea):
     filtro = _queryset_filtrado(request)
@@ -866,12 +870,12 @@ def cultivos(request):
     cafe = grafo_generic(request,5)
     cacao = grafo_generic(request,4)
     ###################################
-    regresion_maiz = regresion_linear(request,maiz)
-    regresion_frijol = regresion_linear(request,frijol)
-    regresion_platano = regresion_linear(request,platano)
-    regresion_guineo = regresion_linear(request,guineo)
-    regresion_cafe = regresion_linear(request,cafe)
-    regresion_cacao = regresion_linear(request,cacao)
+    regresion_maiz = regresion_linear(request,maiz['grafo'])
+    regresion_frijol = regresion_linear(request,frijol['grafo'])
+    regresion_platano = regresion_linear(request,platano['grafo'])
+    regresion_guineo = regresion_linear(request,guineo['grafo'])
+    regresion_cafe = regresion_linear(request,cafe['grafo'])
+    regresion_cacao = regresion_linear(request,cacao['grafo'])
     ################################
     distribucion_maiz = distribucion(request,12)
     distribucion_frijol = distribucion(request,8)

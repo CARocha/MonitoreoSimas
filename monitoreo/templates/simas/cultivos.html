@@ -81,7 +81,7 @@ function Grafo() {
             }
          }
       },
-      series: [{%for key, value in maiz.items%}
+      series: [{%for key, value in maiz.grafo.items%}
       {
          name: '{{key|unslugify}}',
          color: 'rgba(11, 28, 188, .5)',
@@ -151,7 +151,7 @@ function Grafo1() {
             }
          }
       },
-      series: [{%for key, value in frijol.items%}
+      series: [{%for key, value in frijol.grafo.items%}
       {
          name: '{{key|unslugify}}',
          color: 'rgba(223, 83, 83, .5)',
@@ -219,7 +219,7 @@ function Grafo2() {
             }
          }
       },
-      series: [{%for key, value in platano.items%}
+      series: [{%for key, value in platano.grafo.items%}
       {
          name: '{{key|unslugify}}',
          color: 'rgba(188, 174, 19, .7)',
@@ -286,7 +286,7 @@ function Grafo3() {
             }
          }
       },
-      series: [{%for key, value in guineo.items%}
+      series: [{%for key, value in guineo.grafo.items%}
       {
          name: '{{key|unslugify}}',
          color: 'rgba(41, 130, 36, .7)',
@@ -353,7 +353,7 @@ function Grafo4() {
             }
          }
       },
-      series: [{%for key, value in cafe.items%}
+      series: [{%for key, value in cafe.grafo.items%}
       {
          name: '{{key|unslugify}}',
          color: 'rgba(137, 63, 0, .7)',
@@ -420,7 +420,7 @@ function Grafo5() {
             }
          }
       },
-      series: [{%for key, value in cacao.items%}
+      series: [{%for key, value in cacao.grafo.items%}
       {
          name: '{{key|unslugify}}',
          color: 'rgba(83, 90, 223, .7)',
@@ -451,7 +451,7 @@ function Grafo6() {
       title: {
          text: 'Grafico regresion lineal de Maiz'
       },
-      series: [{%for k, v in maiz.items%}
+      series: [{%for k, v in maiz.grafo.items%}
          {
          type: 'line',
          name: 'Regression Line',
@@ -497,7 +497,7 @@ function Grafo7() {
       title: {
          text: 'Grafico regression lineal Frijol'
       },
-      series: [{%for k, v in frijol.items%}
+      series: [{%for k, v in frijol.grafo.items%}
          {
          type: 'line',
          name: 'Regression Line',
@@ -543,7 +543,7 @@ function Grafo8() {
       title: {
          text: 'Grafico regression lineal Plátano'
       },
-      series: [{%for k, v in platano.items%}
+      series: [{%for k, v in platano.grafo.items%}
          {
          type: 'line',
          name: 'Regression Line',
@@ -589,7 +589,7 @@ function Grafo9() {
       title: {
          text: 'Grafico regression lineal Guíneo'
       },
-      series: [{%for k, v in guineo.items%}
+      series: [{%for k, v in guineo.grafo.items%}
          {
          type: 'line',
          name: 'Regression Line',
@@ -634,7 +634,7 @@ function Grafo10() {
       title: {
          text: 'Grafico regression lineal Cáfe'
       },
-      series: [{%for k, v in cafe.items%}
+      series: [{%for k, v in cafe.grafo.items%}
          {
          type: 'line',
          name: 'Regression Line',
@@ -679,7 +679,7 @@ function Grafo11() {
       title: {
          text: 'Grafico regression lineal Cacao'
       },
-      series: [{%for k, v in cacao.items%}
+      series: [{%for k, v in cacao.grafo.items%}
          {
          type: 'line',
          name: 'Regression Line',
@@ -1138,6 +1138,134 @@ function Grafo17(){
 <div id="grafo"></div>
 
 <div class="contenido">
+{% if user.is_authenticated %}
+{%for key, value in maiz.tabla.items%}
+<table>
+        <caption>{{key|unslugify}}</caption>
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Producción</th>
+                <th>Id</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {%for a in value%}
+            <tr>
+                <td>{{a.0}}</td>
+                <td>{{a.1}}</td>
+                <td>{{a.2}}</td>
+            </tr>
+            {%endfor%}
+        <tbody>
+    </table>
+ {%endfor%}
+{%for key, value in frijol.tabla.items%}
+<table>
+        <caption>{{key|unslugify}}</caption>
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Producción</th>
+                <th>Id</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {%for a in value%}
+            <tr>
+                <td>{{a.0}}</td>
+                <td>{{a.1}}</td>
+                <td>{{a.2}}</td>
+            </tr>
+            {%endfor%}
+        <tbody>
+    </table>
+ {%endfor%}
+ {%for key, value in platano.tabla.items%}
+<table>
+        <caption>{{key|unslugify}}</caption>
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Producción</th>
+                <th>Id</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {%for a in value%}
+            <tr>
+                <td>{{a.0}}</td>
+                <td>{{a.1}}</td>
+                <td>{{a.2}}</td>
+            </tr>
+            {%endfor%}
+        <tbody>
+    </table>
+ {%endfor%}
+ {%for key, value in guineo.tabla.items%}
+<table>
+        <caption>{{key|unslugify}}</caption>
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Producción</th>
+                <th>Id</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {%for a in value%}
+            <tr>
+                <td>{{a.0}}</td>
+                <td>{{a.1}}</td>
+                <td>{{a.2}}</td>
+            </tr>
+            {%endfor%}
+        <tbody>
+    </table>
+ {%endfor%}
+ {%for key, value in cafe.tabla.items%}
+<table>
+        <caption>{{key|unslugify}}</caption>
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Producción</th>
+                <th>Id</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {%for a in value%}
+            <tr>
+                <td>{{a.0}}</td>
+                <td>{{a.1}}</td>
+                <td>{{a.2}}</td>
+            </tr>
+            {%endfor%}
+        <tbody>
+    </table>
+ {%endfor%}
+ {%for key, value in cacao.tabla.items%}
+<table>
+        <caption>{{key|unslugify}}</caption>
+        <thead>
+            <tr>
+                <th>Area</th>
+                <th>Producción</th>
+                <th>Id</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {%for a in value%}
+            <tr>
+                <td>{{a.0}}</td>
+                <td>{{a.1}}</td>
+                <td>{{a.2}}</td>
+            </tr>
+            {%endfor%}
+        <tbody>
+    </table>
+ {%endfor%}
+{%endif%}
     <table>
         <caption>Los cultivos y la producción</caption>
         <thead>
