@@ -730,10 +730,10 @@ def regresion_linear(request, nidea):
     except:
         b = 0
     
-    y1 = m * 1 + b
-    y2 = m * 10 + b
-    lineal = [[1,round(y1,2)]]
-    lineal.append([10,round(y2,2)]) 
+    y1 = m * 0 + b
+    y2 = m * 15 + b
+    lineal = [[0,round(y1,2)]]
+    lineal.append([15,round(y2,2)]) 
     
     return lineal
     
@@ -780,32 +780,44 @@ def distribucion(request, items):
             rango1 += 1
         elif cantidad > 5.1 and cantidad <= 10:
             rango2 += 1
-        elif cantidad > 10.1 and cantidad <= 20:
+        elif cantidad > 10.1 and cantidad <= 15:
             rango3 += 1
-        elif cantidad > 20.1 and cantidad <= 30:
+        elif cantidad > 15.1 and cantidad <= 20:
             rango4 += 1  
-        elif cantidad > 30.1 and cantidad <= 40:
+        elif cantidad > 20.1 and cantidad <= 30:
             rango5 += 1
-        elif cantidad > 40.1 and cantidad <= 50:
+        elif cantidad > 30.1 and cantidad <= 40:
             rango6 += 1
-        elif cantidad > 50.1 and cantidad <= 60:
+        elif cantidad > 40.1 and cantidad <= 50:
             rango7 += 1
-        elif cantidad > 60.1 and cantidad <= 70:
+        elif cantidad > 50.1 and cantidad <= 60:
             rango8 += 1
-        elif cantidad > 70.1 and cantidad <= 80:
+        elif cantidad > 60.1 and cantidad <= 70:
             rango9 += 1
-        elif cantidad > 80.1 and cantidad <= 90:
+        elif cantidad > 70.1 and cantidad <= 80:
             rango10 += 1
-        elif cantidad > 90.1 and cantidad <= 100:
+        elif cantidad > 80.1:
             rango11 += 1
-        elif cantidad > 101:
-            rango12 += 1
-            
-    rangos = {'0.1 - 5':rango1,'6 - 10':rango2,'11 - 20':rango3,'21 - 30':rango4,
-              '31 - 40':rango5,'41 - 50':rango6,'51 - 60':rango7,'61 - 70':rango8,
-              '71 - 80':rango9,'81 - 90':rango10,'91 - 100':rango11,'mas de 101':rango12}
-
-    return rangos
+    suma_rangos = rango1 + rango2 + rango3 + rango4 + rango5 + rango6 + rango7 + rango8 + \
+                  rango9 + rango10 + rango11 + rango12
+           
+    rangos = {'0.1 - 5':int(saca_porcentajes(rango1,suma_rangos)),
+              '5.1 - 10':int(saca_porcentajes(rango2,suma_rangos)),
+              '10.1 - 15':int(saca_porcentajes(rango3,suma_rangos)),
+              '15.1 - 20':int(saca_porcentajes(rango4,suma_rangos)),
+              '20.1 - 30':int(saca_porcentajes(rango5,suma_rangos)),
+              '30.1 - 40':int(saca_porcentajes(rango6,suma_rangos)),
+              '40.1 - 50':int(saca_porcentajes(rango7,suma_rangos)),
+              '50.1 - 60':int(saca_porcentajes(rango8,suma_rangos)),
+              '60.1 - 70':int(saca_porcentajes(rango9,suma_rangos)),
+              '70.1 - 80':int(saca_porcentajes(rango10,suma_rangos)),
+              'más de 80.1':int(saca_porcentajes(rango11,suma_rangos))}
+              
+    llaves = ('0.1 - 5','5.1 - 10','10.1 - 15','15.1 - 20','20.1 - 30','30.1 - 40',
+              '40.1 - 50','50.1 - 60','60.1 - 70','70.1 - 80','más de 80.1')
+    
+    dict = {'rangos':rangos,'llaves':llaves}
+    return dict
 
 
 @session_required
