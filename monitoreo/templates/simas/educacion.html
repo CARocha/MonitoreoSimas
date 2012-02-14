@@ -154,7 +154,11 @@ Familia &raquo; Subindicador Educación
 <div id="mostrar">
     {% include "simas/menu.html" %}
 </div>
+
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a></div>
+
 <div class="contenido">
+<div id="modalidad">
     <table>
         <caption>Educación</caption>
         <thead>
@@ -180,6 +184,7 @@ Familia &raquo; Subindicador Educación
             {%endfor%}
         </tbody>
     </table>
+</div>
 </div>
 <div class="contenedor">
         <div class="grafico-title"></div>

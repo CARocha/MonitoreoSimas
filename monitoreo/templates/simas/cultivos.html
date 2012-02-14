@@ -1137,6 +1137,8 @@ function Grafo17(){
 
 <div id="grafo"></div>
 
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a></div>
+
 <div class="contenido">
 {% if user.is_authenticated %}
 {%for key, value in maiz.tabla.items%}
@@ -1266,6 +1268,7 @@ function Grafo17(){
     </table>
  {%endfor%}
 {%endif%}
+<div id="modalidad">
     <table>
         <caption>Los cultivos y la producción</caption>
         <thead>
@@ -1321,6 +1324,7 @@ function Grafo17(){
             </tr>
             {%endfor%}
         <tbody>
-    </table>    
+    </table> 
+</div>   
 <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
 {%endblock%}

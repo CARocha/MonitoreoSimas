@@ -8,7 +8,11 @@ Uso de Semilla
 <div id="mostrar">
      {% include "simas/menu.html" %}
 </div>
-<div class="contenido">   
+
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a></div>
+
+<div class="contenido">
+<div id="modalidad">   
     <table>
         <caption>Uso de semilla</caption>
         <thead>
@@ -38,6 +42,7 @@ Uso de Semilla
             {%endfor%}
         </tbody>
     </table>
+</div>
     <br></br><br></br>
 </div>
 

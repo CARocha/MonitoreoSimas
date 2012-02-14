@@ -636,3 +636,14 @@ table.tablesorter thead tr .headerSortDown {
     padding-left:25px !important;
 }
 
+.exportar{
+    display:block;
+    float:right;
+    width:90px;
+    height:27px;
+    background:url(../imagen/exportar.jpg) no-repeat;
+    background-position:top;
+}
+.exportar:hover{
+    background-position:bottom;
+}

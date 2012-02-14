@@ -17,7 +17,10 @@ Suelo &raquo; Subindicador Caracterización del Terrreno
     {% include "simas/menu.html" %}
 </div>
 
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a></div>
+
 <div class="contenido">
+<div id="modalidad">
     <table  width=500>
         <caption>¿Cúal es el tipo de textura del suelo?</caption>
         <thead>
@@ -157,6 +160,6 @@ Suelo &raquo; Subindicador Caracterización del Terrreno
             {%endfor%}
         </tbody>
     </table>
-
+</div>
 </div>
 {% endblock %}

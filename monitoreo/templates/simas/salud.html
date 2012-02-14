@@ -19,8 +19,11 @@ Familia &raquo; Subindicador Salud
 <div id="mostrar">
      {% include "simas/menu.html" %}
 </div>
+
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a></div>
    
 <div class="contenido">
+<div id="modalidad">
     <table>
     <caption>Tiene Buena Salud?</caption>
         <thead>
@@ -65,6 +68,7 @@ Familia &raquo; Subindicador Salud
             {%endfor%}
         </tbody>
     </table>
+</div>
 </div>
 
 <br></br>

@@ -64,9 +64,11 @@ Ahorro y Credito
     
 <div id="grafo"></div>
 
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a></div>
+
 <div class="contenido">
-   
-    <table id="table_example" class="tablesorter" style="font-size:90%">
+<div id="modalidad">
+    <table>
         <caption>Los Ahorro</caption>
         <thead>
             <tr>
@@ -120,6 +122,7 @@ Ahorro y Credito
             {%endfor%}
         </tr>
     </table>
+</div>
 </div>
 <script>
     // Hacemos que nos aplique cebra a las filas de la tabla y permita ordenarla
