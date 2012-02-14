@@ -20,3 +20,4 @@ settings_local.py
 *.tar.gz
 monitoreo/admin_tools/
 *.sql
+.ninjaproject/
