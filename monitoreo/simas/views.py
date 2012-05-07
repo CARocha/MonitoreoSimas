@@ -212,8 +212,16 @@ def generales(request):
             porcentaje = round(saca_porcentajes(conteo,total_encuesta),1)
             anio_lista.append([anio[1],conteo,porcentaje])
 
+    #Lista de las encuestas por organizacion
+    lista_encuesta = {}
+    for lista in Organizaciones.objects.all():
+        todo = Encuesta.objects.filter(organizacion=lista)
+
+        lista_encuesta[lista] = todo
+
     return render_to_response('simas/generales.html', locals(),
                                context_instance=RequestContext(request))
+
 #Comienzan las salidas del monitoreo simas
 
 #Tabla Educación

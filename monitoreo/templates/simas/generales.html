@@ -328,5 +328,29 @@ $(document).ready(function() {
     </table>
     <div id="container3"></div>
 <br></br>
+
+{% if request.user.is_superuser %}
+{% for k,v in lista_encuesta.items %}
+<table style="width:100%;">
+  <caption>{{k}}</caption>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Lugar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for celda in v %}
+            <tr>
+                <td>{{celda.nombre}}</td>
+                <td>{{celda.comunidad.municipio}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+{%endfor%}
+<br></br>
+{% endif %}
+
 </div>
 {% endblock %}
