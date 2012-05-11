@@ -336,7 +336,8 @@ $(document).ready(function() {
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Lugar</th>
+                <th>Departamento/Municipio</th>
+                <th>Comunidad</th>
             </tr>
         </thead>
         <tbody>
@@ -344,6 +345,7 @@ $(document).ready(function() {
             <tr>
                 <td>{{celda.nombre}}</td>
                 <td>{{celda.comunidad.municipio}}</td>
+                <td>{{celda.comunidad}}</td>
             </tr>
             {%endfor%}
         </tbody>
