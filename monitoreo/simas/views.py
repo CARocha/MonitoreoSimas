@@ -219,6 +219,12 @@ def generales(request):
 
         lista_encuesta[lista] = todo
 
+    #lista de recolectores con sus encuestas
+    lista_recolectores = {}
+    for lista in Recolector.objects.all():
+        nose = Encuesta.objects.filter(recolector=lista)
+        lista_recolectores[lista] = nose
+
     return render_to_response('simas/generales.html', locals(),
                                context_instance=RequestContext(request))
 

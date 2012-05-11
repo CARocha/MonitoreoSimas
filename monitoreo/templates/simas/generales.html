@@ -354,5 +354,28 @@ $(document).ready(function() {
 <br></br>
 {% endif %}
 
+<h1> Lista de recolectores con sus entrevistados</h1>
+
+{% if request.user.is_superuser %}
+{% for k,v in lista_recolectores.items %}
+<table style="width:100%;">
+  <caption>{{k}}</caption>
+        <thead>
+            <tr>
+                <th>Nombre Entrevistados</th>
+           </tr>
+        </thead>
+        <tbody>
+            {%for celda in v %}
+            <tr>
+                <td>{{celda.nombre}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+{%endfor%}
+<br></br>
+{% endif %}
+
 </div>
 {% endblock %}
