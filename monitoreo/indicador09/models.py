@@ -12,10 +12,11 @@ class Cultivos(models.Model):
     unidad = models.CharField(max_length=50)
 
     def __unicode__(self):
-        return self.nombre
+        return u'%s - %s' % (self.nombre,self.unidad)
 
     class Meta:
         verbose_name_plural = "CultivosFinca-Cultivos"
+        ordering = ['nombre']
         #app_label = "Indicador 09 cultivos en la finca"
         #db_table = "simas_cultivos"
 

@@ -31,10 +31,11 @@ class Rubros(models.Model):
     categoria = models.IntegerField(choices=CHOICE_CATEG, null = True, blank = True)
     
     def __unicode__(self):
-        return self.nombre
+        return u'%s - %s' % (self.nombre,self.unidad)
         
     class Meta:
         verbose_name_plural = "IngresoFamiliar-Rubros"
+        ordering = ['nombre']
         #app_label = "Indicador 13 Ingreso Familiar"
         #db_table = "simas_rubros"
 
