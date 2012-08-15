@@ -48,5 +48,11 @@ class CultivosFinca(models.Model):
         verbose_name_plural = "Cultivos en la finca"
         #app_label = "Indicador 09 cultivos en la finca"
         #db_table = "simas_cultivosfinca"
-
+    def nombre_encuestado(self):
+        nombre_encuesta = Encuesta.objects.filter(id=self.encuesta.id).values_list('nombre', 'id')
+        #return '<a href="%s">%s</a>' % (nombre_encuesta[0][1],nombre_encuesta[0][0])
+        return u'<a href="/admin/simas/encuesta/%s">%s</a>' % (nombre_encuesta[0][1],nombre_encuesta[0][0])
+        #return nombre_encuesta[0][1]
+    nombre_encuestado.allow_tags = True
+    nombre_encuestado.short_description = 'Encuestado'
 #-------------------------------------------------------------------------------

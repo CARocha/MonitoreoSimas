@@ -71,8 +71,6 @@ class Encuesta(models.Model):
         
     class Meta:
         verbose_name_plural = "Encuesta"
-        #app_label = "Encuesta"
-        #db_table = "simas_encuesta"
 
 ## Indicador 1: Familia
 
