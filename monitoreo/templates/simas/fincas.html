@@ -146,7 +146,7 @@ function Grafo5(){
         series: [{% for key, value in tabla.items %}
             {
                 name: '{{key|unslugify}}',
-                data: [{%if value.manzanas == None%} 0 {%else%} parseInt({{value.manzanas}}) {%endif%}],
+                data: [{%if value.manzanas == None%} 0 {%else%} {{value.manzanas}} {%endif%}],
                 dataLabels: {
                     enabled: true,
                     rotation: 0,
@@ -194,6 +194,7 @@ function Grafo5(){
 
 <div class="contenido">
 <div id="modalidad">
+
     <table>
         <caption>Uso de Tierra</caption>
         <thead>

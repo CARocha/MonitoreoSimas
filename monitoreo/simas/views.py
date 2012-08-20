@@ -437,7 +437,10 @@ def fincas(request):
         numero = query.count()
         porcentaje_num = saca_porcentajes(numero, num_familias)
         por_num += porcentaje_num
-        manzanas = query.aggregate(area = Sum('usotierra__area'))['area']
+        try:
+            manzanas = query.aggregate(area = Sum('usotierra__area'))['area']
+        except:
+            manzanas = 0
         porcentaje_mz = saca_porcentajes(manzanas, totales['manzanas'])
         por_man += porcentaje_mz
 
