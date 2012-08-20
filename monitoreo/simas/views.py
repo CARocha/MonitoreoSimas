@@ -441,8 +441,8 @@ def fincas(request):
         porcentaje_mz = saca_porcentajes(manzanas, totales['manzanas'])
         por_man += porcentaje_mz
 
-        tabla[key] = {'numero': numero, 'porcentaje_num': porcentaje_num,
-                      'manzanas': int(manzanas), 'porcentaje_mz': porcentaje_mz}
+        tabla[key] = {'numero': int(numero), 'porcentaje_num': int(porcentaje_num),
+                      'manzanas': int(manzanas), 'porcentaje_mz': int(porcentaje_mz)}
 
     totales['porcentaje_numero'] = por_num
     totales['porcentaje_manzana'] = round(por_man)
