@@ -411,7 +411,7 @@ def fincas(request):
         try:
             total_manzana += man
         except:
-            total_manzana = 0
+            pass
 
     totales['numero'] = suma
     totales['manzanas'] = round(total_manzana,0)
@@ -441,11 +441,13 @@ def fincas(request):
         porcentaje_mz = saca_porcentajes(manzanas, totales['manzanas'])
         por_man += porcentaje_mz
 
-        tabla[key] = {'numero': int(numero), 'porcentaje_num': int(porcentaje_num),
-                      'manzanas': int(manzanas), 'porcentaje_mz': int(porcentaje_mz)}
+        tabla[key] = {'numero': int(numero), 
+                      'porcentaje_num': int(porcentaje_num),
+                      'manzanas': manzanas, 
+                      'porcentaje_mz': int(porcentaje_mz)}
 
     totales['porcentaje_numero'] = por_num
-    totales['porcentaje_manzana'] = round(por_man)
+    totales['porcentaje_manzana'] = round(por_man,2)
     #calculando los promedios
     lista = []
     cero = 0
