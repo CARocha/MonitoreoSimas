@@ -1,8 +1,8 @@
-import os
+#import os
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.views.generic.simple import direct_to_template
-from models import Encuesta
+#from models import Encuesta
 
 urlpatterns = patterns('monitoreo.simas.views',
     (r'^index/$', 'inicio'),
