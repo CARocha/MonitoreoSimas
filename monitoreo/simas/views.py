@@ -130,7 +130,8 @@ def inicio(request):
             variablerandom = random.randrange(10,250)
             print variablerandom
             request.session['crce']  = variablerandom
-           
+        else:
+            centinela = 0   
            
     else:
         form = MonitoreoForm()
