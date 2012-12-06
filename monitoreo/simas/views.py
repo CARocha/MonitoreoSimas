@@ -7,6 +7,7 @@ from django.views.generic.simple import direct_to_template
 from django.utils import simplejson
 from django.db.models import Sum, Count, Avg
 from django.core.exceptions import ViewDoesNotExist
+import random
 
 from monitoreo.simas.models import *
 from monitoreo.indicador01.models import *
@@ -126,6 +127,10 @@ def inicio(request):
             mensaje = "Todas las variables estan correctamente :)"
             request.session['activo'] = True
             centinela = 1
+            variablerandom = random.randrange(10,250)
+            print variablerandom
+            request.session['crce']  = variablerandom
+           
            
     else:
         form = MonitoreoForm()
