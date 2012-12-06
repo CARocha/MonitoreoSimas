@@ -110,7 +110,7 @@ def _queryset_filtrado(request):
 # Comienza la parte del index
 
 def inicio(request):
-    centinela = 0
+    #centinela = 0
     if request.method == 'POST':
         mensaje = None
         form = MonitoreoForm(request.POST)
