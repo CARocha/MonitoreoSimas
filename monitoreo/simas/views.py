@@ -126,20 +126,23 @@ def inicio(request):
             mensaje = "Todas las variables estan correctamente :)"
             request.session['activo'] = True
             centinela = 1
+           
     else:
-#        del request.session['fecha']
-#        del request.session['departamento']
-#        del request.session['organizacion']
-#        del request.session['municipio']
-#        del request.session['comunidad']
-#        del request.session['socio']
-#        del request.session['desde']
-#        del request.session['duenio']
         form = MonitoreoForm()
         mensaje = "Existen alguno errores"
         centinela = 0
-    dict = {'form': form,'user': request.user,'centinela':centinela}
-    return render_to_response('simas/inicio.html', dict,
+        if 'fecha' in request.session:
+            del request.session['fecha']
+            del request.session['departamento']
+            del request.session['organizacion']
+            del request.session['municipio']
+            del request.session['comunidad']
+            del request.session['socio']
+            del request.session['desde']
+            del request.session['duenio']
+
+    #dict = {'form': form,'user': request.user,'centinela':centinela}
+    return render_to_response('simas/inicio.html', locals(),
                               context_instance=RequestContext(request))
 
 #-------------------------------------------------------------------------------
