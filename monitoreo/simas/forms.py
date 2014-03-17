@@ -9,6 +9,12 @@ CHOICE_OPCION_F = (('','----'),(1,'Si'),(2,'No'))
 CHOICE_DESDE_F = (('','----'),(1,"Menos de 5 año"),(2,"Mas de 5 años"))
 CHOICE_DUENO_F = (('','----'),(1,"Hombre"),(2,"Mujer"),(3,"Mancomunado"),(4,"Parientes"),(5,"Colectivo"),(6,"No hay"))
 
+def fecha_choice():
+    years = []
+    for en in Encuesta.objects.order_by('year').values_list('year', flat=True):
+        years.append((en,en))
+    return list(set(years))
+
 def departamentos():   
     foo = Encuesta.objects.all().order_by('comunidad__municipio__departamento__nombre').distinct().values_list('comunidad__municipio__departamento__id', flat=True)
     return Departamento.objects.filter(id__in=foo)

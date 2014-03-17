@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+ Hoja spss
+<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador<span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a> </div>
+{% endblock %}
+
+{% block contenido %}
+<div id="mostrar">
+     {% include "simas/menu.html" %}
+</div>
+    <table>
+        <tr>
+            {% for encabezado in nombres %}
+                <th>{{encabezado}}</th>
+            {% endfor %}
+        </tr>
+    {% for obj in resultados  %}
+    <tr>
+        {% for data in obj %}
+            <td>{{data}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock contenido %}
+
+ 

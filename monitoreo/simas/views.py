@@ -2218,3 +2218,137 @@ def calcular_negativos(suma, numero, porcentaje = True):
     else:
         return numero - positivos
 
+#aca va ir la parte donde saldra las csv filtrados
+#from django.db.models.loading import get_model
+#import unicodecsv
+
+# @session_required
+# def volcar_csv(request):
+#     qs = _queryset_filtrado(request)
+#     opts = qs.model._meta
+#     print dir(qs.model)
+#     # for obj in qs.model.manejosuelo_set:
+#     #     print obj
+#     response = HttpResponse(mimetype='text/csv')
+#     response['Content-Disposition'] = 'attachment;filename=export.csv'
+#     writer = unicodecsv.writer(response, encoding='utf-8')
+#     field_names = [field.name for field in opts.fields]
+#     #print field_names
+#     writer.writerow(field_names)
+
+#     # escribimos las filas
+#     for obj in qs:
+#         writer.writerow([getattr(obj, field) for field in field_names])
+#     return response
+@session_required
+
+def volcar_xls(request):
+    encuestas = _queryset_filtrado(request)
+
+    #[Educacion,Salud,Energia,Cocina,Agua,OrganizacionGremial,OrganizacionComunitaria,
+    #UsoTierra,ExistenciaArboles,Reforestacion,AnimalesFinca,CultivosFinca,OpcionesManejo,
+    #Semilla,Suelo,ManejoSuelo,IngresoFamiliar,OtrosIngresos,TipoCasa,DetalleCasa,
+    #Propiedades,Herramientas,Transporte,Ahorro,Credito,Seguridad,Vulnerable,Riesgos,
+    #Tenencia]
+    for encuesta in encuestas:
+        filas.append(encuesta.fecha)
+        filas.append(encuesta.nombre)
+        filas.append(encuesta.cedula)
+        filas.append(encuesta.sexo)
+        filas.append(encuesta.finca)
+        filas.append(encuesta.comunidad.municipio.departamento)
+        filas.append(encuesta.comunidad.municipio)
+        filas.append(encuesta.comunidad)
+        filas.append(encuesta.organizacion)
+        educacion = encuesta.educacion_set.all()
+        for obj in educacion:
+            filas.append()
+        salud = encuesta.salud_set.all()
+        for obj in salud:
+            filas.append()
+        energia = encuesta.energia_set.all()
+        for obj in energia:
+            filas.append()
+        cocina = encuesta.cocina_set.all()
+        for obj in cocina:
+           filas.append()
+        agua = encuesta.agua_set.all()
+        for obj in agua:
+            filas.append()
+        gremial = encuesta.organizaciongremial_set.all()
+        for obj in gremial:
+            filas.append()
+        comunitaria = encuesta.organizacioncomunitaria_set.all()
+        for obj in comunitaria:
+            filas.append()
+        usotierra = encuesta.usotierra_set.all()
+        for obj in usotierra:
+            filas.append()
+        arboles = encuesta.existenciaarboles_set.all()
+        for obj in arboles:
+            filas.append()
+        reforestacion = encuesta.reforestacion_set.all()
+        for obj in reforestacion:
+            filas.append()
+        animales = encuesta.animalesfinca_set.all()
+        for obj in animales:
+            filas.append()
+        cultivos = encuesta.cultivosfinca_set.all()
+        for obj in cultivos:
+            filas.append()
+        manejo = encuesta.opcionesmanejo_set.all()
+        for obj in manejo:
+            filas.append()
+        semilla = encuesta.semilla_set.all()
+        for obj in semilla:
+            filas.append()
+        suelo = encuesta.suelo_set.all()
+        for obj in suelo:
+            filas.append()
+        manejosuelo = encuesta.manejosuelo_set.all()
+        for obj in manejosuelo:
+            filas.append()
+        ingreso = encuesta.ingresofamiliar_set.all()
+        for obj in ingreso:
+            filas.append()
+        otrosingreso = encuesta.otrosingresos_set.all()
+        for obj in otrosingreso:
+            filas.append()
+        casa = encuesta.tipocasa_set.all()
+        for obj in casa:
+            filas.append()
+        detalle = encuesta.detallecasa_set.all()
+        for obj in detalle:
+            filas.append()
+        propiedades = encuesta.propiedades_set.all()
+        for obj in propiedades:
+            filas.append()
+        herramientas = encuesta.herramientas_set.all()
+        for obj in herramientas:
+            filas.append()
+        transporte = encuesta.transporte_set.all()
+        for obj in transporte:
+            filas.append()
+        ahorro = encuesta.ahorro_set.all()
+        for obj in ahorro:
+            filas.append()
+        credito = encuesta.credito_set.all()
+        for obj in credito:
+            filas.append()
+        seguridad = encuesta.seguridad_set.all()
+        for obj in seguridad:
+            filas.append()
+        vulnerable = encuesta.vulnerable_set.all()
+        for obj in vulnerable:
+            filas.append()
+        riesgos = encuesta.riesgos_set.all()
+        for obj in riesgos:
+            filas.append()
+        tenencia = encuesta.tenencia_set.all()
+        for obj in tenencia:
+            filas.append()
+    
+    return render_to_response('simas/spss.html', {'resultados':filas,
+                                'num_familias': len(filas),
+                                'nombres':field_names}, 
+                              context_instance=RequestContext(request))
