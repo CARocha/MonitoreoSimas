@@ -28,3 +28,35 @@ class MonitoreoForm(forms.Form):
     socio = forms.ChoiceField(choices = CHOICE_OPCION_F , required=False, label="Socio Gremial")
     desde = forms.ChoiceField(choices = CHOICE_DESDE_F , required=False)
     dueno = forms.ChoiceField(label = 'Dueño', choices = CHOICE_DUENO_F , required=False)
+
+#modelos = [Educacion,Salud,Energia,Cocina,Agua,OrganizacionGremial,OrganizacionComunitaria,
+#           UsoTierra,ExistenciaArboles,Reforestacion,AnimalesFinca,CultivosFinca,OpcionesManejo,
+#           Semilla,Suelo,ManejoSuelo,IngresoFamiliar,OtrosIngresos,TipoCasa,DetalleCasa,
+#           Propiedades,Herramientas,Transporte,Ahorro,Credito,Seguridad,Vulnerable,Riesgos,
+#           Tenencia]
+modelos = (
+        ('1', 'Educacion'),('2', 'Salud'),('3', 'Energia'),
+        ('4', 'Cocina'),('5', 'Agua'),('6', 'OrganizacionGremial'),
+        ('7', 'OrganizacionComunitaria'),('8', 'UsoTierra'),
+        ('9', 'ExistenciaArboles'),('10', 'Reforestacion'),
+        ('11', 'AnimalesFinca'),('12', 'CultivosFinca'),
+        ('13', 'OpcionesManejo'),('14', 'Semilla'),('15', 'Suelo'),
+        ('16', 'ManejoSuelo'),('17', 'IngresoFamiliar'),
+        ('18', 'OtrosIngresos'),('19', 'TipoCasa'),('20', 'DetalleCasa'),
+        ('21', 'Propiedades'),('22', 'Herramientas'),('23', 'Transporte'),
+        ('24', 'Ahorro'),('25', 'Credito'),('26', 'Seguridad'),('27', 'Vulnerable'),
+        ('28', 'Riesgos'),('29', 'Tenencia'),
+    )
+
+class ExportarMonitoreoForm(forms.Form):
+    fecha2 = forms.MultipleChoiceField(choices=ANOS_CHOICES, label=u'Fecha')
+    departamento2 = forms.ModelMultipleChoiceField(queryset=departamentos(), required=False, 
+                                                label=u'Departamentos')
+    organizacion2 = forms.ModelMultipleChoiceField(queryset=Organizaciones.objects.all().order_by('nombre'), 
+                                                required=False, label=u'Organización')
+    municipio2 = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all().order_by('nombre'), 
+                                                required=False, label=u'Municipio')
+    comunidad2 = forms.ModelMultipleChoiceField(queryset=Comunidad.objects.all(), 
+                                                required=False, label=u'Comunidad')
+    dueno2 = forms.ChoiceField(label = u'Dueño', choices = CHOICE_DUENO_F , 
+                                                required=False)

@@ -32,7 +32,7 @@ from monitoreo.indicador20.models import *
 from decorators import session_required
 from datetime import date
 import datetime
-from forms import *
+from monitoreo.simas.forms import *
 from monitoreo.lugar.models import *
 from decimal import Decimal
 from utils import grafos
@@ -128,7 +128,6 @@ def inicio(request):
             request.session['activo'] = True
             centinela = 1
             variablerandom = random.randrange(10,250)
-            print variablerandom
             request.session['crce']  = variablerandom
         else:
             centinela = 0   
@@ -2061,196 +2060,73 @@ def tierra(request):
     return render_to_response('simas/tierra.html',
                               {'num_familias':familias},
                               context_instance=RequestContext(request))
-#TODO: completar esto
-VALID_VIEWS = {
-        'educacion': educacion,
-        'salud': salud,
-        'luz':luz,
-        'agua': agua,
-        'fincas':fincas,
-        'arboles': arboles,
-        'animales': animales,
-        'cultivos': cultivos,
-        'ingresos': ingresos,
-        'equipos': equipos,
-        'riesgo': riesgo,
-        'tierra': tierra,
-        'suelo': suelo,
-        'suelos': suelos,
-        'familia': familia,
-        'gremial': gremial,
-        'tenencias': tenencias,
-        'usosemilla': usosemilla,
-        'vulnerable': vulnerable,
-        'manejosuelo': manejosuelo,
-        'comunitario' : comunitario,
-        'organizacion': organizacion,
-        'mitigariesgos': mitigariesgos,
-        'ahorro_credito': ahorro_credito,
-        'opcionesmanejo': opcionesmanejo,
-        'seguridad': seguridad_alimentaria,
-        'general': generales,
-        #me quedo tuani el caminito :)
-            }
 
-# Vistas para obtener los municipios, comunidades, etc..
+##Para descargar xls un poco mas dinamico por modelo
+def _queryset_filtrado_descarga(request):
+    params = {}
+    if 'fecha2' in request.session:
+        params['year__in'] = request.session['fecha2']
 
-def get_munis(request):
-    '''Metodo para obtener los municipios via Ajax segun los departamentos selectos'''
-    ids = request.GET.get('ids', '')
-    dicc = {}
-    resultado = []
-    if ids:
-        lista = ids.split(',')
-        for id in lista:
-            try:
-                departamento = Departamento.objects.get(pk=id)
-                municipios = Municipio.objects.filter(departamento__id=departamento.pk).order_by('nombre')
-                lista1 = []
-                for municipio in municipios:
-                    muni = {}
-                    muni['id'] = municipio.pk
-                    muni['nombre'] = municipio.nombre
-                    lista1.append(muni)
-                    dicc[departamento.nombre] = lista1
-            except:
-                pass
-
-    #filtrar segun la organizacion seleccionada
-    org_ids = request.GET.get('org_ids', '')
-    if org_ids:
-        lista = org_ids.split(',')
-        municipios = [encuesta.municipio for encuesta in Encuesta.objects.filter(organizacion__id__in=lista)]
-        #crear los keys en el dicc para evitar KeyError
-        for municipio in municipios:
-            dicc[municipio.departamento.nombre] = []
-
-        #agrupar municipios por departamento padre
-        for municipio in municipios:
-            muni = {'id': municipio.id, 'nombre': municipio.nombre}
-            if not muni in dicc[municipio.departamento.nombre]:
-                dicc[municipio.departamento.nombre].append(muni)
-
-    resultado.append(dicc)
-
-    return HttpResponse(simplejson.dumps(resultado), mimetype='application/json')
-
-def get_comunies(request):
-    ids = request.GET.get('ids', '')
-    if ids:
-        lista = ids.split(',')
-    results = []
-    comunies = Comunidad.objects.filter(municipio__pk__in=lista).order_by('nombre').values('id', 'nombre')
-
-    return HttpResponse(simplejson.dumps(list(comunies)), mimetype='application/json')
-
-def get_organi(request):
-    ids = request.GET.get('ids', '')
-    if ids:
-        lista = ids.split(',')
-#    municipios = Municipio.objects.filter(departamento__pk__in=lista)
-#    orgs_id_list = [encuesta.organizacion.all().values_list('id', flat=True) for encuesta in Encuesta.objects.filter(comunidad__municipio__in=municipios)]
-#    print 'MMMMMMMMM'
-#    print orgs_id_list
-#    organizaciones = Organizaciones.objects.filter(pk__in=orgs_id_list).order_by('nombre').values('id', 'nombre')
-    organizaciones = Organizaciones.objects.filter(departamento__id__in = lista).order_by('nombre').values('id', 'nombre')
-
-
-    return HttpResponse(simplejson.dumps(list(organizaciones)), mimetype='application/json')
-
-######viejo codigo#############################
-
-def get_municipios(request, departamento):
-    municipios = Municipio.objects.filter(departamento = departamento)
-    lista = [(municipio.id, municipio.nombre) for municipio in municipios]
-    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
-
-def get_organizacion(request, departamento):
-    organizaciones = Organizaciones.objects.filter(departamento = departamento)
-    lista = [(organizacion.id, organizacion.nombre) for organizacion in organizaciones]
-    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
-
-def get_comunidad(request, municipio):
-    comunidades = Comunidad.objects.filter(municipio = municipio )
-    lista = [(comunidad.id, comunidad.nombre) for comunidad in comunidades]
-    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
-
-# Funciones utilitarias para cualquier proposito
-
-def saca_porcentajes(values):
-    """sumamos los valores y devolvemos una lista con su porcentaje"""
-    total = sum(values)
-    valores_cero = [] #lista para anotar los indices en los que da cero el porcentaje
-    for i in range(len(values)):
-        porcentaje = (float(values[i])/total)*100
-        values[i] = "%.2f" % porcentaje + '%'
-    return values
-
-def saca_porcentajes(dato, total, formato=True):
-    '''Si formato es true devuelve float caso contrario es cadena'''
-    if dato != None:
-        try:
-            porcentaje = (dato/float(total)) * 100 if total != None or total != 0 else 0
-        except:
-            return 0
-        if formato:
-            return porcentaje
+    if request.session['departamento2']:
+        if not request.session['municipio2']:
+            municipios = Municipio.objects.filter(departamento__in=request.session['departamento2'])
+            params['comunidad__municipio__in'] = municipios
         else:
-            return '%.2f' % porcentaje
-    else:
-        return 0
+            if request.session['comunidad2']:
+                params['comunidad__in'] = request.session['comunidad2']
+            else:
+                params['comunidad__municipio__in'] = request.session['municipio2']
 
-def calcular_positivos(suma, numero, porcentaje=True):
-    '''Retorna el porcentaje de positivos'''
-    try:
-        positivos = (numero * 2) - suma
-        if porcentaje:
-            return '%.2f' % saca_porcentajes(positivos, numero)
-        else:
-            return positivos
-    except:
-        return 0
+    if request.session['organizacion2']:
+        params['organizacion__in'] = request.session['organizacion2']
 
-def calcular_negativos(suma, numero, porcentaje = True):
-    positivos = calcular_positivos(suma, numero, porcentaje)
-    if porcentaje:
-        return 100 - float(positivos)
-    else:
-        return numero - positivos
 
-#aca va ir la parte donde saldra las csv filtrados
-#from django.db.models.loading import get_model
-#import unicodecsv
+    if 'duenio2' in  request.session:
+        params['tenencia__dueno'] = request.session['duenio2']
 
-# @session_required
-# def volcar_csv(request):
-#     qs = _queryset_filtrado(request)
-#     opts = qs.model._meta
-#     print dir(qs.model)
-#     # for obj in qs.model.manejosuelo_set:
-#     #     print obj
-#     response = HttpResponse(mimetype='text/csv')
-#     response['Content-Disposition'] = 'attachment;filename=export.csv'
-#     writer = unicodecsv.writer(response, encoding='utf-8')
-#     field_names = [field.name for field in opts.fields]
-#     #print field_names
-#     writer.writerow(field_names)
+    unvalid_keys = []
+    for key in params:
+        if not params[key]:
+            unvalid_keys.append(key)
 
-#     # escribimos las filas
-#     for obj in qs:
-#         writer.writerow([getattr(obj, field) for field in field_names])
-#     return response
+    for key in unvalid_keys:
+        del params[key]
+
+    return Encuesta.objects.filter(**params)
+
+
 @session_required
+def formulario_consulta_xls(request):
+    if request.method == 'POST':
+        form2 = ExportarMonitoreoForm(request.POST)
+        if form2.is_valid():
+            request.session['fecha2'] = form2.cleaned_data['fecha2']
+            request.session['departamento2'] = form2.cleaned_data['departamento2']
+            request.session['organizacion2'] = form2.cleaned_data['organizacion2']
+            request.session['municipio2'] = form2.cleaned_data['municipio2']
+            request.session['comunidad2'] = form2.cleaned_data['comunidad2']
+            request.session['duenio2'] = form2.cleaned_data['dueno2']
+            centinela = 1
+    else:
+        form2 = ExportarMonitoreoForm()
+        centinela = 0
+    return render_to_response('index_xls.html', locals(),
+                              context_instance=RequestContext(request))
 
+
+
+@session_required
 def volcar_xls(request):
-    encuestas = _queryset_filtrado(request)
+    encuestas = _queryset_filtrado_descarga(request)
 
     #[Educacion,Salud,Energia,Cocina,Agua,OrganizacionGremial,OrganizacionComunitaria,
     #UsoTierra,ExistenciaArboles,Reforestacion,AnimalesFinca,CultivosFinca,OpcionesManejo,
     #Semilla,Suelo,ManejoSuelo,IngresoFamiliar,OtrosIngresos,TipoCasa,DetalleCasa,
     #Propiedades,Herramientas,Transporte,Ahorro,Credito,Seguridad,Vulnerable,Riesgos,
     #Tenencia]
+    resultados = []
     for encuesta in encuestas:
+        filas = []
         filas.append(encuesta.fecha)
         filas.append(encuesta.nombre)
         filas.append(encuesta.cedula)
@@ -2446,7 +2322,199 @@ def volcar_xls(request):
             filas.append(obj.solar)
             filas.append(obj.dueno)
     
-    return render_to_response('simas/spss.html', {'resultados':filas,
-                                'num_familias': len(filas),
-                                }, 
-                              context_instance=RequestContext(request))
+        resultados.append(filas)
+
+    dict = {'resultados':resultados}
+    return dict
+
+def spss_xls(request):
+    dict = volcar_xls(request)
+    return write_xls('simas/spss.html', dict, 'spss.xls')
+
+def write_xls(template_src, context_dict, filename):
+    response = render_to_response(template_src, context_dict)
+    response['Content-Disposition'] = 'attachment; filename='+filename
+    response['Content-Type'] = 'application/vnd.ms-excel'
+    response['Charset']='UTF-8'
+    return response 
+
+#TODO: completar esto
+VALID_VIEWS = {
+        'educacion': educacion,
+        'salud': salud,
+        'luz':luz,
+        'agua': agua,
+        'fincas':fincas,
+        'arboles': arboles,
+        'animales': animales,
+        'cultivos': cultivos,
+        'ingresos': ingresos,
+        'equipos': equipos,
+        'riesgo': riesgo,
+        'tierra': tierra,
+        'suelo': suelo,
+        'suelos': suelos,
+        'familia': familia,
+        'gremial': gremial,
+        'tenencias': tenencias,
+        'usosemilla': usosemilla,
+        'vulnerable': vulnerable,
+        'manejosuelo': manejosuelo,
+        'comunitario' : comunitario,
+        'organizacion': organizacion,
+        'mitigariesgos': mitigariesgos,
+        'ahorro_credito': ahorro_credito,
+        'opcionesmanejo': opcionesmanejo,
+        'seguridad': seguridad_alimentaria,
+        'general': generales,
+        'consulta_xls':formulario_consulta_xls,
+        'exportar':spss_xls,
+            }
+
+# Vistas para obtener los municipios, comunidades, etc..
+
+def get_munis(request):
+    '''Metodo para obtener los municipios via Ajax segun los departamentos selectos'''
+    ids = request.GET.get('ids', '')
+    dicc = {}
+    resultado = []
+    if ids:
+        lista = ids.split(',')
+        for id in lista:
+            try:
+                departamento = Departamento.objects.get(pk=id)
+                municipios = Municipio.objects.filter(departamento__id=departamento.pk).order_by('nombre')
+                lista1 = []
+                for municipio in municipios:
+                    muni = {}
+                    muni['id'] = municipio.pk
+                    muni['nombre'] = municipio.nombre
+                    lista1.append(muni)
+                    dicc[departamento.nombre] = lista1
+            except:
+                pass
+
+    #filtrar segun la organizacion seleccionada
+    org_ids = request.GET.get('org_ids', '')
+    if org_ids:
+        lista = org_ids.split(',')
+        municipios = [encuesta.municipio for encuesta in Encuesta.objects.filter(organizacion__id__in=lista)]
+        #crear los keys en el dicc para evitar KeyError
+        for municipio in municipios:
+            dicc[municipio.departamento.nombre] = []
+
+        #agrupar municipios por departamento padre
+        for municipio in municipios:
+            muni = {'id': municipio.id, 'nombre': municipio.nombre}
+            if not muni in dicc[municipio.departamento.nombre]:
+                dicc[municipio.departamento.nombre].append(muni)
+
+    resultado.append(dicc)
+
+    return HttpResponse(simplejson.dumps(resultado), mimetype='application/json')
+
+def get_comunies(request):
+    ids = request.GET.get('ids', '')
+    if ids:
+        lista = ids.split(',')
+    results = []
+    comunies = Comunidad.objects.filter(municipio__pk__in=lista).order_by('nombre').values('id', 'nombre')
+
+    return HttpResponse(simplejson.dumps(list(comunies)), mimetype='application/json')
+
+def get_organi(request):
+    ids = request.GET.get('ids', '')
+    if ids:
+        lista = ids.split(',')
+#    municipios = Municipio.objects.filter(departamento__pk__in=lista)
+#    orgs_id_list = [encuesta.organizacion.all().values_list('id', flat=True) for encuesta in Encuesta.objects.filter(comunidad__municipio__in=municipios)]
+#    print 'MMMMMMMMM'
+#    print orgs_id_list
+#    organizaciones = Organizaciones.objects.filter(pk__in=orgs_id_list).order_by('nombre').values('id', 'nombre')
+    organizaciones = Organizaciones.objects.filter(departamento__id__in = lista).order_by('nombre').values('id', 'nombre')
+
+
+    return HttpResponse(simplejson.dumps(list(organizaciones)), mimetype='application/json')
+
+######viejo codigo#############################
+
+def get_municipios(request, departamento):
+    municipios = Municipio.objects.filter(departamento = departamento)
+    lista = [(municipio.id, municipio.nombre) for municipio in municipios]
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+
+def get_organizacion(request, departamento):
+    organizaciones = Organizaciones.objects.filter(departamento = departamento)
+    lista = [(organizacion.id, organizacion.nombre) for organizacion in organizaciones]
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+
+def get_comunidad(request, municipio):
+    comunidades = Comunidad.objects.filter(municipio = municipio )
+    lista = [(comunidad.id, comunidad.nombre) for comunidad in comunidades]
+    return HttpResponse(simplejson.dumps(lista), mimetype='application/javascript')
+
+# Funciones utilitarias para cualquier proposito
+
+def saca_porcentajes(values):
+    """sumamos los valores y devolvemos una lista con su porcentaje"""
+    total = sum(values)
+    valores_cero = [] #lista para anotar los indices en los que da cero el porcentaje
+    for i in range(len(values)):
+        porcentaje = (float(values[i])/total)*100
+        values[i] = "%.2f" % porcentaje + '%'
+    return values
+
+def saca_porcentajes(dato, total, formato=True):
+    '''Si formato es true devuelve float caso contrario es cadena'''
+    if dato != None:
+        try:
+            porcentaje = (dato/float(total)) * 100 if total != None or total != 0 else 0
+        except:
+            return 0
+        if formato:
+            return porcentaje
+        else:
+            return '%.2f' % porcentaje
+    else:
+        return 0
+
+def calcular_positivos(suma, numero, porcentaje=True):
+    '''Retorna el porcentaje de positivos'''
+    try:
+        positivos = (numero * 2) - suma
+        if porcentaje:
+            return '%.2f' % saca_porcentajes(positivos, numero)
+        else:
+            return positivos
+    except:
+        return 0
+
+def calcular_negativos(suma, numero, porcentaje = True):
+    positivos = calcular_positivos(suma, numero, porcentaje)
+    if porcentaje:
+        return 100 - float(positivos)
+    else:
+        return numero - positivos
+
+#aca va ir la parte donde saldra las csv filtrados
+#from django.db.models.loading import get_model
+#import unicodecsv
+
+# @session_required
+# def volcar_csv(request):
+#     qs = _queryset_filtrado(request)
+#     opts = qs.model._meta
+#     print dir(qs.model)
+#     # for obj in qs.model.manejosuelo_set:
+#     #     print obj
+#     response = HttpResponse(mimetype='text/csv')
+#     response['Content-Disposition'] = 'attachment;filename=export.csv'
+#     writer = unicodecsv.writer(response, encoding='utf-8')
+#     field_names = [field.name for field in opts.fields]
+#     #print field_names
+#     writer.writerow(field_names)
+
+#     # escribimos las filas
+#     for obj in qs:
+#         writer.writerow([getattr(obj, field) for field in field_names])
+#     return response

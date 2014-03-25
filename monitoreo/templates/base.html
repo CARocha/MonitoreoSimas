@@ -48,6 +48,9 @@
                     <div class="entrar_link">
                         <img src="/archivos/imagen/entrar.png" alt="Entrar">
                         <a href="/admin/">Entrar</a> | <a href="/archivos/manualdeUsuarioMonitoreoSIMAS.pdf">Descargar Manual de Usuario</a>
+                        {% if user.is_authenticated %}
+                            | <a href="/consulta_xls/">Exporta excel BD</a>
+                        {% endif %}
                     </div>
                     <div class="clean"></div>
                 </div>
