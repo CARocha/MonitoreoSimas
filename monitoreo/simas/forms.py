@@ -20,7 +20,7 @@ def departamentos():
     return Departamento.objects.filter(id__in=foo)
 
 class MonitoreoForm(forms.Form):
-    fecha = forms.MultipleChoiceField(choices=ANOS_CHOICES)
+    fecha = forms.MultipleChoiceField(choices=fecha_choice())
     departamento = forms.ModelMultipleChoiceField(queryset=departamentos(), required=False, label=u'Departamentos')
     organizacion = forms.ModelMultipleChoiceField(queryset=Organizaciones.objects.all().order_by('nombre'), required=False, label=u'Organización')
     municipio = forms.ModelMultipleChoiceField(queryset=Municipio.objects.all().order_by('nombre'), required=False)
