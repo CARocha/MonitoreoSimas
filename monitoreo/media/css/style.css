@@ -647,3 +647,14 @@ table.tablesorter thead tr .headerSortDown {
 .exportar:hover{
     background-position:bottom;
 }
+.exportar2{
+    display:block;
+    float:right;
+    width:90px;
+    height:27px;
+    background:url(../imagen/exportspss.png) no-repeat;
+    background-position:top;
+}
+.exportar2:hover{
+    background-position:bottom;
+}
