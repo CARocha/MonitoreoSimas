@@ -1,19 +1,293 @@
-{% extends "base.html" %}
-
-{% block titulo %}
- Hoja spss
-<div class="cambiar_indicador"><a href="#" id="mas">Cambiar Indicador<span id="estado" class="estadouno"><img src="/archivos/imagen/menos.png"/></span></a> </div>
-{% endblock %}
-
 {% block contenido %}
-<div id="mostrar">
-     {% include "simas/menu.html" %}
-</div>
     <table>
         <tr>
-            {% for encabezado in nombres %}
-                <th>{{encabezado}}</th>
-            {% endfor %}
+            <!-- datos generales -->
+            <th>Fecha</th>
+            <th>Nombre persona</th>
+            <th>Cedula</th>
+            <th>Sexo</th>
+            <th>Finca</th>
+            <th>Departamento</th>
+            <th>Municipio</th>
+            <th>Comunidad</th>
+            <th>Organizacion</th>
+            <!-- educacion -->
+            {% if ayuda == '1' %}
+                {% for obj in tiposexo %}
+                    <th>Sexo</th>
+                    <th>Total</th>
+                    <th>No saben leer</th>
+                    <th>Primaria incompleta</th>
+                    <th>Primaria completa</th>
+                    <th>Secundaria incompleta</th>
+                    <th>Bachiller</th>
+                    <th>Universitario</th>
+                    <th>Esta fuera de la comunidad</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Salud -->
+            {% if ayuda == '2' %}
+                {% for obj in tiposexo %}
+                    <th>Sexo</th>
+                    <th>Buena salud</th>
+                    <th>Salud delicada</th>
+                    <th>Enfermedades cronicas</th>
+                    <th>Visita centro de salud</th>
+                    <th>Visita medico privado</th>
+                    <th>Visita medico naturista</th>
+                    <th>Se automedica</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Energia-->
+            {% if ayuda == '3' %}
+                {% for obj in  PEnergia%}
+                    <th>Preguntas</th>
+                    <th>Respuestas</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Cocina -->
+            {% if ayuda == '4' %}
+                <th>Tipo cosina que utiliza</th>
+            {% endif %}
+            
+            <!-- agua -->
+            {% if ayuda == '5' %}
+                <th>Fuente de agua</th>
+                <th>Trata el agua</th>
+                <th>Dias disponible</th>
+            {% endif %}
+            
+            <!-- Organizacion gremial -->
+            {% if ayuda == '6' %}
+                <th>Socio gremial</th>
+                <th>Desde cuando</th>
+                <th>Beneficio</th>
+                <th>Es miembro</th>
+                <th>Desde cuando</th>
+                <th>Recibio capacitación</th>
+                <th>Desde cuando</th>
+                <th>Miembro junta directiva</th>
+                <th>Asume cargo</th>
+            {% endif %}
+            
+            <!-- Organizaciones comunitarias -->
+            {% if ayuda == '7' %}
+                <th>Cuantas organizaciones comunitarias</th>
+                <th>Pertenece alguna de ellas</th>
+                <th>A cual</th>
+                <th>Beneficio de estar organizado</th>
+                <th>No esta organizado</th>
+            {% endif %}
+            
+            <!-- uso de tierra -->
+            {% if ayuda == '8' %}
+                {% for obj in  usotierra%}
+                    <th>Tierra</th>
+                    <th>Area</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Existencia de arboles -->
+            {% if ayuda == '9' %}
+                <th>Maderables</th>
+                <th>Cantidad</th>
+                <th>Forrajero</th>
+                <th>Cantidad</th>
+                <th>Energetico</th>
+                <th>Cantidad</th>
+                <th>Frutal</th>
+                <th>Cantidad</th>
+            {% endif %}
+            
+            <!-- Reforestacion -->
+            {% if ayuda == '10' %}
+                {% for obj in reforestacion %}
+                    <th>Reforestación</th>
+                    <th>Cantidad</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Animales en la finca -->
+            {% if ayuda == '11' %}
+                {% for obj in animales %}
+                    <th>Animales</th>
+                    <th>Cantidad</th>
+                    <th>Producción</th>
+                    <th>Total producción</th>
+                    <th>Consumo</th>
+                    <th>Venta libre</th>
+                    <th>Venta organizada</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- cultivos en la finca -->
+            {% if ayuda == '12' %}
+                {% for obj in cultivos %}
+                    <th>Cultivos</th>
+                    <th>Area</th>
+                    <th>Total</th>
+                    <th>Consumo</th>
+                    <th>Venta libre</th>
+                    <th>Venta organizada</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- uso del manejo -->
+            {% if ayuda == '13' %}
+                {% for obj in manejo %}
+                    <th>Uso del manejo</th>
+                    <th>Nivel</th>
+                    <th>Menor escala</th>
+                    <th>Mayor escala</th>
+                    <th>Volumen</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- semilla -->
+            {% if ayuda == '14' %}
+                {% for obj in semilla %}
+                    <th>Semilla</th>
+                    <th>Origen</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- suelo -->
+            {% if ayuda == '15' %}
+                <th>Textura del suelo</th>
+                <th>Profundidad</th>
+                <th>Lombrices</th>
+                <th>Dencidad</th>
+                <th>Pendientes</th>
+                <th>Drenaje</th>
+                <th>Materia organica</th>
+            {% endif %}
+            
+            <!-- manejo de suelo -->
+            {% if ayuda == '16' %}
+                <th>Como prepara el suelo</th>
+                <th>Tracción que utiliza</th>
+                <th>Analisis</th>
+                <th>Fertilizacion</th>
+                <th>Practica</th>
+                <th>Obra de conservacion</th>
+            {% endif %}
+            
+            <!-- ingreso familiar -->
+            {% if ayuda == '17' %}
+                {% for obj in rubro %}
+                    <th>Tipo de rubro</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Quien vendio</th>
+                    <th>Quien maneja negocio</th>  
+                {% endfor %}
+            {% endif %}
+            <!-- Otros ingresos -->
+            {% if ayuda == '18' %}
+                {% for obj in otrosingresos %}
+                    <th>Fuente otros ingresos</th>
+                    <th>Tipo</th>
+                    <th>Meses</th>
+                    <th>Ingreso</th>
+                    <th>Quien tiene ingreso</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- tipo de casa -->
+            {% if ayuda == '19' %}
+                <th>Tipo de casa</th>
+                <th>Piso</th>
+                <th>Techo</th>
+            {% endif %}
+            
+            <!-- detalle de la casa -->
+            {% if ayuda == '20' %}
+                <th>Tamaño de casa</th>
+                <th>cuantos ambientes</th>
+                <th>Tiene letrina</th>
+                <th>Tiene lavadero</th>
+            {% endif %}
+            
+            <!-- propiedades -->
+            {% if ayuda == '21' %}
+                {% for obj in equipo %}
+                    <th>Equipos</th>
+                    <th>Cantidad</th>
+                    <th>Infraestructuras</th>
+                    <th>Cantidad</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- herramientas -->
+            {% if ayuda == '22' %}
+                {% for obj in herramienta %}
+                    <th>Herramientas</th>
+                    <th>Cantidad</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- transporte -->
+            {% if ayuda == '23' %}
+                {% for obj in transporte %}
+                    <th>Transportes</th>
+                    <th>Cantidad</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- ahorro -->
+            {% if ayuda == '24' %}
+                {% for obj in ahorro %}
+                    <th>Pregunta ahorro</th>
+                    <th>Respuesta</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- credito -->
+            {% if ayuda == '25' %}
+                <th>Recibe credito</th>
+                <th>Desde cuando</th>
+                <th>Quien le otorga credito</th>
+                <th>Para que ocupa el credito</th>
+                <th>Satisfacción</th>
+                <th>Esta al dia con su credito</th>
+            {% endif %}
+            
+            <!-- seguridad alimentaria -->
+            {% if ayuda == '26' %}
+                {% for obj in seguridad %}
+                    <th>Alimento</th>
+                    <th>Producen</th>
+                    <th>Compran</th>
+                    <th>Consumen verano</th>
+                    <th>Consumen invierno</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- vulnerable -->
+            {% if ayuda == '27' %}
+                {% for obj in fenomeno %}
+                    <th>Motivo vulnerable</th>
+                    <th>Respuestas</th>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- riesgos -->
+            {% if ayuda == '28' %}
+                {% for obj in riesgos %}
+                    <th>Riesgos preguntas</th>
+                    <th>Respuestas</th>
+                {% endfor %}
+            {% endif %}
+            <!-- tenencia -->
+            {% if ayuda == '29' %}
+                <th>Tenencia parcel</th>
+                <th>Tenecia solar</th>
+                <th>Dueño</th>
+            {% endif %}
+            
         </tr>
     {% for obj in resultados  %}
     <tr>

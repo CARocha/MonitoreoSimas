@@ -25,6 +25,20 @@
                 
             }
         });
+
+        $("#id_modelo").multiselect({
+            noneSelectedText: 'Seleccione elementos',
+            selectedText: '# seleccionados',
+            checkAllText: 'Todos',
+            uncheckAllText: 'Quitar seleccion',
+            minWidth: 200,
+            beforeclose: function(event, ui){
+                var selectos = $("#id_modelo").multiselect("getChecked").map(function(){
+                    return this.value;
+                }).get();
+                
+            }
+        });
     
         $("#id_organizacion2, #id_municipio2, #id_comunidad2").html('');
         comunidad = $("#id_comunidad2").multiselect({
@@ -54,6 +68,8 @@
                 }
             }
         });
+
+
 
         $("#id_departamento2").multiselect({
             noneSelectedText: 'Seleccione elementos',
@@ -166,6 +182,8 @@
             <div class="columna_tres">
                 <div class="form_label"><b>{{form2.dueno2.label}}</b></div>
                 <div class="form_widget">{{form2.dueno2}}</div>
+                <div class="form_label"><b>{{form2.modelo.label}}</b></div>
+                <div class="form_widget">{{form2.modelo}}</div>
             </div>
             <div class="columna_cuatro">
                 <br><br>

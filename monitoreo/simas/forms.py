@@ -60,3 +60,4 @@ class ExportarMonitoreoForm(forms.Form):
                                                 required=False, label=u'Comunidad')
     dueno2 = forms.ChoiceField(label = u'Dueño', choices = CHOICE_DUENO_F , 
                                                 required=False)
+    modelo = forms.MultipleChoiceField(choices=modelos, label=u'Modelos')

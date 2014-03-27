@@ -24,6 +24,7 @@ urlpatterns = patterns('monitoreo.simas.views',
     (r'^grafo/ahorro-credito/(?P<tipo>\w+)/$', 'ahorro_credito_grafos'),
     (r'^mapa/$', 'obtener_lista'),
     (r'^ayuda/$',   direct_to_template,{'template': 'simas/acerca.html'}),
+    (r'^exportar/(?P<modela>\d+)/$', 'spss_xls'),
     (r'^(?P<vista>\w+)/$', '_get_view'),
     
 )

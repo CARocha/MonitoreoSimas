@@ -2116,219 +2116,272 @@ def formulario_consulta_xls(request):
 
 
 @session_required
-def volcar_xls(request):
-    encuestas = _queryset_filtrado_descarga(request)
+def volcar_xls(request, modelo):
+    #encuestas = _queryset_filtrado_descarga(request)
+    encuestas = _queryset_filtrado(request)
+    ayuda = modelo
+    tiposexo = CHOICE_EDUCACION
+    PEnergia = PreguntaEnergia.objects.all()
+    usotierra = Uso.objects.all()
+    reforestacion = Actividad.objects.all()
+    animales = Animales.objects.all()
+    cultivos = Cultivos.objects.all()
+    manejo = ManejoAgro.objects.all()
+    semilla = Variedades.objects.all()
+    rubro = Rubros.objects.all()
+    otrosingresos = TipoTrabajo.objects.all()
+    equipo = Equipos.objects.all()
+    herramienta = NombreHerramienta.objects.all()
+    transporte = NombreTransporte.objects.all()
+    ahorro = AhorroPregunta.objects.all()
+    seguridad = Alimentos.objects.all()
+    fenomeno = Fenomeno.objects.all()
+    riesgos = PreguntaRiesgo.objects.all()
 
-    #[Educacion,Salud,Energia,Cocina,Agua,OrganizacionGremial,OrganizacionComunitaria,
-    #UsoTierra,ExistenciaArboles,Reforestacion,AnimalesFinca,CultivosFinca,OpcionesManejo,
-    #Semilla,Suelo,ManejoSuelo,IngresoFamiliar,OtrosIngresos,TipoCasa,DetalleCasa,
-    #Propiedades,Herramientas,Transporte,Ahorro,Credito,Seguridad,Vulnerable,Riesgos,
-    #Tenencia]
     resultados = []
+    
     for encuesta in encuestas:
         filas = []
         filas.append(encuesta.fecha)
         filas.append(encuesta.nombre)
         filas.append(encuesta.cedula)
-        filas.append(encuesta.sexo)
+        filas.append(encuesta.get_sexo_display())
         filas.append(encuesta.finca)
         filas.append(encuesta.comunidad.municipio.departamento)
         filas.append(encuesta.comunidad.municipio)
         filas.append(encuesta.comunidad)
-        filas.append(encuesta.organizacion)
-        educacion = encuesta.educacion_set.all()
-        for obj in educacion:
-            filas.append(obj.get_sexo_display)
-            filas.append(obj.total)
-            filas.append(obj.no_leer)
-            filas.append(obj.p_incompleta)
-            filas.append(obj.p_completa)
-            filas.append(obj.s_incompleta)
-            filas.append(obj.bachiller)
-            filas.append(obj.universitario)
-            filas.append(obj.f_comunidad)
-        salud = encuesta.salud_set.all()
-        for obj in salud:
-            filas.append(obj.get_sexo_display)
-            filas.append(obj.b_salud)
-            filas.append(obj.s_delicada)
-            filas.append(obj.e_cronica)
-            filas.append(obj.v_centro)
-            filas.append(obj.v_medico)
-            filas.append(obj.v_naturista)
-            filas.append(obj.automedica)
-        energia = encuesta.energia_set.all()
-        for obj in energia:
-            filas.append(obj.pregunta)
-            filas.append(obj.respuesta)
-        cocina = encuesta.cocina_set.all()
-        for obj in cocina:
-           filas.append(obj.utiliza)
-        agua = encuesta.agua_set.all()
-        for obj in agua:
-            filas.append(obj.fuente)
-            filas.append(obj.trata)
-            filas.append(obj.disponible)
-        gremial = encuesta.organizaciongremial_set.all()
-        for obj in gremial:
-            filas.append(obj.socio)
-            filas.append(obj.desde_socio)
-            filas.append(obj.beneficio)
-            filas.append(obj.miembro_gremial)
-            filas.append(obj.desde_miembro)
-            filas.append(obj.capacitacion)
-            filas.append(obj.desde_capacitacion)
-            filas.append(obj.miembro_junta)
-            filas.append(obj.asumir_cargo)
-        comunitaria = encuesta.organizacioncomunitaria_set.all()
-        for obj in comunitaria:
-            filas.append(obj.numero)
-            filas.append(obj.pertence)
-            filas.append(obj.cual_organizacion)
-            filas.append(obj.cual_beneficio)
-            filas.append(obj.no_organizado)
-        usotierra = encuesta.usotierra_set.all()
-        for obj in usotierra:
-            filas.append(obj.tierra)
-            filas.append(obj.area)
-        arboles = encuesta.existenciaarboles_set.all()
-        for obj in arboles:
-            filas.append(obj.maderable)
-            filas.append(obj.cantidad_maderable)
-            filas.append(obj.forrajero)
-            filas.append(obj.cantidad_forrajero)
-            filas.append(obj.energetico)
-            filas.append(obj.cantidad_energetico)
-            filas.append(obj.frutal)
-            filas.append(obj.cantidad_frutal)
-        reforestacion = encuesta.reforestacion_set.all()
-        for obj in reforestacion:
-            filas.append(obj.reforestacion)
-            filas.append(obj.cantidad)
-        animales = encuesta.animalesfinca_set.all()
-        for obj in animales:
-            filas.append(obj.animales)
-            filas.append(obj.cantidad)
-            filas.append(obj.produccion)
-            filas.append(obj.total_produccion)
-            filas.append(obj.consumo)
-            filas.append(obj.venta_libre)
-            filas.append(obj.venta_organizada)
-        cultivos = encuesta.cultivosfinca_set.all()
-        for obj in cultivos:
-            filas.append(obj.cultivos)
-            filas.append(obj.area)
-            filas.append(obj.total)
-            filas.append(obj.consumo)
-            filas.append(obj.venta_libre)
-            filas.append(obj.venta_organizada)
-        manejo = encuesta.opcionesmanejo_set.all()
-        for obj in manejo:
-            filas.append(obj.uso)
-            filas.append(obj.nivel)
-            filas.append(obj.menor_escala)
-            filas.append(obj.mayor_escala)
-            filas.append(obj.volumen)
-        semilla = encuesta.semilla_set.all()
-        for obj in semilla:
-            filas.append(obj.cultivo)
-            filas.append(obj.origen)
-        suelo = encuesta.suelo_set.all()
-        for obj in suelo:
-            filas.append(obj.textura)
-            filas.append(obj.profundidad)
-            filas.append(obj.lombrices)
-            filas.append(obj.densidad)
-            filas.append(obj.pendiente)
-            filas.append(obj.drenaje)
-            filas.append(obj.materia)
-        manejosuelo = encuesta.manejosuelo_set.all()
-        for obj in manejosuelo:
-            filas.append(obj.preparan)
-            filas.append(obj.traccion)
-            filas.append(obj.analisis)
-            filas.append(obj.fertilizacion)
-            filas.append(obj.practica)
-            filas.append(obj.obra)
-        ingreso = encuesta.ingresofamiliar_set.all()
-        for obj in ingreso:
-            filas.append(obj.rubro)
-            filas.append(obj.cantidad)
-            filas.append(obj.precio)
-            filas.append(obj.quien_vendio)
-            filas.append(obj.maneja_negocio)
-        otrosingreso = encuesta.otrosingresos_set.all()
-        for obj in otrosingreso:
-            filas.append(obj.fuente)
-            filas.append(obj.tipo)
-            filas.append(obj.meses)
-            filas.append(obj.ingreso)
-            filas.append(obj.tiene_ingreso)
-        casa = encuesta.tipocasa_set.all()
-        for obj in casa:
-            filas.append(obj.tipo)
-            filas.append(obj.piso)
-            filas.append(obj.techo)
-        detalle = encuesta.detallecasa_set.all()
-        for obj in detalle:
-            filas.append(obj.tamano)
-            filas.append(obj.ambientes)
-            filas.append(obj.letrina)
-            filas.append(obj.lavadero)
-        propiedades = encuesta.propiedades_set.all()
-        for obj in propiedades:
-            filas.append(obj.equipo)
-            filas.append(obj.cantidad_equipo)
-            filas.append(obj.infraestructura)
-            filas.append(obj.cantidad_infra)
-        herramientas = encuesta.herramientas_set.all()
-        for obj in herramientas:
-            filas.append(obj.herramienta)
-            filas.append(obj.numero)
-        transporte = encuesta.transporte_set.all()
-        for obj in transporte:
-            filas.append(obj.transporte)
-            filas.append(obj.numero)
-        ahorro = encuesta.ahorro_set.all()
-        for obj in ahorro:
-            filas.append(obj.ahorro)
-            filas.append(obj.respuesta)
-        credito = encuesta.credito_set.all()
-        for obj in credito:
-            filas.append(obj.recibe)
-            filas.append(obj.desde)
-            filas.append(obj.quien_credito)
-            filas.append(obj.ocupa_credito)
-            filas.append(obj.satisfaccion)
-            filas.append(obj.dia)
-        seguridad = encuesta.seguridad_set.all()
-        for obj in seguridad:
-            filas.append(obj.alimento)
-            filas.append(obj.producen)
-            filas.append(obj.compran)
-            filas.append(obj.consumen)
-            filas.append(obj.consumen_invierno)
-        vulnerable = encuesta.vulnerable_set.all()
-        for obj in vulnerable:
-            filas.append(obj.motivo)
-            filas.append(obj.respuesta)
-        riesgos = encuesta.riesgos_set.all()
-        for obj in riesgos:
-            filas.append(obj.pregunta)
-            filas.append(obj.respuesta)
-        tenencia = encuesta.tenencia_set.all()
-        for obj in tenencia:
-            filas.append(obj.parcela)
-            filas.append(obj.solar)
-            filas.append(obj.dueno)
+        filas.append(','.join(map(unicode, encuesta.organizacion.all().values_list(u'nombre',flat=True))))
+        
+        if modelo == '1':
+            educacion = encuesta.educacion_set.all()
+            for obj in educacion:
+                filas.append(obj.get_sexo_display)
+                filas.append(obj.total)
+                filas.append(obj.no_leer)
+                filas.append(obj.p_incompleta)
+                filas.append(obj.p_completa)
+                filas.append(obj.s_incompleta)
+                filas.append(obj.bachiller)
+                filas.append(obj.universitario)
+                filas.append(obj.f_comunidad)
+        
+        if modelo == '2':
+            salud = encuesta.salud_set.all()
+            for obj in salud:
+                filas.append(obj.get_sexo_display)
+                filas.append(obj.b_salud)
+                filas.append(obj.s_delicada)
+                filas.append(obj.e_cronica)
+                filas.append(obj.get_v_centro_display)
+                filas.append(obj.get_v_medico_display)
+                filas.append(obj.get_v_naturista_display)
+                filas.append(obj.get_automedica_display)
+        if modelo == '3':
+            energia = encuesta.energia_set.all()
+            for obj in energia:
+                filas.append(obj.pregunta)
+                filas.append(obj.get_respuesta_display)
+        if modelo == '4':
+            cocina = encuesta.cocina_set.all()
+            for obj in cocina:
+                filas.append(','.join(map(unicode, obj.utiliza.all().values_list(u'nombre',flat=True))))
+        if modelo == '5':
+            agua = encuesta.agua_set.all()
+            for obj in agua:
+                filas.append(','.join(map(unicode, obj.fuente.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.trata.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.disponible.all().values_list(u'nombre',flat=True))))
+        if modelo == '6':
+            gremial = encuesta.organizaciongremial_set.all()
+            for obj in gremial:
+                filas.append(','.join(map(unicode, obj.socio.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.desde_socio)
+                filas.append(','.join(map(unicode, obj.beneficio.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.miembro_gremial)
+                filas.append(obj.desde_miembro)
+                filas.append(obj.capacitacion)
+                filas.append(obj.desde_capacitacion)
+                filas.append(','.join(map(unicode, obj.miembro_junta.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.asumir_cargo)
+        if modelo == '7':
+            comunitaria = encuesta.organizacioncomunitaria_set.all()
+            for obj in comunitaria:
+                filas.append(obj.numero)
+                filas.append(obj.pertence)    
+                filas.append(','.join(map(unicode, obj.cual_organizacion.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.cual_beneficio.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.no_organizado.all().values_list(u'nombre',flat=True))))
+        if modelo == '8':
+            usotierra = encuesta.usotierra_set.all()
+            for obj in usotierra:
+                filas.append(obj.tierra)
+                filas.append(obj.area)
+        if modelo == '9':
+            arboles = encuesta.existenciaarboles_set.all()
+            for obj in arboles:    
+                filas.append(','.join(map(unicode, obj.maderable.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.cantidad_maderable)
+                filas.append(','.join(map(unicode, obj.forrajero.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.cantidad_forrajero)
+                filas.append(','.join(map(unicode, obj.energetico.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.cantidad_energetico)
+                filas.append(','.join(map(unicode, obj.frutal.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.cantidad_frutal)
+        if modelo == '10':
+            reforestacion = encuesta.reforestacion_set.all()
+            for obj in reforestacion:
+                filas.append(obj.reforestacion)
+                filas.append(obj.cantidad)
+        if modelo == '11':
+            animales = encuesta.animalesfinca_set.all()
+            for obj in animales:
+                filas.append(obj.animales)
+                filas.append(obj.cantidad)
+                filas.append(obj.produccion)
+                filas.append(obj.total_produccion)
+                filas.append(obj.consumo)
+                filas.append(obj.venta_libre)
+                filas.append(obj.venta_organizada)
+        if modelo == '12':
+            cultivos = encuesta.cultivosfinca_set.all()
+            for obj in cultivos:
+                filas.append(obj.cultivos)
+                filas.append(obj.area)
+                filas.append(obj.total)
+                filas.append(obj.consumo)
+                filas.append(obj.venta_libre)
+                filas.append(obj.venta_organizada)
+        if modelo == '13':
+            manejo = encuesta.opcionesmanejo_set.all()
+            for obj in manejo:
+                filas.append(obj.uso)
+                filas.append(obj.get_nivel_display())
+                filas.append(obj.get_menor_escala_display())
+                filas.append(obj.get_mayor_escala_display())
+                filas.append(obj.volumen)
+        if modelo == '14':
+            semilla = encuesta.semilla_set.all()
+            for obj in semilla:
+                filas.append(obj.cultivo)
+                filas.append(obj.get_origen_display())
+        if modelo == '15':
+            suelo = encuesta.suelo_set.all()
+            for obj in suelo:
+                filas.append(','.join(map(unicode, obj.textura.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.profundidad.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.lombrices.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.densidad.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.pendiente.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.drenaje.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.materia.all().values_list(u'nombre',flat=True))))
+        if modelo == '16':
+            manejosuelo = encuesta.manejosuelo_set.all()
+            for obj in manejosuelo:
+                filas.append(','.join(map(unicode, obj.preparan.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.traccion.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.get_analisis_display())
+                filas.append(','.join(map(unicode, obj.fertilizacion.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.get_practica_display())
+                filas.append(','.join(map(unicode, obj.obra.all().values_list(u'nombre',flat=True))))
+        if modelo == '17':
+            ingreso = encuesta.ingresofamiliar_set.all()
+            for obj in ingreso:
+                filas.append(obj.rubro)
+                filas.append(obj.cantidad)
+                filas.append(obj.precio)
+                filas.append(obj.get_quien_vendio_display())
+                filas.append(obj.get_maneja_negocio_display())
+        if modelo == '18':
+            otrosingreso = encuesta.otrosingresos_set.all()
+            for obj in otrosingreso:
+                filas.append(obj.fuente)
+                filas.append(obj.tipo)
+                filas.append(obj.meses)
+                filas.append(obj.ingreso)
+                filas.append(obj.get_tiene_ingreso_display())
+        if modelo == '19':
+            casa = encuesta.tipocasa_set.all()
+            for obj in casa:
+                filas.append(obj.get_tipo_display())
+                filas.append(','.join(map(unicode, obj.piso.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.techo.all().values_list(u'nombre',flat=True))))
+        if modelo == '20':
+            detalle = encuesta.detallecasa_set.all()
+            for obj in detalle:
+                filas.append(obj.tamano)
+                filas.append(obj.get_ambientes_display())
+                filas.append(obj.get_letrina_display())
+                filas.append(obj.get_lavadero_display())
+        if modelo == '21':
+            propiedades = encuesta.propiedades_set.all()
+            for obj in propiedades:
+                filas.append(obj.equipo)
+                filas.append(obj.cantidad_equipo)
+                filas.append(obj.infraestructura)
+                filas.append(obj.cantidad_infra)
+        if modelo == '22':
+            herramientas = encuesta.herramientas_set.all()
+            for obj in herramientas:
+                filas.append(obj.herramienta)
+                filas.append(obj.numero)
+        if modelo == '23':
+            transporte = encuesta.transporte_set.all()
+            for obj in transporte:
+                filas.append(obj.transporte)
+                filas.append(obj.numero)
+        if modelo == '24':
+            ahorro = encuesta.ahorro_set.all()
+            for obj in ahorro:
+                filas.append(obj.ahorro)
+                filas.append(obj.get_respuesta_display())
+        if modelo == '25':
+            credito = encuesta.credito_set.all()
+            for obj in credito:
+                filas.append(obj.get_recibe_display())
+                filas.append(obj.get_desde_display())
+                filas.append(','.join(map(unicode, obj.quien_credito.all().values_list(u'nombre',flat=True))))
+                filas.append(','.join(map(unicode, obj.ocupa_credito.all().values_list(u'nombre',flat=True))))
+                filas.append(obj.get_satisfaccion_display())
+                filas.append(obj.get_dia_display())
+        if modelo == '26':
+            seguridad = encuesta.seguridad_set.all()
+            for obj in seguridad:
+                filas.append(obj.alimento)
+                filas.append(obj.get_producen_display())
+                filas.append(obj.get_compran_display())
+                filas.append(obj.get_consumen_display())
+                filas.append(obj.get_consumen_invierno_display())
+        if modelo == '27':
+            vulnerable = encuesta.vulnerable_set.all()
+            for obj in vulnerable:
+                filas.append(obj.motivo)
+                filas.append(','.join(map(unicode, obj.respuesta.all().values_list(u'nombre',flat=True))))
+        if modelo == '28':
+            riesgos = encuesta.riesgos_set.all()
+            for obj in riesgos:
+                filas.append(obj.pregunta)
+                filas.append(obj.get_respuesta_display())
+        if modelo == '29':
+            tenencia = encuesta.tenencia_set.all()
+            for obj in tenencia:
+                filas.append(obj.get_parcela_display())
+                filas.append(obj.get_solar_display())
+                filas.append(obj.get_dueno_display())
     
         resultados.append(filas)
 
-    dict = {'resultados':resultados}
+    dict = {'resultados':resultados,'tiposexo':tiposexo, 'PEnergia':PEnergia, 
+            'usotierra':usotierra,'reforestacion':reforestacion, 
+            'animales':animales, 'cultivos':cultivos,
+            'manejo':manejo, 'semilla':semilla, 'rubro':rubro, 
+            'otrosingresos':otrosingresos, 'equipo':equipo, 'herramienta':herramienta,
+            'transporte':transporte, 'ahorro':ahorro, 'seguridad':seguridad,
+            'fenomeno':fenomeno, 'riesgos':riesgos, 'ayuda':ayuda}
     return dict
 
-def spss_xls(request):
-    dict = volcar_xls(request)
+def spss_xls(request, modela):
+    varia = modela
+    dict = volcar_xls(request, modelo=varia)
     return write_xls('simas/spss.html', dict, 'spss.xls')
 
 def write_xls(template_src, context_dict, filename):
@@ -2368,8 +2421,8 @@ VALID_VIEWS = {
         'seguridad': seguridad_alimentaria,
         'general': generales,
         'consulta_xls':formulario_consulta_xls,
-        'exportar':spss_xls,
-            }
+        #'exportar':spss_xls,
+    }
 
 # Vistas para obtener los municipios, comunidades, etc..
 
