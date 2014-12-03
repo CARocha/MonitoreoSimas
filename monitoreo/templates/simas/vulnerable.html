@@ -487,7 +487,7 @@ Subindicador Vulnerable
      {% include "simas/menu.html" %}
 </div>
 
-<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a><a class="exportar2" href="/exportar/27/"></a></div>
+<div class="subindicador"><a class="exportar guardarXLS" href="#" onclick="exportarXLS('modalidad'); return false;"></a>{% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/27/"></a>{%endif%}</div>
 
 <div class="contenido">
 <div id="modalidad">

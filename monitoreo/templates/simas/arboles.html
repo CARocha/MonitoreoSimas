@@ -89,7 +89,7 @@ Tierra &raquo; Existencia de árboles y Reforestación
 <div class="contenido">
 <div id="modalidad">
     <table>
-        <caption>Tabla Existencia de Arboles <a class="exportar2" href="/exportar/9/"></a></caption>
+        <caption>Tabla Existencia de Arboles {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/9/"></a>{%endif%}</caption>
         <thead>
             <tr>
                 <th>TIPO</th>
@@ -127,7 +127,7 @@ Tierra &raquo; Existencia de árboles y Reforestación
     </table>
     <br>
     <table>
-        <caption>Reforestación en ultimo año <a class="exportar2" href="/exportar/10/"></a></caption>
+        <caption>Reforestación en ultimo año {% if request.user.is_authenticated %}<a class="exportar2" href="/exportar/10/"></a>{%endif%}</caption>
         <thead>
             <tr>
                 <th>Actividad</th>
